@@ -25,3 +25,5 @@ urlpatterns = [
     path("address/add/", add_address, name="add_address"),
 
 ]
+
+# Da update them moi (test)
