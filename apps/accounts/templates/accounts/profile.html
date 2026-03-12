@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Thông tin cá nhân</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<label>Họ tên</label>
+<input type="text" name="full_name" value="{{profile.full_name}}">
+
+<label>Số điện thoại</label>
+<input type="text" name="phone" value="{{profile.phone}}">
+
+<button type="submit">Lưu</button>
+
+</form>
+
+
+<hr>
+
+<h2>Địa chỉ nhận hàng</h2>
+
+{% for a in addresses %}
+
+<div style="border:1px solid #ccc;padding:10px;margin-bottom:10px">
+
+<b>{{a.detail}}</b><br>
+
+{{a.ward}}, {{a.district}}, {{a.province}}
+
+</div>
+
+{% empty %}
+
+<p>Chưa có địa chỉ</p>
+
+{% endfor %}
+
+
+<h3>Thêm địa chỉ</h3>
+
+<form method="POST" action="/accounts/address/add/">
+
+{% csrf_token %}
+
+<input name="province" placeholder="Tỉnh">
+
+<input name="district" placeholder="Huyện">
+
+<input name="ward" placeholder="Xã">
+
+<input name="detail" placeholder="Địa chỉ chi tiết">
+
+<button type="submit">Thêm địa chỉ</button>
+
+</form>
+
+{% endblock %}
