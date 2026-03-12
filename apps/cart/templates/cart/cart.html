@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Giỏ hàng</h2>
+
+<table>
+
+<tr>
+<th>Sản phẩm</th>
+<th>Giá</th>
+<th>Số lượng</th>
+<th>Tổng</th>
+<th></th>
+</tr>
+
+{% for item in items %}
+
+<tr>
+
+<td>{{item.product.name}}</td>
+
+<td>{{item.product.price}}</td>
+
+<td>
+
+<a href="/cart/decrease/{{item.product.id}}/">-</a>
+
+{{item.quantity}}
+
+<a href="/cart/add/{{item.product.id}}/">+</a>
+
+</td>
+
+<td>{{item.total_price}}</td>
+
+<td>
+<a href="/cart/remove/{{item.product.id}}/">Xóa</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<h3>Tổng tiền: {{total}}</h3>
+
+{% endblock %}
