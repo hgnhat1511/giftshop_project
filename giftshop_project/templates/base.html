@@ -1,110 +1,68 @@
 {% load static %}
-
 <!DOCTYPE html>
-
 <html lang="vi">
-
 <head>
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Shop</title>
     
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- File CSS riêng của bạn -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-<meta charset="UTF-8">
+    <style>
+    body { font-family: 'Poppins', sans-serif; background: #f5f6fa; margin: 0; }
+    
+    /* 🚀 CHIÊU CUỐI: ÉP CONTAINER VỀ CHUẨN BOOTSTRAP, KHÔNG CHO PHÉP FLEX GÂY LỆCH */
+    .container {
+        display: block !important; /* Chặn đứng cái display: flex ở file style.css */
+        width: 100% !important;
+        max-width: 1140px !important; /* Chuẩn Bootstrap 5 */
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    /* Đảm bảo Navbar vẫn hiển thị đúng dù bị ép ở trên */
+    nav .container {
+        display: flex !important;
+    }
 
-<title>Gift Shop</title>
-
-<!-- GOOGLE FONT -->
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-<style>
-
-body{
-font-family:'Poppins',sans-serif;
-margin:0;
-padding:0;
-background:#f5f6fa;
-}
-
+    .main-content { min-height: 80vh; padding-top: 20px; padding-bottom: 50px; }
 </style>
-
 </head>
-
 <body>
 
-<!-- NAVBAR -->
+    <!-- Gọi thanh Menu xịn của bạn -->
+    {% include 'navbar.html' %}
 
-<header class="navbar">
+    <!-- Container chuẩn của Bootstrap để tự động căn giữa -->
+    <main class="container main-content">
+        
+        <!-- Khu vực hiển thị thông báo (Thành công/Lỗi) -->
+        {% if messages %}
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
 
-<div class="nav-left">
+        <!-- Nơi chứa nội dung của từng trang -->
+        {% block content %}
+        {% endblock %}
+        
+    </main>
 
-<a href="/" class="logo">
-🎁 Gift Shop
-</a>
-
-<a href="/" class="nav-link">
-Trang chủ
-</a>
-
-</div>
-
-<div class="nav-right">
-
-{% if user.is_authenticated %}
-
-<span class="user">
-Hi {{ user.username }}
-</span>
-
-<a href="/cart/" class="nav-link">
-🛒 Giỏ hàng
-</a>
-
-<a href="/orders/my/" class="nav-link">
-📦 Đơn hàng
-</a>
-
-<a href="/accounts/profile/" class="nav-link">
-👤 Tài khoản
-</a>
-
-<a href="/accounts/logout/" class="nav-link logout">
-Logout
-</a>
-
-{% else %}
-
-<a href="/accounts/login/" class="nav-link">
-Login
-</a>
-
-<a href="/accounts/register/" class="nav-link register">
-Register
-</a>
-
-{% endif %}
-
-</div>
-
-</header>
-
-<!-- MAIN CONTENT -->
-
-<main class="main-content">
-
-{% block content %}
-
-{% endblock %}
-
-</main>
-
+    <!-- JS của Bootstrap và JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

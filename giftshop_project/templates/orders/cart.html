@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>🛒 Giỏ hàng của bạn</h2>
+    
+    {% if cart_items %}
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng cộng</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price }} đ</td>
+                    <td>{% widthratio item.product.price 1 item.quantity %} đ</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h4 class="text-end text-danger">Tổng tiền: {{ total_price }} đ</h4>
+        <a href="{% url 'checkout' %}" class="btn btn-success float-end">Thanh toán ngay</a>
+    {% else %}
+        <div class="alert alert-warning mt-3">Giỏ hàng của bạn đang trống!</div>
+        <a href="{% url 'home' %}" class="btn btn-primary">Tiếp tục mua sắm</a>
+    {% endif %}
+</div>
+{% endblock %}

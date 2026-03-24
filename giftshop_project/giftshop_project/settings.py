@@ -1,20 +1,16 @@
 from pathlib import Path
 import os
 
+# Đường dẫn gốc của dự án
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# SECURITY
-SECRET_KEY = 'secret'
-
+# BẢO MẬT (Để mặc định khi phát triển)
+SECRET_KEY = 'django-insecure-your-secret-key-here'
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
-
-# INSTALLED APPS
+# --- CẤU HÌNH CÁC APP ---
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -22,63 +18,46 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Các App nội bộ của Nhật
     'apps.accounts',
     'apps.products',
-    'apps.cart',
     'apps.orders',
     'apps.dashboard',
-
 ]
 
-
-# MIDDLEWARE
 MIDDLEWARE = [
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
-
 
 ROOT_URLCONF = 'giftshop_project.urls'
 
-
-# TEMPLATES
+# --- CẤU HÌNH GIAO DIỆN (TEMPLATES) ---
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
-        'DIRS': [BASE_DIR / 'templates'],
-
+        # Nơi chứa các file HTML dùng chung như base.html, navbar.html
+        'DIRS': [BASE_DIR / 'templates'], 
         'APP_DIRS': True,
-
         'OPTIONS': {
             'context_processors': [
-
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
             ],
         },
     },
 ]
 
-
 WSGI_APPLICATION = 'giftshop_project.wsgi.application'
 
-
-# DATABASE
+# --- CƠ SỞ DỮ LIỆU ---
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -86,51 +65,25 @@ DATABASES = {
     }
 }
 
+# --- CẤU HÌNH ĐĂNG NHẬP / ĐIỀU HƯỚNG ---
+# Giúp sửa lỗi đăng nhập xong bị nhảy lung tung
+LOGIN_REDIRECT_URL = '/'      # Đăng nhập xong về trang chủ
+LOGOUT_REDIRECT_URL = '/'     # Đăng xuất xong về trang chủ
+LOGIN_URL = '/accounts/login/' # Trang đăng nhập mặc định
 
-# PASSWORD VALIDATION
-AUTH_PASSWORD_VALIDATORS = [
-
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-
-]
-
-
-# LANGUAGE
-LANGUAGE_CODE = 'en-us'
-
+# Ngôn ngữ và Múi giờ
+LANGUAGE_CODE = 'vi'           # Đổi sang tiếng Việt cho giao diện Admin
 TIME_ZONE = 'Asia/Ho_Chi_Minh'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# STATIC FILES
+# --- CẤU HÌNH FILE TĨNH (CSS, JS, IMAGES) ---
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
-
-
-# MEDIA FILES
+# --- CẤU HÌNH MEDIA (ẢNH SẢN PHẨM) ---
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
-
-# DEFAULT FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

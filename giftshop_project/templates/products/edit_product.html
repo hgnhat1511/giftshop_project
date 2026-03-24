@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+                <div class="card-header bg-primary text-white p-4" style="border-radius: 15px 15px 0 0;">
+                    <h3 class="mb-0 fw-bold">✏️ Sửa Sản Phẩm: {{ product.name }}</h3>
+                </div>
+                
+                <div class="card-body p-4 p-md-5 custom-form-layout">
+                    <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2">Tên sản phẩm <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" value="{{ product.name }}" required>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="fw-bold mb-2">Giá (VNĐ) <span class="text-danger">*</span></label>
+                                <input type="number" name="price" class="form-control" value="{{ product.price }}" required>
+                            </div>
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label class="fw-bold mb-2">Số lượng kho (Stock) <span class="text-danger">*</span></label>
+                                <input type="number" name="stock" class="form-control" value="{{ product.stock }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2">Mô tả chi tiết</label>
+                            <textarea name="description" class="form-control" rows="4">{{ product.description }}</textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="fw-bold mb-2">Hình ảnh sản phẩm</label>
+                            {% if product.image %}
+                                <div class="mb-3 p-2 border rounded" style="background-color: #f8f9fa;">
+                                    <img src="{{ product.image.url }}" alt="Current Image" style="height: 80px; border-radius: 8px; object-fit: cover;">
+                                    <span class="ms-2 text-muted small">Ảnh hiện tại</span>
+                                </div>
+                            {% endif %}
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                            <small class="text-muted mt-1 d-block"><i>(Chỉ chọn file mới nếu bạn muốn thay đổi ảnh)</i></small>
+                        </div>
+
+                        <hr class="text-muted">
+                        
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary px-4 py-2 fw-bold">💾 Cập Nhật</button>
+                            <a href="{% url 'admin_products' %}" class="btn btn-outline-secondary px-4 py-2">Hủy</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-form-layout input, 
+    .custom-form-layout textarea {
+        border-radius: 8px; 
+        padding: 10px 15px; 
+        border: 1px solid #ddd;
+        transition: 0.3s;
+    }
+    .custom-form-layout input:focus, 
+    .custom-form-layout textarea:focus {
+        border-color: #0d6efd; 
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15); 
+        outline: none;
+    }
+</style>
+{% endblock %}

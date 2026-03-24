@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+<style>
+    #map { height: 75vh; width: 100%; background: #eee; border-radius: 0 0 8px 8px; }
+    .leaflet-routing-container { max-height: 200px; overflow-y: auto; background: white; padding: 10px; border-radius: 8px; }
+    .routing-collapsed { display: none !important; }
+    
+    /* CSS cho "Chấm nhỏ" khi đang chỉ đường */
+    .marker-dot {
+        background-color: #ff4757;
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 10px !important;
+        height: 10px !important;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+</style>
+
+<div class="container-fluid mt-3">
+    <div class="card shadow border-0">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
+            <h5 class="mb-0">🛰️ WebGIS: Quản Lý {{ stores.count }} Chi Nhánh</h5>
+            <div class="d-flex gap-2">
+                <select id="radiusSelect" class="form-select form-select-sm" style="width: 140px;" onchange="updateRadius()">
+                    <option value="500" selected>Bán kính 500m</option>
+                    <option value="1000">Bán kính 1km</option>
+                    <option value="2000">Bán kính 2km</option>
+                </select>
+                <button class="btn btn-warning btn-sm fw-bold" onclick="toggleHeatmap()">🔥 Heatmap</button>
+                <button id="toggleRoutingBtn" class="btn btn-info btn-sm fw-bold" onclick="toggleRoutingPanel()" style="display: none;">📋 Hiện chỉ dẫn</button>
+                <button id="clearRouteBtn" class="btn btn-danger btn-sm fw-bold" onclick="clearRoute()" style="display: none;">❌ Xóa đường</button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+<script>
+    // --- KHỞI TẠO BIẾN ---
+    var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+    var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
+    var map = L.map('map', { center: [10.776, 106.700], zoom: 14, layers: [streets] });
+    var storeMarkersLayer = L.layerGroup().addTo(map);
+    
+    // Định nghĩa các loại Icon
+    var blueIcon = new L.Icon.Default(); // Marker mặc định
+    var dotIcon = L.divIcon({ className: 'marker-dot', iconSize: [10, 10] }); // Chấm nhỏ
+
+    L.control.layers({ "🗺️ Đường bộ": streets, "🛰️ Vệ tinh": satellite }).addTo(map);
+
+    // Geocoder & Search Control (Giữ nguyên)
+    L.Control.geocoder({ defaultMarkGeocode: false, placeholder: "Tìm địa chỉ bất kỳ..." })
+        .on('markgeocode', e => { map.setView(e.geocode.center, 16); L.marker(e.geocode.center).addTo(map).bindPopup(e.geocode.name).openPopup(); })
+        .addTo(map);
+
+    var searchControl = new L.Control.Search({ layer: storeMarkersLayer, propertyName: 'title', initial: false, zoom: 17, marker: false }).addTo(map);
+    searchControl.on('search:locationfound', e => e.layer.openPopup());
+
+    var userMarker, userCircle, routingControl, heatmapLayer, heatData = [];
+
+    // --- ĐỊNH VỊ NGƯỜI DÙNG ---
+    map.on('locationfound', function(e) {
+        if (userMarker) map.removeLayer(userMarker);
+        userMarker = L.marker(e.latlng, { icon: L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', iconSize: [25, 41], iconAnchor: [12, 41] }) }).addTo(map).bindPopup("Bạn đang ở đây!").openPopup();
+        userCircle = L.circle(e.latlng, { radius: 500, color: 'red', fillOpacity: 0.1 }).addTo(map);
+        loadStores(e.latlng);
+    });
+    map.locate({setView: true, maxZoom: 15});
+
+    function loadStores(userLatLng) {
+        fetch('/products/api/stores/')
+            .then(res => res.json())
+            .then(data => {
+                storeMarkersLayer.clearLayers(); heatData = [];
+                data.forEach(store => {
+                    var storeLatLng = L.latLng(store.lat, store.lng);
+                    var marker = L.marker(storeLatLng, { title: store.name, icon: blueIcon }).addTo(storeMarkersLayer);
+                    marker.bindPopup(`
+                        <h6 class="text-danger fw-bold">${store.name}</h6>
+                        <button class="btn btn-primary btn-sm w-100" onclick="getRoute(${store.lat}, ${store.lng})">📍 Chỉ đường</button>
+                    `);
+                    heatData.push([store.lat, store.lng, 0.5]);
+                });
+            });
+    }
+
+    // --- CHỈ ĐƯỜNG & BIẾN ĐỔI MARKER ---
+    function getRoute(destLat, destLng) {
+        map.closePopup();
+        if (routingControl) map.removeControl(routingControl);
+        
+        // 🚀 BƯỚC 1: Biến tất cả chi nhánh thành CHẤM NHỎ (trừ điểm đích nếu muốn)
+        storeMarkersLayer.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                layer.setIcon(dotIcon);
+            }
+        });
+
+        var start = userMarker ? userMarker.getLatLng() : map.getCenter();
+        var end = L.latLng(destLat, destLng);
+
+        routingControl = L.Routing.control({
+            waypoints: [start, end],
+            lineOptions: { styles: [{color: '#0d6efd', opacity: 0.8, weight: 6}] },
+            addWaypoints: false, show: true
+        }).addTo(map);
+
+        routingControl.on('routesfound', function(e) {
+            map.fitBounds(L.latLngBounds([start, end]), { padding: [50, 50] });
+            document.querySelector('.leaflet-routing-container').classList.add('routing-collapsed');
+            document.getElementById('clearRouteBtn').style.display = 'block';
+            document.getElementById('toggleRoutingBtn').style.display = 'block';
+        });
+    }
+
+    // --- XÓA ĐƯỜNG & HIỆN LẠI MARKER ---
+    function clearRoute() {
+        if (routingControl) {
+            map.removeControl(routingControl);
+            routingControl = null;
+        }
+
+        // 🚀 BƯỚC 2: Trả lại Icon mặc định cho tất cả chi nhánh
+        storeMarkersLayer.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                layer.setIcon(blueIcon);
+            }
+        });
+
+        document.getElementById('clearRouteBtn').style.display = 'none';
+        document.getElementById('toggleRoutingBtn').style.display = 'none';
+        if (userMarker) map.setView(userMarker.getLatLng(), 15);
+    }
+
+    // Các hàm phụ (Heatmap, Radius, Panel...) giữ nguyên
+    function toggleRoutingPanel() {
+        var container = document.querySelector('.leaflet-routing-container');
+        if (container) {
+            container.classList.toggle('routing-collapsed');
+            document.getElementById('toggleRoutingBtn').innerText = container.classList.contains('routing-collapsed') ? "📋 Hiện chỉ dẫn" : "🔼 Ẩn chỉ dẫn";
+        }
+    }
+    function toggleHeatmap() {
+        if (!heatmapLayer) heatmapLayer = L.heatLayer(heatData, {radius: 30});
+        if (map.hasLayer(heatmapLayer)) map.removeLayer(heatmapLayer);
+        else heatmapLayer.addTo(map);
+    }
+    function updateRadius() { if (userCircle) userCircle.setRadius(document.getElementById('radiusSelect').value); }
+</script>
+{% endblock %}

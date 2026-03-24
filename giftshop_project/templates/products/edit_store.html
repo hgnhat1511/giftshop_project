@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+                <div class="card-header bg-warning text-dark p-4" style="border-radius: 15px 15px 0 0;">
+                    <h3 class="mb-0 fw-bold">✏️ Sửa Cửa Hàng: {{ store.name }}</h3>
+                </div>
+                
+                <div class="card-body p-4 p-md-5 custom-form-layout">
+                    <form method="POST" action="{% url 'edit_store' store.id %}">
+                        {% csrf_token %}
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label class="fw-bold mb-2">Tên cửa hàng <span class="text-danger">*</span></label>
+                                <input type="text" name="name" class="form-control" value="{{ store.name }}" required>
+                            </div>
+                            <div class="col-md-4 mt-3 mt-md-0">
+                                <label class="fw-bold mb-2">Loại cửa hàng</label>
+                                <input type="text" name="store_type" class="form-control" value="{{ store.store_type }}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2">Địa chỉ chi tiết <span class="text-danger">*</span></label>
+                            <input type="text" name="address" class="form-control" value="{{ store.address }}" required>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="fw-bold mb-2">Số điện thoại</label>
+                                <input type="text" name="phone" class="form-control" value="{{ store.phone }}">
+                            </div>
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label class="fw-bold mb-2">Doanh thu (VNĐ)</label>
+                                <input type="number" name="revenue" class="form-control" value="{{ store.revenue }}">
+                            </div>
+                        </div>
+
+                        <div class="p-3 mb-4 rounded" style="background-color: #f8f9fa; border: 1px dashed #6c757d;">
+                            <h6 class="fw-bold text-secondary mb-3">🗺️ Tọa độ Bản đồ (GIS) - Không thể chỉnh sửa</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="fw-bold mb-2">Vĩ độ (Latitude)</label>
+                                    <input type="number" step="any" name="lat" class="form-control bg-light text-muted" value="{{ store.lat|stringformat:'f' }}" readonly>
+                                </div>
+                                <div class="col-md-6 mt-3 mt-md-0">
+                                    <label class="fw-bold mb-2">Kinh độ (Longitude)</label>
+                                    <input type="number" step="any" name="lng" class="form-control bg-light text-muted" value="{{ store.lng|stringformat:'f' }}" readonly>
+                                </div>
+                            </div>
+                            <small class="text-danger mt-2 d-block"><i>* Tọa độ GIS đã được khóa để bảo vệ dữ liệu bản đồ. Nếu chi nhánh chuyển vị trí, vui lòng xóa và tạo mới!</i></small>
+                        </div>
+
+                        <hr class="text-muted">
+                        
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-warning px-4 py-2 fw-bold text-dark">💾 Lưu Thay Đổi</button>
+                            <a href="{% url 'admin_store_list' %}" class="btn btn-outline-secondary px-4 py-2">Hủy</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-form-layout input { border-radius: 8px; padding: 10px 15px; border: 1px solid #ddd; transition: 0.3s; }
+    .custom-form-layout input:focus { border-color: #ffc107; box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25); outline: none; }
+</style>
+{% endblock %}
