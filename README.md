@@ -2,7 +2,7 @@
 Dự án quản lý cửa hàng quà tặng tích hợp bản đồ.
 
 ## Thành viên thực hiện
-- **Hoàng Nhật**: Quản lý chung & Cấu hình hệ thống (Nhánh `dev`)
+- **Hoàng Nhật**: Quản lý chung & Cấu hình hệ thống, storemap (Nhánh `dev`)
 - **TanPhat**: Module Quản lý tài khoản (Nhánh `dev`)
 - **ThanhPhat**: Module Sản phẩm & Giỏ hàng (Nhánh `dev`)
 
