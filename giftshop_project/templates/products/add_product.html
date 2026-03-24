@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+                <div class="card-header bg-danger text-white p-4" style="border-radius: 15px 15px 0 0;">
+                    <h3 class="mb-0 fw-bold">📦 Thêm Sản Phẩm Mới</h3>
+                </div>
+                
+                <div class="card-body p-4 p-md-5 custom-form-layout">
+                    <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2">Tên sản phẩm <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" required placeholder="Nhập tên sản phẩm...">
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="fw-bold mb-2">Giá (VNĐ) <span class="text-danger">*</span></label>
+                                <input type="number" name="price" class="form-control" required placeholder="Ví dụ: 150000">
+                            </div>
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label class="fw-bold mb-2">Số lượng kho (Stock) <span class="text-danger">*</span></label>
+                                <input type="number" name="stock" class="form-control" required placeholder="Ví dụ: 100">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2">Mô tả chi tiết</label>
+                            <textarea name="description" class="form-control" rows="4" placeholder="Nhập mô tả sản phẩm..."></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="fw-bold mb-2">Hình ảnh sản phẩm</label>
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                        </div>
+
+                        <hr class="text-muted">
+                        
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-dark px-4 py-2 fw-bold">➕ Lưu Sản Phẩm</button>
+                            <a href="{% url 'admin_products' %}" class="btn btn-outline-secondary px-4 py-2">Hủy</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Làm đẹp các ô nhập liệu */
+    .custom-form-layout input, 
+    .custom-form-layout textarea {
+        border-radius: 8px; 
+        padding: 10px 15px; 
+        border: 1px solid #ddd;
+        transition: 0.3s;
+    }
+    .custom-form-layout input:focus, 
+    .custom-form-layout textarea:focus {
+        border-color: #dc3545; /* Viền đỏ khi click */
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15); 
+        outline: none;
+    }
+</style>
+{% endblock %}

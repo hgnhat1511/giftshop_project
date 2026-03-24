@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-info text-white py-3">
+                    <h5 class="mb-0 fw-bold">👤 Thông tin cá nhân</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{% url 'profile' %}">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Họ tên</label>
+                                <input type="text" name="full_name" class="form-control" value="{{ profile.full_name }}" placeholder="Nhập họ tên...">
+                            </div>
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label class="form-label fw-semibold">Số điện thoại</label>
+                                <input type="text" name="phone" class="form-control" value="{{ profile.phone }}" placeholder="Nhập số điện thoại...">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary px-4 fw-bold">💾 Lưu thay đổi</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-secondary text-white py-3">
+                    <h5 class="mb-0 fw-bold">📍 Địa chỉ nhận hàng</h5>
+                </div>
+                <div class="card-body p-4">
+                    
+                    {% if addresses %}
+                        <ul class="list-group mb-4">
+                        {% for addr in addresses %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <h6 class="mb-1 fw-bold">{{ request.user.username }}</h6>
+                                    <span class="text-dark">{{ addr.detail }}</span><br>
+                                    <small class="text-muted">{{ addr.ward }}, {{ addr.district }}, {{ addr.province }}</small>
+                                </div>
+                                
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'edit_address' addr.id %}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold">Sửa</a>
+                                    
+                                    <a href="{% url 'delete_address' addr.id %}" class="btn btn-sm btn-danger rounded-pill px-3 fw-bold text-white" onclick="return confirm('🚨 Bạn có chắc chắn muốn xóa địa chỉ này khỏi sổ địa chỉ không?');">Xóa</a>
+                                </div>
+                                
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="alert alert-light border text-muted text-center py-4 mb-4">
+                            <i class="opacity-50">Chưa có địa chỉ nào được lưu.</i>
+                        </div>
+                    {% endif %}
+                    
+                    <h6 class="fw-bold mb-3 text-primary border-top pt-4">Thêm địa chỉ mới</h6>
+                    
+                    <form method="POST" action="{% url 'add_address' %}">
+                        {% csrf_token %}
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-3">
+                                <input type="text" name="province" id="provinceInput" list="provinceList" class="form-control form-control-sm" placeholder="Tỉnh/Thành" required autocomplete="off">
+                                <datalist id="provinceList"></datalist>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <input type="text" name="district" id="districtInput" list="districtList" class="form-control form-control-sm" placeholder="Quận/Huyện" required autocomplete="off">
+                                <datalist id="districtList"></datalist>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <input type="text" name="ward" id="wardInput" list="wardList" class="form-control form-control-sm" placeholder="Phường/Xã" required autocomplete="off">
+                                <datalist id="wardList"></datalist>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <input type="text" name="detail" class="form-control form-control-sm" placeholder="Số nhà, đường..." required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary fw-bold">➕ Thêm địa chỉ</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .card { border-radius: 12px; overflow: hidden; }
+    .form-control:focus { border-color: #0dcaf0; box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.1); }
+</style>
+
+<script>
+    let provincesData = [];
+    let districtsData = [];
+
+    // Tải danh sách Tỉnh/Thành khi trang vừa load xong
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('https://provinces.open-api.vn/api/p/')
+            .then(res => res.json())
+            .then(data => {
+                provincesData = data;
+                const pList = document.getElementById('provinceList');
+                data.forEach(p => {
+                    let option = document.createElement('option');
+                    option.value = p.name;
+                    pList.appendChild(option);
+                });
+            })
+            .catch(err => console.error("Lỗi tải API Tỉnh thành:", err));
+    });
+
+    // Bắt sự kiện khi người dùng chọn/nhập xong Tỉnh/Thành
+    document.getElementById('provinceInput').addEventListener('change', function() {
+        const selectedName = this.value;
+        const province = provincesData.find(p => p.name === selectedName);
+        
+        if (province) {
+            // Tải Quận/Huyện dựa vào mã Tỉnh đã chọn
+            fetch(`https://provinces.open-api.vn/api/p/${province.code}?depth=2`)
+                .then(res => res.json())
+                .then(data => {
+                    districtsData = data.districts;
+                    const dList = document.getElementById('districtList');
+                    dList.innerHTML = ''; // Xóa list cũ
+                    document.getElementById('wardList').innerHTML = ''; // Xóa luôn list Xã cũ
+                    document.getElementById('districtInput').value = ''; // Reset ô nhập
+                    document.getElementById('wardInput').value = ''; 
+                    
+                    districtsData.forEach(d => {
+                        let option = document.createElement('option');
+                        option.value = d.name;
+                        dList.appendChild(option);
+                    });
+                });
+        }
+    });
+
+    // Bắt sự kiện khi người dùng chọn/nhập xong Quận/Huyện
+    document.getElementById('districtInput').addEventListener('change', function() {
+        const selectedName = this.value;
+        const district = districtsData.find(d => d.name === selectedName);
+        
+        if (district) {
+            // Tải Phường/Xã dựa vào mã Quận/Huyện đã chọn
+            fetch(`https://provinces.open-api.vn/api/d/${district.code}?depth=2`)
+                .then(res => res.json())
+                .then(data => {
+                    const wList = document.getElementById('wardList');
+                    wList.innerHTML = ''; // Xóa list xã cũ
+                    document.getElementById('wardInput').value = ''; // Reset ô nhập Xã
+                    
+                    data.wards.forEach(w => {
+                        let option = document.createElement('option');
+                        option.value = w.name;
+                        wList.appendChild(option);
+                    });
+                });
+        }
+    });
+</script>
+{% endblock %}

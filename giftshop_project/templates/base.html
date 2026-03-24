@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Shop</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- File CSS riêng của bạn -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+    body { font-family: 'Poppins', sans-serif; background: #f5f6fa; margin: 0; }
+    
+    /* 🚀 CHIÊU CUỐI: ÉP CONTAINER VỀ CHUẨN BOOTSTRAP, KHÔNG CHO PHÉP FLEX GÂY LỆCH */
+    .container {
+        display: block !important; /* Chặn đứng cái display: flex ở file style.css */
+        width: 100% !important;
+        max-width: 1140px !important; /* Chuẩn Bootstrap 5 */
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
+
+    /* Đảm bảo Navbar vẫn hiển thị đúng dù bị ép ở trên */
+    nav .container {
+        display: flex !important;
+    }
+
+    .main-content { min-height: 80vh; padding-top: 20px; padding-bottom: 50px; }
+</style>
+</head>
+<body>
+
+    <!-- Gọi thanh Menu xịn của bạn -->
+    {% include 'navbar.html' %}
+
+    <!-- Container chuẩn của Bootstrap để tự động căn giữa -->
+    <main class="container main-content">
+        
+        <!-- Khu vực hiển thị thông báo (Thành công/Lỗi) -->
+        {% if messages %}
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Nơi chứa nội dung của từng trang -->
+        {% block content %}
+        {% endblock %}
+        
+    </main>
+
+    <!-- JS của Bootstrap và JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

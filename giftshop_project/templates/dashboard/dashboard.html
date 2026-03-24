@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">📊 Trung tâm điều khiển Admin</h2>
+    
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body text-center">
+                    <h6>Tổng Sản Phẩm</h6>
+                    <h2 class="fw-bold">{{ total_products }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-info text-white shadow">
+                <div class="card-body text-center">
+                    <h6>Hàng trong giỏ (Cart)</h6>
+                    <h2 class="fw-bold">{{ total_cart_items }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark shadow">
+                <div class="card-body text-center">
+                    <h6>Đơn hàng chờ xử lý</h6>
+                    <h2 class="fw-bold">{{ total_orders }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body text-center">
+                    <h6>Tổng Doanh Thu GIS</h6>
+                    <h2 class="fw-bold">{{ total_revenue|floatformat:0 }}đ</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 d-flex gap-3 justify-content-center">
+        <a href="{% url 'admin_products' %}" class="btn btn-dark btn-lg">📦 Quản lý Sản phẩm</a>
+        <a href="{% url 'admin_store_list' %}" class="btn btn-outline-dark btn-lg">🏢 Quản lý Chi nhánh GIS</a>
+    </div>
+</div>
+{% endblock %}

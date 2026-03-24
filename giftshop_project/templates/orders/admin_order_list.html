@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="sidebar-layout">
+    <div class="sidebar">
+        <div class="menu-title">Menu Quản Trị</div>
+        <a href="/" class="task">🏠 Trang chủ</a>
+        <a href="/products/manage/" class="task">📦 Quản lý sản phẩm</a>
+        
+        <a href="{% url 'admin_orders' %}" class="task active">🛒 Quản lý đơn hàng</a>
+        
+        <a href="{% url 'admin_store_list' %}" class="task">🏢 Quản lý cửa hàng</a>
+    </div>
+
+    <div class="product-area">
+        <div class="hero-banner" style="background: #fd7e14;">
+            <div class="hero-text">
+                <h1>Quản lý đơn hàng</h1>
+                <p>Theo dõi và xử lý đơn hàng của khách hàng</p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 mt-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Mã ĐH</th>
+                            <th>Khách hàng</th>
+                            <th>Sản phẩm</th>
+                            <th class="text-center">Số lượng</th>
+                            <th>Trạng thái hiện tại</th>
+                            <th>Cập nhật trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td class="fw-bold">#{{ order.id }}</td>
+                            <td>{{ order.user.username }}</td>
+                            <td>{{ order.product.name }}</td>
+                            <td class="text-center">{{ order.quantity }}</td>
+                            
+                            <td>
+                                {% if order.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                {% elif order.status == 'shipping' %}
+                                    <span class="badge bg-primary">Đang giao hàng</span>
+                                {% elif order.status == 'completed' %}
+                                    <span class="badge bg-success">Hoàn thành</span>
+                                {% elif order.status == 'cancelled' %}
+                                    <span class="badge bg-danger">Đã hủy</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ order.status }}</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <form method="POST" action="{% url 'update_order_status' order.id %}" class="d-flex gap-2">
+                                    {% csrf_token %}
+                                    <select name="status" class="form-select form-select-sm" style="width: 140px;">
+                                        <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Chờ xử lý</option>
+                                        <option value="shipping" {% if order.status == 'shipping' %}selected{% endif %}>Đang giao</option>
+                                        <option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Hoàn thành</option>
+                                        <option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Đã hủy</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-dark">Lưu</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <h5>Chưa có đơn hàng nào!</h5>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* 1. Tổng thể layout */
+    .sidebar-layout { display: flex; min-height: 100vh; background: #f8f9fa; }
+    .sidebar { width: 250px; background: #fff; padding: 20px; border-right: 1px solid #ddd; }
+    .product-area { flex: 1; padding: 20px; }
+
+    /* 2. SỬA LỖI ĐỒNG BỘ MENU (ÉP PHẢI NGHE LỜI) */
+    /* Nhắm thẳng vào thẻ <a> có class 'task' nằm trong '.sidebar' */
+    .sidebar a.task {
+        display: block;
+        padding: 12px;
+        margin-bottom: 5px;
+        border-radius: 8px;
+        text-decoration: none !important; /* Xóa gạch chân vĩnh viễn */
+        color: #333 !important;           /* Ép về màu đen/xám */
+        transition: 0.2s all;
+    }
+
+    /* Khi di chuột vào (Hover) */
+    .sidebar a.task:hover {
+        background-color: #f1f1f1;
+        color: #0d6efd !important;
+        text-decoration: none !important;
+    }
+
+    /* Khi mục đó đang được chọn (ACTIVE) */
+    .sidebar a.task.active {
+        background-color: #0d6efd !important; /* Nền xanh dương rực rỡ */
+        color: #fff !important;               /* Chữ trắng tinh */
+        font-weight: bold;
+        text-decoration: none !important;
+    }
+
+    /* 3. Giao diện nội dung banner */
+    .hero-banner { color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; }
+    .menu-title { font-weight: bold; margin-bottom: 15px; color: #888; font-size: 0.85rem; text-transform: uppercase; }
+    .hero-text h1 { margin: 0 0 5px 0; font-weight: bold; }
+    .hero-text p { margin: 0; opacity: 0.9; }
+</style>
+{% endblock %}

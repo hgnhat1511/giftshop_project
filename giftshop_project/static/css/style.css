@@ -1,0 +1,118 @@
+/* RESET CHUNG */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #f1f3f6, #e6e9ef);
+    color: #333;
+}
+
+/* 
+   FIX LỖI LỆCH: Đổi tên .container cũ của bạn thành .sidebar-layout.
+   Chỉ dùng class này ở trang nào có Sidebar (ví dụ trang chủ).
+*/
+.sidebar-layout {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 15px;
+    display: flex;
+    gap: 30px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    height: fit-content;
+}
+
+.menu-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.task {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #444;
+    background: rgba(255,255,255,0.5);
+    transition: 0.25s;
+}
+
+.task:hover, .task.active {
+    background: #ff4757;
+    color: white !important;
+    transform: translateX(5px);
+}
+
+/* PRODUCT AREA */
+.product-area { flex: 1; }
+
+.hero-banner {
+    height: 200px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+    color: white;
+}
+
+/* GRID SẢN PHẨM */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 18px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    border: 1px solid #eee;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.price { color: #dc2626; font-weight: 700; margin-top: 10px; font-size: 1.1rem; }
+
+/* MODAL & ADMIN */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+/* XÓA BỎ CÁC PHẦN NAVBAR CŨ GÂY XUNG ĐỘT Ở ĐÂY */

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="sidebar-layout">
+
+    <div class="sidebar">
+        <div class="menu-title">Menu Quản Trị</div>
+
+        <a href="/" class="task">🏠 Trang chủ</a>
+
+        <a href="/products/manage/" class="task active">📦 Quản lý sản phẩm</a>
+
+        <a href="{% url 'admin_orders' %}" class="task">🛒 Quản lý đơn hàng</a>
+
+        <a href="{% url 'admin_store_list' %}" class="task">🏢 Quản lý cửa hàng</a>
+    </div>
+
+    <div class="product-area">
+        <div class="hero-banner">
+            <div class="hero-text">
+                <h1>Quản lý sản phẩm</h1>
+                <p>Manage your gift shop products</p>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <form method="GET" style="display:flex; gap:10px; align-items:center;">
+                <input type="text" name="q" placeholder="Search product..." value="{{ request.GET.q }}">
+                <button type="submit" class="btn">Search</button>
+                <a href="{% url 'add_product' %}" class="btn">+ Thêm sản phẩm</a>
+            </form>
+        </div>
+
+        <div class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+            {% for product in products %}
+            <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 15px;">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" style="max-width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">
+                    {% else %}
+                    <img src="/media/no-image.png" style="max-width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">
+                    {% endif %}
+                </div>
+
+                <h3 style="font-size: 1.1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ product.name }}">{{ product.name }}</h3>
+                <p class="price" style="color: #dc3545; font-weight: bold; margin-bottom: 10px;">{{ product.price }} VNĐ</p>
+                <p class="desc" style="color: #666; font-size: 0.9rem; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ product.description }}</p>
+
+                <div style="margin-top: 15px; display: flex; gap: 8px;">
+                    <a href="{% url 'edit_product' product.id %}" class="btn edit-btn" style="text-decoration: none; text-align: center; flex: 1; background: #0dcaf0; color: #000; padding: 8px; border-radius: 6px; font-weight: bold;">
+                        ✏️ Sửa
+                    </a>
+
+                    <a href="{% url 'delete_product' product.id %}" class="btn delete-btn" style="text-decoration: none; text-align: center; flex: 1; background: #dc3545; color: #fff; padding: 8px; border-radius: 6px; font-weight: bold;" onclick="return confirm('🚨 Bạn có chắc chắn muốn xóa sản phẩm này không? Xóa xong là mất luôn đấy nhé!');">
+                        🗑️ Xóa
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: #888;">
+                <h3>Chưa có sản phẩm nào!</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Bổ sung chút CSS cơ bản nếu bạn chưa có ở file ngoài */
+    .sidebar-layout { display: flex; min-height: 100vh; background: #f8f9fa; }
+    .sidebar { width: 250px; background: #fff; padding: 20px; border-right: 1px solid #ddd; }
+    .task { display: block; padding: 12px; text-decoration: none; color: #333; margin-bottom: 5px; border-radius: 8px; }
+    .task:hover { background: #f1f1f1; }
+    .task.active { background: #0d6efd; color: #fff; font-weight: bold; }
+    .product-area { flex: 1; padding: 20px; }
+    .hero-banner { background: #b71c1c; color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; }
+    .hero-text h1 { margin: 0 0 10px 0; }
+    .hero-text p { margin: 0; opacity: 0.8; }
+    .btn { padding: 8px 15px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; color: #000; background: #e9ecef;}
+</style>
+{% endblock %}

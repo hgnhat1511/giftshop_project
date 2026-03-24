@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Thêm địa chỉ</h2>
+
+<form method="post">
+{% csrf_token %}
+
+<input type="text" name="province" placeholder="Tỉnh / Thành">
+<input type="text" name="district" placeholder="Quận / Huyện">
+<input type="text" name="ward" placeholder="Phường / Xã">
+<input type="text" name="detail_address" placeholder="Địa chỉ chi tiết">
+
+<button type="submit">Lưu</button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow border-0">
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h4 class="mb-0 fw-bold">Đăng nhập</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Tên đăng nhập</label>
+                        <input type="text" name="username" class="form-control" placeholder="Nhập tài khoản..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Mật khẩu</label>
+                        <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold mt-2">Đăng nhập</button>
+                </form>
+                
+                <div class="mt-4 text-center text-muted">
+                    Chưa có tài khoản? <a href="{% url 'register' %}" class="text-decoration-none fw-bold text-success">Đăng ký ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}  

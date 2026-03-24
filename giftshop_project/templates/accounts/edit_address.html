@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0" style="border-radius: 15px;">
+                <div class="card-header bg-primary text-white p-4" style="border-radius: 15px 15px 0 0;">
+                    <h4 class="mb-0 fw-bold">✏️ Cập nhật địa chỉ nhận hàng</h4>
+                </div>
+                
+                <div class="card-body p-4 custom-form">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2">Số nhà, tên đường</label>
+                            <input type="text" name="detail" class="form-control" value="{{ address.detail }}" required>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="fw-bold mb-2">Phường / Xã</label>
+                                <input type="text" name="ward" class="form-control" value="{{ address.ward }}" required>
+                            </div>
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label class="fw-bold mb-2">Quận / Huyện</label>
+                                <input type="text" name="district" class="form-control" value="{{ address.district }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="fw-bold mb-2">Tỉnh / Thành phố</label>
+                            <input type="text" name="province" class="form-control" value="{{ address.province }}" required>
+                        </div>
+
+                        <hr class="text-muted">
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary px-4 py-2 fw-bold">💾 Lưu thay đổi</button>
+                            <a href="{% url 'profile' %}" class="btn btn-outline-secondary px-4 py-2">Hủy</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-form input { border-radius: 8px; padding: 10px 15px; border: 1px solid #ddd; transition: 0.3s; }
+    .custom-form input:focus { border-color: #0d6efd; box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); outline: none; }
+</style>
+{% endblock %}
