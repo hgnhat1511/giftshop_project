@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
-from .models import Product, Rating, Store
+from .models import Product, Rating, Store, Category # <== THÊM IMPORT CATEGORY
 from apps.orders.models import Order
 from django.db.models import Q
 
@@ -22,52 +22,84 @@ def api_store_list(request):
 
 @staff_member_required
 def admin_stores(request):
-    """Trang danh sách cửa hàng dạng bảng cho ADMIN sửa/xóa + Tìm kiếm"""
-    # 1. Lấy từ khóa từ ô tìm kiếm (name="search")
+    """Trang danh sách cửa hàng dạng bảng cho ADMIN sửa/xóa + Tìm kiếm + Phân trang"""
     query = request.GET.get('search', '')
 
-    # 2. Lọc dữ liệu
+    # Lọc dữ liệu
     if query:
-        stores = Store.objects.filter(
-            Q(name__icontains=query) |
-            Q(address__icontains=query)
+        stores_list = Store.objects.filter(
+            Q(name__icontains=query) | Q(address__icontains=query)
         ).order_by('-id')
     else:
-        stores = Store.objects.all().order_by('-id')
+        stores_list = Store.objects.all().order_by('-id')
         
-    # 3. Trả về kết quả kèm từ khóa để hiển thị lại trên ô nhập
+    # Phân trang (10 cửa hàng/trang)
+    paginator = Paginator(stores_list, 10)
+    page = request.GET.get('page')
+    stores = paginator.get_page(page) 
+        
     return render(request, 'products/admin_store_list.html', {
         'stores': stores,
         'query': query
     })
 
-# 🚀 ĐÃ BỔ SUNG HÀM THÊM CỬA HÀNG
 def add_store(request):
     if request.method == "POST":
+        try:
+            lat = float(request.POST.get("lat", 0))
+            lng = float(request.POST.get("lng", 0))
+            revenue = int(request.POST.get("revenue", 0))
+        except ValueError:
+            messages.error(request, "❌ Lỗi: Tọa độ và doanh thu phải là số!")
+            return redirect("add_store")
+
+        if lat < -90 or lat > 90:
+            messages.error(request, "❌ Lỗi: Vĩ độ (Lat) bắt buộc phải từ -90 đến 90!")
+            return redirect("add_store")
+
+        if lng < -180 or lng > 180:
+            messages.error(request, "❌ Lỗi: Kinh độ (Lng) bắt buộc phải từ -180 đến 180!")
+            return redirect("add_store")
+
+        if revenue < 0:
+            messages.error(request, "❌ Lỗi: Doanh thu không được là số âm!")
+            return redirect("add_store")
+
         Store.objects.create(
             name=request.POST.get("name"),
             address=request.POST.get("address"),
-            lat=request.POST.get("lat", 0),
-            lng=request.POST.get("lng", 0),
+            lat=lat,
+            lng=lng,
             phone=request.POST.get("phone"),
             store_type=request.POST.get("store_type", "Gift Shop"),
-            revenue=request.POST.get("revenue", 0)
+            revenue=revenue
         )
+        
         messages.success(request, "Đã thêm cửa hàng mới thành công!")
         return redirect("admin_store_list")
+        
     return render(request, "products/add_store.html")
 
 def edit_store(request, id):
-    """Sửa thông tin chi nhánh (Bổ sung đầy đủ các trường)"""
     store = get_object_or_404(Store, id=id)
     if request.method == "POST":
+        try:
+            revenue = int(request.POST.get("revenue", store.revenue))
+        except ValueError:
+            messages.error(request, "❌ Lỗi: Doanh thu phải là số hợp lệ!")
+            return redirect('edit_store', id=id)
+
+        if revenue < 0:
+            messages.error(request, "❌ Lỗi: Doanh thu không được là số âm!")
+            return redirect('edit_store', id=id)
+
         store.name = request.POST.get("name")
-        store.address = request.POST.get("address") # Đã thêm
-        store.phone = request.POST.get("phone")     # Đã thêm
-        store.store_type = request.POST.get("store_type") # Đã thêm
+        store.address = request.POST.get("address")
+        store.phone = request.POST.get("phone")
+        store.store_type = request.POST.get("store_type")
         store.lat = request.POST.get("lat")
         store.lng = request.POST.get("lng")
-        store.revenue = request.POST.get("revenue")
+        store.revenue = revenue
         store.save()
         messages.success(request, "Đã cập nhật thông tin cửa hàng!")
         return redirect('admin_store_list')
@@ -75,7 +107,6 @@ def edit_store(request, id):
 
 def delete_store(request, id):
     store = get_object_or_404(Store, id=id)
-    # Cải tiến: Nếu dùng nút bấm xóa trực tiếp không cần form xác nhận thì bỏ if request.method == 'POST'
     store.delete()
     messages.success(request, "Đã xóa cửa hàng!")
     return redirect('admin_store_list')
@@ -86,14 +117,45 @@ def delete_store(request, id):
 # ==========================================
 
 def product_list(request):
-    products = Product.objects.all()
-    q = request.GET.get("q")
-    if q: products = products.filter(name__icontains=q)
+    """Danh sách sản phẩm cho Khách + Lọc Danh Mục + Lọc giá + Tìm kiếm"""
+    q = request.GET.get("q", "")
+    sort_by = request.GET.get("sort_by", "") 
+    category_slug = request.GET.get('category', '') # <== 1. LẤY DANH MỤC KHÁCH CHỌN
     
-    paginator = Paginator(products, 8)
+    # 2. Lấy danh sách category để hiện lên thanh menu
+    categories = Category.objects.all()
+    
+    # Bắt đầu với toàn bộ sản phẩm
+    products_list = Product.objects.all()
+    
+    # 3. Lọc theo Category nếu có
+    if category_slug:
+        products_list = products_list.filter(category__slug=category_slug)
+    
+    # Tìm kiếm theo tên (nếu có gõ chữ)
+    if q:
+        products_list = products_list.filter(name__icontains=q)
+        
+    # Lọc và Sắp xếp theo giá
+    if sort_by == 'asc':
+        products_list = products_list.order_by('price') 
+    elif sort_by == 'desc':
+        products_list = products_list.order_by('-price') 
+    else:
+        products_list = products_list.order_by('-id') 
+    
+    # Phân trang (8 sản phẩm/trang)
+    paginator = Paginator(products_list, 8)
     page = request.GET.get("page")
-    products = paginator.get_page(page)
-    return render(request, "products/product_list.html", {"products": products, "q": q})
+    products = paginator.get_page(page) 
+    
+    return render(request, "products/product_list.html", {
+        "products": products,
+        "categories": categories, # <== Truyền danh mục ra html
+        "category_slug": category_slug, # <== Giữ trạng thái nút bấm
+        "q": q,
+        "sort_by": sort_by
+    })
 
 def add_to_cart(request, id):
     if not request.user.is_authenticated: return redirect('login')
@@ -118,39 +180,85 @@ def add_rating(request, id):
 
 @staff_member_required
 def admin_products(request):
-    query = request.GET.get('q')
-    products = Product.objects.filter(name__icontains=query) if query else Product.objects.all().order_by('-id')
-    return render(request, 'products/admin_product_list.html', {'products': products})
+    """Trang quản lý sản phẩm ADMIN + Lọc Danh Mục + Phân trang"""
+    query = request.GET.get('q', '')
+    sort_by = request.GET.get('sort_by', '') 
+    category_id = request.GET.get('category_id', '') # <== Lọc theo ID danh mục bên Admin
+
+    # Bắt đầu với danh sách gốc
+    products_list = Product.objects.all()
+    categories = Category.objects.all() # Lấy danh mục cho Admin chọn
+    
+    # Lọc theo Category trong Admin
+    if category_id:
+        products_list = products_list.filter(category_id=category_id)
+
+    # Lọc theo tên (Search)
+    if query:
+        products_list = products_list.filter(name__icontains=query)
+
+    # Lọc theo giá (Sort)
+    if sort_by == 'asc':
+        products_list = products_list.order_by('price')
+    elif sort_by == 'desc':
+        products_list = products_list.order_by('-price')
+    else:
+        products_list = products_list.order_by('-id') 
+        
+    # Phân trang (10 sản phẩm/trang)
+    paginator = Paginator(products_list, 10)
+    page = request.GET.get('page')
+    products = paginator.get_page(page)
+
+    return render(request, 'products/admin_product_list.html', {
+        'products': products,
+        'categories': categories, # Truyền ra HTML
+        'category_id': category_id,
+        'query': query,
+        'sort_by': sort_by 
+    })
 
 def add_product(request):
     if request.method == "POST":
+        # Tìm category dựa vào id gửi lên từ form
+        category_id = request.POST.get("category_id")
+        category = Category.objects.filter(id=category_id).first() if category_id else None
+
         Product.objects.create(
-            name=request.POST.get("name"), 
+            name=request.POST.get("name"),
+            category=category, # <== Lưu danh mục
             price=request.POST.get("price", 0),
-            stock=request.POST.get("stock", 0), 
+            stock=request.POST.get("stock", 0),
             description=request.POST.get("description"),
             image=request.FILES.get("image")
         )
         messages.success(request, "Đã thêm sản phẩm thành công!")
         return redirect("admin_products")
-    return render(request, "products/add_product.html")
+    
+    categories = Category.objects.all()
+    return render(request, "products/add_product.html", {"categories": categories})
 
 def edit_product(request, id):
     product = get_object_or_404(Product, id=id)
     if request.method == "POST":
+        category_id = request.POST.get("category_id")
+        category = Category.objects.filter(id=category_id).first() if category_id else None
+
         product.name = request.POST.get("name")
+        product.category = category # <== Cập nhật danh mục
         product.price = request.POST.get("price")
-        product.stock = request.POST.get("stock")             # Đã thêm
-        product.description = request.POST.get("description") # Đã thêm
+        product.stock = request.POST.get("stock")
+        product.description = request.POST.get("description")
         
-        # Chỉ cập nhật ảnh nếu người dùng có chọn ảnh mới
         if request.FILES.get("image"):
             product.image = request.FILES.get("image")
             
         product.save()
         messages.success(request, "Đã cập nhật sản phẩm thành công!")
         return redirect("admin_products")
-    return render(request, "products/edit_product.html", {"product": product})
+        
+    categories = Category.objects.all()
+    return render(request, "products/edit_product.html", {"product": product, "categories": categories})
 
 def delete_product(request, id):
     product = get_object_or_404(Product, id=id)

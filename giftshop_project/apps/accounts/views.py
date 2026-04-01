@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import UserProfile, Address  # 🚀 Đã thêm import Address ở đây
+from .models import UserProfile, Address
 
 # 1. ĐĂNG NHẬP
 def login_view(request):
@@ -112,3 +112,49 @@ def delete_address(request, id):
     address.delete()
     messages.success(request, "Đã xóa địa chỉ!")
     return redirect('profile')
+
+@login_required
+def admin_user_list(request):
+    # Chỉ cho phép Admin (staff hoặc superuser) vào xem
+    if not request.user.is_staff:
+        return redirect('home') # Đuổi về trang chủ nếu không phải admin
+        
+    # Lấy toàn bộ danh sách tài khoản, sắp xếp người mới nhất lên đầu
+    users = User.objects.all().order_by('-date_joined')
+    
+    return render(request, 'accounts/admin_user_list.html', {'users': users})
+
+@login_required
+def admin_edit_user(request, user_id):
+    if not request.user.is_staff:
+        return redirect('home')
+        
+    user_obj = get_object_or_404(User, id=user_id)
+    
+    if request.method == 'POST':
+        user_obj.username = request.POST.get('username')
+        user_obj.email = request.POST.get('email')
+        # Checkbox: Nếu được tích thì sẽ có trong POST, không thì thôi
+        user_obj.is_staff = 'is_staff' in request.POST 
+        user_obj.is_active = 'is_active' in request.POST
+        user_obj.save()
+        messages.success(request, 'Cập nhật tài khoản thành công!')
+        return redirect('admin_user_list')
+        
+    return render(request, 'accounts/admin_edit_user.html', {'user_obj': user_obj})
+
+@login_required
+def admin_delete_user(request, user_id):
+    if not request.user.is_staff:
+        return redirect('home')
+        
+    user_obj = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        if user_obj == request.user:
+            messages.error(request, 'Bạn không thể tự xóa chính mình!')
+        else:
+            user_obj.delete()
+            messages.success(request, 'Đã xóa tài khoản thành công!')
+        return redirect('admin_user_list')
+        
+    return render(request, 'accounts/admin_delete_user.html', {'user_obj': user_obj})

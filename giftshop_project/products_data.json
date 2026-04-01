@@ -1,0 +1,314 @@
+[
+{
+    "model": "products.product",
+    "pk": 17,
+    "fields": {
+        "name": "Gấu bông Teddy khổng lồ 1m2",
+        "category": null,
+        "price": 450000,
+        "stock": 456,
+        "description": "Chất liệu nỉ nhung cao cấp, mềm mịn, an toàn cho da.",
+        "image": "products/Gấu_bông_Teddy_khổng_lồ_1m2.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 18,
+    "fields": {
+        "name": "Hộp âm nhạc pha lê 3D",
+        "category": null,
+        "price": 250000,
+        "stock": 35,
+        "description": "Phát sáng lấp lánh, bản nhạc Fur Elise du dương.",
+        "image": "products/Hộp_âm_nhạc_pha_lê_3D.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 19,
+    "fields": {
+        "name": "Set nến thơm thư giãn",
+        "category": null,
+        "price": 150000,
+        "stock": 79,
+        "description": "Chiết xuất tinh dầu thiên nhiên, giúp giảm stress hiệu quả.",
+        "image": "products/Set_nến_thơm_thư_giãn.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 20,
+    "fields": {
+        "name": "Bó hoa hồng sáp thơm 99 bông",
+        "category": null,
+        "price": 350000,
+        "stock": 44,
+        "description": "Hoa vĩnh cửu không tàn, biểu tượng tình yêu vĩnh cửu.",
+        "image": "products/Bó_hoa_hồng_sáp_thơm_99_bông.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 21,
+    "fields": {
+        "name": "Sổ tay da thật Vintage",
+        "category": null,
+        "price": 120000,
+        "stock": 44,
+        "description": "Bìa da thật phong cách cổ điển, giấy kraft chống lóa.",
+        "image": "products/Sổ_tay_da_thật_Vintage.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 22,
+    "fields": {
+        "name": "Set cốc sứ đôi Cute",
+        "category": null,
+        "price": 180000,
+        "stock": 12,
+        "description": "Sứ tráng men cao cấp, in hình nặn nổi siêu dễ thương.",
+        "image": "products/Set_cốc_sứ_đôi_Cute.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 23,
+    "fields": {
+        "name": "Đèn ngủ mặt trăng 3D",
+        "category": null,
+        "price": 220000,
+        "stock": 44,
+        "description": "Đổi 16 màu bằng điều khiển cảm ứng, có pin sạc tiện lợi.",
+        "image": "products/Đèn_ngủ_mặt_trăng_3D.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 24,
+    "fields": {
+        "name": "Khung ảnh gỗ Decor bàn làm việc",
+        "category": null,
+        "price": 90000,
+        "stock": 878,
+        "description": "Khung gỗ sồi tự nhiên, kèm mặt kính mica trong suốt.",
+        "image": "products/Khung_ảnh_gỗ_Decor_bàn_làm_việc.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 25,
+    "fields": {
+        "name": "Móc khóa len Handmade hình thú",
+        "category": null,
+        "price": 45000,
+        "stock": 31,
+        "description": "Đan tay 100% tỉ mỉ, nhiều mẫu mã đa dạng.",
+        "image": "products/Móc_khóa_len_Handmade_hình_thú.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 26,
+    "fields": {
+        "name": "Hộp son môi cao cấp kèm thiệp",
+        "category": null,
+        "price": 650000,
+        "stock": 94,
+        "description": "Set quà tặng sang trọng dành cho phái đẹp.",
+        "image": "products/Hộp_son_môi_cao_cấp_kèm_thiệp.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 27,
+    "fields": {
+        "name": "Nước hoa Mini chính hãng",
+        "category": null,
+        "price": 350000,
+        "stock": 431,
+        "description": "Lưu hương lâu tới 8h, thiết kế chai nhỏ gọn tinh tế.",
+        "image": "products/Nước_hoa_Mini_chính_hãng.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 28,
+    "fields": {
+        "name": "Lọ hoa thủy tinh Decor",
+        "category": null,
+        "price": 280000,
+        "stock": 563,
+        "description": "Kiểu dáng Bắc Âu thanh lịch, phù hợp cắm nhiều loại hoa.",
+        "image": "products/Lọ_hoa_thủy_tinh_Decor.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 29,
+    "fields": {
+        "name": "Túi Tote vải Canvas",
+        "category": null,
+        "price": 110000,
+        "stock": 466,
+        "description": "Dày dặn, in hình theo yêu cầu, vừa A4 và Laptop 13 inch.",
+        "image": "products/Túi_Tote_vải_Canvas.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 30,
+    "fields": {
+        "name": "Bút ký doanh nhân mạ vàng",
+        "category": null,
+        "price": 400000,
+        "stock": 45,
+        "description": "Ngòi trơn, mực đều, kèm hộp nhung sang trọng.",
+        "image": "products/Bút_ký_doanh_nhân_mạ_vàng.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 31,
+    "fields": {
+        "name": "Hộp quà bí mật (Mystery Box)",
+        "category": null,
+        "price": 500000,
+        "stock": 458,
+        "description": "Bên trong chứa ngẫu nhiên 3-5 món đồ giá trị cao.",
+        "image": "products/Hộp_quà_bí_mật_Mystery_Box.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 33,
+    "fields": {
+        "name": "Quần Bãi Biển",
+        "category": null,
+        "price": 214000,
+        "stock": 18,
+        "description": "quần bãi biển",
+        "image": "products/quan.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 34,
+    "fields": {
+        "name": "Vòng tay trầm hương tự nhiên",
+        "category": null,
+        "price": 850000,
+        "stock": 50,
+        "description": "Vòng tay trầm hương cao cấp, mùi thơm nhẹ dịu, mang lại bình an và may mắn cho người đeo.",
+        "image": "products/Vòng_tay_trầm_hương_tự_nhiên.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 35,
+    "fields": {
+        "name": "Chậu sen đá mini để bàn",
+        "category": null,
+        "price": 65000,
+        "stock": 120,
+        "description": "Cây sen đá nhỏ xinh, dễ chăm sóc, giúp lọc không khí và giảm stress hiệu quả.",
+        "image": "products/Chậu_sen_đá_mini_để_bàn.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 36,
+    "fields": {
+        "name": "Máy phun sương tinh dầu vân gỗ",
+        "category": null,
+        "price": 290000,
+        "stock": 85,
+        "description": "Máy khuếch tán tinh dầu thiết kế vân gỗ sang trọng, tích hợp đèn LED 7 màu.",
+        "image": "products/Máy_phun_sương_tinh_dầu_vân_gỗ.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 37,
+    "fields": {
+        "name": "Tranh đính đá phong cảnh tự làm",
+        "category": null,
+        "price": 150000,
+        "stock": 200,
+        "description": "Bộ tranh đính đá DIY giúp rèn luyện tính kiên nhẫn, thành phẩm dùng decor cực đẹp.",
+        "image": "products/Tranh_đính_đá_phong_cảnh_tự_làm.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 38,
+    "fields": {
+        "name": "Đồng hồ LED để bàn khối gỗ",
+        "category": null,
+        "price": 195000,
+        "stock": 60,
+        "description": "Đồng hồ báo thức hiển thị nhiệt độ, thiết kế khối gỗ tối giản phong cách Hàn Quốc.",
+        "image": "products/Đồng_hồ_LED_để_bàn_khối_gỗ.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 39,
+    "fields": {
+        "name": "Bộ xếp hình Lego hoa phong lan",
+        "category": null,
+        "price": 450000,
+        "stock": 40,
+        "description": "Đồ chơi lắp ráp mô hình chậu hoa phong lan tuyệt đẹp, món quà độc đáo không bao giờ tàn.",
+        "image": "products/Bộ_xếp_hình_Lego_hoa_phong_lan.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 40,
+    "fields": {
+        "name": "Gối cổ chữ U cao su non",
+        "category": null,
+        "price": 180000,
+        "stock": 150,
+        "description": "Gối tựa cổ êm ái, chống mỏi vai gáy, món quà vô cùng thiết thực cho dân văn phòng.",
+        "image": "products/Gối_cổ_chữ_U_cao_su_non.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 41,
+    "fields": {
+        "name": "Hộp trà hoa cúc sấy lạnh",
+        "category": null,
+        "price": 120000,
+        "stock": 300,
+        "description": "Trà hoa cúc nguyên bông, thanh nhiệt giải độc, đóng gói trong hộp thiếc hoa văn sang trọng.",
+        "image": "products/Hộp_trà_hoa_cúc_sấy_lạnh.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 42,
+    "fields": {
+        "name": "Ly giữ nhiệt Inox 304 khắc tên",
+        "category": null,
+        "price": 250000,
+        "stock": 110,
+        "description": "Ly giữ nhiệt 900ml cao cấp, giữ đá 12h, có thể yêu cầu khắc tên riêng lên vỏ ly.",
+        "image": "products/Ly_giữ_nhiệt_Inox_304_khắc_tên.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 43,
+    "fields": {
+        "name": "Mô hình phi hành gia phát sáng",
+        "category": null,
+        "price": 320000,
+        "stock": 75,
+        "description": "Tượng phi hành gia decor kết hợp đèn ngủ hắt trần tạo hiệu ứng dải ngân hà.",
+        "image": "products/Mô_hình_phi_hành_gia_phát_sáng.webp"
+    }
+}
+]

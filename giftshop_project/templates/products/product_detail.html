@@ -1,11 +1,129 @@
-<h1>{{product.name}}</h1>
+{% extends "base.html" %}
 
-{% if product.image %}
-<img src="{{product.image.url}}" width="300">
-{% endif %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none text-muted">Trang chủ</a></li>
+            <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">{{ product.name }}</li>
+        </ol>
+    </nav>
 
-<p>{{product.description}}</p>
+    <div class="row g-5">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden p-2 bg-white">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="img-fluid rounded-4 w-100 shadow-sm" alt="{{ product.name }}" style="max-height: 500px; object-fit: contain;">
+                {% else %}
+                    <div class="bg-light d-flex justify-content-center align-items-center rounded-4" style="height: 400px;">
+                        <span class="text-muted">Không có hình ảnh</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
 
-<h3>{{product.price}} VND</h3>
+        <div class="col-md-6">
+            <div class="product-info ps-md-4">
+                <h1 class="fw-bold text-dark mb-2">{{ product.name }}</h1>
+                
+                <div class="d-flex align-items-center mb-3">
+                    <span class="text-warning fs-5">
+                        <i class="fas fa-star"></i> ⭐ {{ product.rating_set.count }} Đánh giá
+                    </span>
+                    <span class="mx-2 text-muted">|</span>
+                    {% if product.stock > 0 %}
+                        <span class="text-success fw-bold">Còn hàng ({{ product.stock }})</span>
+                    {% else %}
+                        <span class="text-danger fw-bold">Hết hàng</span>
+                    {% endif %}
+                </div>
 
-<a href="/">Back</a>
+                <hr class="opacity-10">
+
+                <div class="price-box my-4">
+                    <h2 class="text-danger fw-bold display-6">{{ product.price|floatformat:0 }} <small>VNĐ</small></h2>
+                    <p class="text-muted text-decoration-line-through small">Giá cũ: {{ product.price|add:50000|floatformat:0 }}đ</p>
+                </div>
+
+                <div class="description mb-4">
+                    <h5 class="fw-bold">Mô tả ngắn:</h5>
+                    <p class="text-muted leading-relaxed">
+                        {{ product.description|default:"Sản phẩm chất lượng cao đến từ Gift Shop." }}
+                    </p>
+                </div>
+
+                <div class="action-buttons mt-5">
+                    <form action="{% url 'add_to_cart' product.id %}" method="POST" class="d-flex gap-3 align-items-center flex-wrap">
+                        {% csrf_token %}
+                        
+                        <div class="quantity-selector d-flex align-items-center border rounded-pill px-3 py-2 bg-light">
+                            <span class="text-muted me-3 small">Số lượng:</span>
+                            <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" 
+                                   class="form-control border-0 bg-transparent text-center fw-bold" 
+                                   style="width: 60px; box-shadow: none;"
+                                   {% if product.stock <= 0 %}disabled{% endif %}>
+                        </div>
+
+                        {% if user.is_authenticated %}
+                            {% if product.stock > 0 %}
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 flex-grow-1 shadow-sm fw-bold">
+                                    🛒 THÊM VÀO GIỎ HÀNG
+                                </button>
+                            {% else %}
+                                <button type="button" class="btn btn-secondary btn-lg rounded-pill px-5 flex-grow-1 fw-bold" disabled>
+                                    TẠM HẾT HÀNG
+                                </button>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary btn-lg rounded-pill px-5 flex-grow-1 fw-bold text-decoration-none text-center">
+                                ĐĂNG NHẬP ĐỂ MUA
+                            </a>
+                        {% endif %}
+                    </form>
+                    
+                    <a href="{% url 'home' %}" class="btn btn-link mt-3 text-muted text-decoration-none">
+                        ← Quay lại danh sách sản phẩm
+                    </a>
+                </div>
+
+                <div class="row mt-5 g-3">
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded-3 text-center border">
+                            <p class="mb-0 small fw-bold text-dark">🚚 Giao hàng nhanh</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded-3 text-center border">
+                            <p class="mb-0 small fw-bold text-dark">🛡️ Đổi trả 7 ngày</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active fw-bold px-4 py-3 text-dark border-0 border-bottom border-primary border-3 bg-transparent" id="home-tab" data-bs-toggle="tab" type="button">CHI TIẾT SẢN PHẨM</button>
+                </li>
+            </ul>
+            <div class="tab-content p-4 bg-white shadow-sm rounded-bottom rounded-end" id="myTabContent">
+                <div class="tab-pane fade show active" role="tabpanel">
+                    <p>{{ product.description }}</p>
+                    <p class="mb-0 text-muted italic">Cảm ơn bạn đã tin dùng sản phẩm của chúng tôi!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body { background-color: #fcfcfc; }
+    .breadcrumb-item + .breadcrumb-item::before { content: ">"; }
+    .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover { border-color: transparent; }
+    .product-info h1 { letter-spacing: -0.5px; }
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+</style>
+{% endblock %}

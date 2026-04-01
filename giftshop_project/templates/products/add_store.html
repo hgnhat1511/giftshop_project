@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <div class="container mt-4 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -35,23 +38,25 @@
                             </div>
                             <div class="col-md-6 mt-3 mt-md-0">
                                 <label class="fw-bold mb-2">Doanh thu (VNĐ)</label>
-                                <input type="number" name="revenue" class="form-control" value="0">
+                                <input type="number" name="revenue" min="0" class="form-control" value="0">
                             </div>
                         </div>
 
                         <div class="p-3 mb-4 rounded" style="background-color: #f1f8f5; border: 1px dashed #198754;">
                             <h6 class="fw-bold text-success mb-3">🗺️ Tọa độ Bản đồ (GIS)</h6>
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="fw-bold mb-2">Vĩ độ (Latitude)</label>
-                                    <input type="number" step="any" name="lat" class="form-control" placeholder="Ví dụ: 10.9482" required>
+                                    <input type="number" step="any" id="lat_input" name="lat" class="form-control" placeholder="Ví dụ: 10.9482" required>
                                 </div>
                                 <div class="col-md-6 mt-3 mt-md-0">
                                     <label class="fw-bold mb-2">Kinh độ (Longitude)</label>
-                                    <input type="number" step="any" name="lng" class="form-control" placeholder="Ví dụ: 106.8288" required>
+                                    <input type="number" step="any" id="lng_input" name="lng" class="form-control" placeholder="Ví dụ: 106.8288" required>
                                 </div>
                             </div>
-                            <small class="text-muted mt-2 d-block"><i>* Lấy tọa độ từ Google Maps và nhập vào đây để cửa hàng hiện lên bản đồ WebGIS.</i></small>
+                            <small class="text-muted d-block mb-3"><i>* Kéo thả Marker hoặc Click trực tiếp lên bản đồ để lấy tọa độ tự động.</i></small>
+                            
+                            <div id="mapPicker" style="height: 350px; width: 100%; border: 2px solid #198754; border-radius: 8px; z-index: 1;"></div>
                         </div>
 
                         <hr class="text-muted">
@@ -71,4 +76,49 @@
     .custom-form-layout input { border-radius: 8px; padding: 10px 15px; border: 1px solid #ddd; transition: 0.3s; }
     .custom-form-layout input:focus { border-color: #198754; box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25); outline: none; }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Khởi tạo bản đồ, mặc định zoom ở khu vực TP.HCM / Biên Hòa
+        var mapPicker = L.map('mapPicker').setView([10.8231, 106.6297], 11);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(mapPicker);
+
+        // Tạo 1 Marker có thể kéo thả được
+        var marker = L.marker([10.8231, 106.6297], {draggable: true}).addTo(mapPicker);
+
+        var latInput = document.getElementById('lat_input');
+        var lngInput = document.getElementById('lng_input');
+
+        // Hàm cập nhật giá trị vào ô input
+        function updateInputs(lat, lng) {
+            latInput.value = lat.toFixed(6);
+            lngInput.value = lng.toFixed(6);
+        }
+
+        mapPicker.on('click', function(e) {
+            marker.setLatLng(e.latlng);
+            updateInputs(e.latlng.lat, e.latlng.lng);
+        });
+        marker.on('dragend', function(e) {
+            var position = marker.getLatLng();
+            updateInputs(position.lat, position.lng);
+        });
+        function updateMapFromInput() {
+            var lat = parseFloat(latInput.value);
+            var lng = parseFloat(lngInput.value);
+            
+            if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+                var newLatLng = new L.LatLng(lat, lng);
+                marker.setLatLng(newLatLng);
+                mapPicker.setView(newLatLng, 15); // Zoom gần vào điểm vừa nhập
+            }
+        }
+
+        latInput.addEventListener('input', updateMapFromInput);
+        lngInput.addEventListener('input', updateMapFromInput);
+    });
+</script>
 {% endblock %}

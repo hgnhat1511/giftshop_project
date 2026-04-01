@@ -6,62 +6,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gift Shop</title>
     
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- File CSS riêng của bạn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
-    body { font-family: 'Poppins', sans-serif; background: #f5f6fa; margin: 0; }
-    
-    /* 🚀 CHIÊU CUỐI: ÉP CONTAINER VỀ CHUẨN BOOTSTRAP, KHÔNG CHO PHÉP FLEX GÂY LỆCH */
-    .container {
-        display: block !important; /* Chặn đứng cái display: flex ở file style.css */
-        width: 100% !important;
-        max-width: 1140px !important; /* Chuẩn Bootstrap 5 */
-        margin-right: auto !important;
-        margin-left: auto !important;
-    }
+        body { font-family: 'Poppins', sans-serif; background: #f5f6fa; margin: 0; }
+        
+        /* Cấu trúc Container chuẩn */
+        .container {
+            display: block !important;
+            width: 100% !important;
+            max-width: 1140px !important;
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
 
-    /* Đảm bảo Navbar vẫn hiển thị đúng dù bị ép ở trên */
-    nav .container {
-        display: flex !important;
-    }
+        nav .container {
+            display: flex !important;
+        }
 
-    .main-content { min-height: 80vh; padding-top: 20px; padding-bottom: 50px; }
-</style>
+        .main-content { min-height: 80vh; padding-top: 20px; padding-bottom: 50px; }
+
+        /* Style cho phần Phản hồi mới */
+        .feedback-section {
+            background: #ffffff;
+            border-top: 1px solid #eee;
+            padding: 60px 0;
+        }
+        .feedback-card {
+            background: #f8f9fa;
+            border-radius: 20px;
+            border: none;
+            transition: 0.3s;
+        }
+        .feedback-card:focus-within {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #dee2e6;
+        }
+        .footer-main a { transition: 0.3s; }
+        .footer-main a:hover { color: #b71c1c !important; }
+    </style>
 </head>
 <body>
 
-    <!-- Gọi thanh Menu xịn của bạn -->
     {% include 'navbar.html' %}
 
-    <!-- Container chuẩn của Bootstrap để tự động căn giữa -->
     <main class="container main-content">
-        
-        <!-- Khu vực hiển thị thông báo (Thành công/Lỗi) -->
         {% if messages %}
             <div class="row justify-content-center mb-4">
                 <div class="col-md-8">
                     {% for message in messages %}
                         <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
                             {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-alert="alert" aria-label="Close"></button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         {% endif %}
 
-        <!-- Nơi chứa nội dung của từng trang -->
         {% block content %}
         {% endblock %}
-        
     </main>
 
-    <!-- JS của Bootstrap và JQuery -->
+    <section class="feedback-section">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <div class="pe-lg-4">
+                        <h2 class="fw-bold text-dark mb-3 text-uppercase">💌 Ý kiến của bạn</h2>
+                        <p class="text-muted fs-5">Giftshop chúng tôi luôn lắng nghe mọi chia sẻ của bạn để hoàn thiện dịch vụ tốt hơn mỗi ngày. Hãy để lại lời nhắn cho chúng mình nhé!</p>
+                        <div class="mt-4 d-none d-lg-block">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-danger rounded-circle p-2 me-2"><i class="fas fa-phone-alt"></i></span>
+                                <span class="fw-bold">0901 333 107</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-primary rounded-circle p-2 me-2"><i class="fas fa-envelope"></i></span>
+                                <span class="fw-bold">nhocemline107@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="card feedback-card p-4 shadow-sm">
+                        <form action="{% url 'submit_feedback' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted text-uppercase">Email của bạn</label>
+                                <input type="email" name="email" class="form-control rounded-pill px-4 py-2 border-0"
+                                        placeholder="ví dụ: nhatpro@gmail.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted text-uppercase">Nội dung góp ý / Phản ánh</label>
+                                <textarea name="message" class="form-control px-4 py-3 border-0" rows="4"
+                                        placeholder="Bạn cảm thấy thế nào về sản phẩm và dịch vụ của shop?"
+                                        style="border-radius: 15px;" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark rounded-pill w-100 py-3 fw-bold text-uppercase shadow">
+                                Gửi ý kiến ngay <i class="fas fa-paper-plane ms-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-main py-5 bg-white border-top">
+        <div class="container">
+            <div class="row g-4 text-muted small">
+                <div class="col-md-4">
+                    <img src="https://nhocgiftshop.com/static/version1711684346/frontend/Nhanh/nhoc/vi_VN/images/logo.png" width="160" class="mb-3">
+                    <p class="pe-md-4">Hệ thống quà tặng, gấu bông & phụ kiện hàng đầu Việt Nam. Nơi gửi gắm yêu thương qua từng món quà.</p>
+                    <img src="https://nhocgiftshop.com/media/wysiwyg/da-thong-bao-bo-cong-thuong.png" width="130">
+                </div>
+
+                <div class="col-md-3">
+                    <h6 class="fw-bold text-dark mb-3 text-uppercase">Hệ thống cửa hàng</h6>
+                    <p class="mb-2">📍 107 Nguyễn Trãi, P. Chợ Đói, HCM</p>
+                    <p class="mb-2">📍 219 Võ Văn Ngân, P. Thủ Đức, HCM</p>
+                    <p class="mb-2">📍 159 Ba Cu, P. Vũng Tàu, HCM</p>
+                    <p class="text-danger fw-bold mt-2">MỞ CỬA: 8H - 22H</p>
+                </div>
+
+                <div class="col-md-2">
+                    <h6 class="fw-bold text-dark mb-3 text-uppercase">Hỗ trợ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted text-decoration-none d-block mb-2">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none d-block mb-2">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none d-block mb-2">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none d-block mb-2">Bảo mật thông tin</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 text-md-end text-center">
+                    <h6 class="fw-bold text-dark mb-3 text-uppercase">Kết nối với chúng tôi</h6>
+                    <p class="mb-1 text-primary fw-bold">sandbox.smtp.mailtrap.io</p>
+                    <p class="mb-3">📞 Hotline: 0901 333 107</p>
+                    <div class="d-flex gap-3 fs-3 justify-content-center justify-content-md-end text-dark">
+                        <a href="#" class="text-dark"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="mt-5 opacity-10">
+            <div class="text-center text-muted small mt-4">
+                © 2026 <strong>Gift Shop</strong> - Thiết kế chuyên nghiệp bởi <strong>Chúng tôi</strong>.
+            </div>
+        </div>
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

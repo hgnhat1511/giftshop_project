@@ -1,124 +1,125 @@
 {% extends "base.html" %}
+
 {% block content %}
-
-<div class="sidebar-layout">
-    <div class="sidebar">
-        <div class="menu-title">Menu Quản Trị</div>
-        <a href="/" class="task">🏠 Trang chủ</a>
-        <a href="/products/manage/" class="task">📦 Quản lý sản phẩm</a>
-        
-        <a href="{% url 'admin_orders' %}" class="task active">🛒 Quản lý đơn hàng</a>
-        
-        <a href="{% url 'admin_store_list' %}" class="task">🏢 Quản lý cửa hàng</a>
+<div class="container mt-4 mb-5">
+    <div class="hero-banner mb-4 text-center p-5 text-white rounded shadow-sm" 
+         style="background: linear-gradient(135deg, #f57c00 0%, #ff9800 100%);">
+        <div class="d-flex align-items-center justify-content-center gap-3">
+             <img src="https://cdn-icons-png.flaticon.com/512/3500/3500833.png" width="60" alt="admin-icon" style="filter: brightness(0) invert(1);">
+             <div>
+                <h1 class="fw-bold mb-0 text-uppercase">Quản lý đơn hàng</h1>
+                <p class="fs-5 opacity-75">Theo dõi và xử lý đơn hàng của khách hàng toàn hệ thống</p>
+             </div>
+        </div>
     </div>
 
-    <div class="product-area">
-        <div class="hero-banner" style="background: #fd7e14;">
-            <div class="hero-text">
-                <h1>Quản lý đơn hàng</h1>
-                <p>Theo dõi và xử lý đơn hàng của khách hàng</p>
+    <div class="search-box mb-4 bg-white p-3 rounded-pill shadow-sm border">
+        <form method="get" class="d-flex align-items-center px-2 gap-2">
+            <div class="flex-grow-1 d-flex align-items-center">
+                <span class="text-muted ms-2">🔍</span>
+                <input type="text" name="search" class="form-control border-0 shadow-none" 
+                       placeholder="Tìm tên khách hàng hoặc tên sản phẩm..." value="{{ query|default:'' }}">
             </div>
-        </div>
+            
+            <button type="submit" class="btn btn-dark rounded-pill px-4 fw-bold">Tìm kiếm</button>
+            
+            {% if query %}
+                <a href="{% url 'admin_orders' %}" class="btn btn-light rounded-pill border text-decoration-none">Hủy lọc</a>
+            {% endif %}
+        </form>
+    </div>
 
-        <div class="card shadow-sm border-0 mt-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Mã ĐH</th>
-                            <th>Khách hàng</th>
-                            <th>Sản phẩm</th>
-                            <th class="text-center">Số lượng</th>
-                            <th>Trạng thái hiện tại</th>
-                            <th>Cập nhật trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for order in orders %}
-                        <tr>
-                            <td class="fw-bold">#{{ order.id }}</td>
-                            <td>{{ order.user.username }}</td>
-                            <td>{{ order.product.name }}</td>
-                            <td class="text-center">{{ order.quantity }}</td>
-                            
-                            <td>
-                                {% if order.status == 'pending' %}
-                                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
-                                {% elif order.status == 'shipping' %}
-                                    <span class="badge bg-primary">Đang giao hàng</span>
-                                {% elif order.status == 'completed' %}
-                                    <span class="badge bg-success">Hoàn thành</span>
-                                {% elif order.status == 'cancelled' %}
-                                    <span class="badge bg-danger">Đã hủy</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">{{ order.status }}</span>
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden bg-white">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4 py-3">Mã đơn</th>
+                        <th class="py-3">Khách hàng</th>
+                        <th class="py-3">Sản phẩm</th>
+                        <th class="py-3 text-center">SL</th>
+                        <th class="py-3">Trạng thái hiện tại</th>
+                        <th class="py-3 text-end pe-4">Cập nhật trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td class="ps-4 fw-bold">#{{ order.id }}</td>
+                        <td>
+                            <div class="fw-bold text-dark">{{ order.user.username }}</div>
+                            <small class="text-muted">{{ order.user.email }}</small>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                {% if order.product.image %}
+                                    <img src="{{ order.product.image.url }}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
                                 {% endif %}
-                            </td>
-
-                            <td>
-                                <form method="POST" action="{% url 'update_order_status' order.id %}" class="d-flex gap-2">
-                                    {% csrf_token %}
-                                    <select name="status" class="form-select form-select-sm" style="width: 140px;">
-                                        <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Chờ xử lý</option>
-                                        <option value="shipping" {% if order.status == 'shipping' %}selected{% endif %}>Đang giao</option>
-                                        <option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Hoàn thành</option>
-                                        <option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Đã hủy</option>
-                                    </select>
-                                    <button type="submit" class="btn btn-sm btn-dark">Lưu</button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
-                                <h5>Chưa có đơn hàng nào!</h5>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                                <span class="text-truncate" style="max-width: 200px;">{{ order.product.name }}</span>
+                            </div>
+                        </td>
+                        <td class="text-center fw-bold">{{ order.quantity }}</td>
+                        <td>
+                            {% if order.status == 'pending' %}
+                                <span class="badge rounded-pill bg-warning text-dark px-3 py-2">Chờ xử lý</span>
+                            {% elif order.status == 'shipping' %}
+                                <span class="badge rounded-pill bg-info text-white px-3 py-2">Đang giao</span>
+                            {% elif order.status == 'completed' %}
+                                <span class="badge rounded-pill bg-success text-white px-3 py-2">Hoàn thành</span>
+                            {% elif order.status == 'cancelled' %}
+                                <span class="badge rounded-pill bg-danger text-white px-3 py-2">Đã hủy</span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-secondary text-white px-3 py-2">{{ order.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            <form action="{% url 'update_order_status' order.id %}" method="POST" class="d-flex gap-2 justify-content-end">
+                                {% csrf_token %}
+                                <select name="status" class="form-select form-select-sm rounded-pill" style="width: 140px;">
+                                    <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Chờ xử lý</option>
+                                    <option value="shipping" {% if order.status == 'shipping' %}selected{% endif %}>Đang giao</option>
+                                    <option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Hoàn thành</option>
+                                    <option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Đã hủy</option>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-dark rounded-pill px-3">Lưu</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <h5>Chưa có đơn hàng nào cần xử lý!</h5>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+
+    {% if orders.has_other_pages %}
+    <nav class="mt-5">
+        <ul class="pagination justify-content-center">
+            {% if orders.has_previous %}
+                <li class="page-item"><a class="page-link rounded-circle mx-1 border-0 shadow-sm text-dark" href="?page={{ orders.previous_page_number }}{% if query %}&search={{ query }}{% endif %}">&laquo;</a></li>
+            {% endif %}
+            
+            <li class="page-item active"><span class="page-link rounded-circle mx-1 border-0 shadow-sm bg-dark">{{ orders.number }}</span></li>
+
+            {% if orders.has_next %}
+                <li class="page-item"><a class="page-link rounded-circle mx-1 border-0 shadow-sm text-dark" href="?page={{ orders.next_page_number }}{% if query %}&search={{ query }}{% endif %}">&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 </div>
 
 <style>
-    /* 1. Tổng thể layout */
-    .sidebar-layout { display: flex; min-height: 100vh; background: #f8f9fa; }
-    .sidebar { width: 250px; background: #fff; padding: 20px; border-right: 1px solid #ddd; }
-    .product-area { flex: 1; padding: 20px; }
-
-    /* 2. SỬA LỖI ĐỒNG BỘ MENU (ÉP PHẢI NGHE LỜI) */
-    /* Nhắm thẳng vào thẻ <a> có class 'task' nằm trong '.sidebar' */
-    .sidebar a.task {
-        display: block;
-        padding: 12px;
-        margin-bottom: 5px;
-        border-radius: 8px;
-        text-decoration: none !important; /* Xóa gạch chân vĩnh viễn */
-        color: #333 !important;           /* Ép về màu đen/xám */
-        transition: 0.2s all;
-    }
-
-    /* Khi di chuột vào (Hover) */
-    .sidebar a.task:hover {
-        background-color: #f1f1f1;
-        color: #0d6efd !important;
-        text-decoration: none !important;
-    }
-
-    /* Khi mục đó đang được chọn (ACTIVE) */
-    .sidebar a.task.active {
-        background-color: #0d6efd !important; /* Nền xanh dương rực rỡ */
-        color: #fff !important;               /* Chữ trắng tinh */
-        font-weight: bold;
-        text-decoration: none !important;
-    }
-
-    /* 3. Giao diện nội dung banner */
-    .hero-banner { color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; }
-    .menu-title { font-weight: bold; margin-bottom: 15px; color: #888; font-size: 0.85rem; text-transform: uppercase; }
-    .hero-text h1 { margin: 0 0 5px 0; font-weight: bold; }
-    .hero-text p { margin: 0; opacity: 0.9; }
+    body { background-color: #f4f7f6; }
+    .hero-banner { border-radius: 15px !important; }
+    .table thead th { font-size: 0.85rem; letter-spacing: 0.5px; border: none; }
+    .table tbody td { padding: 1rem 0.5rem; border-bottom: 1px solid #eee; }
+    .page-link { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+    .form-select-sm { font-size: 0.8rem; }
 </style>
 {% endblock %}

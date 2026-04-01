@@ -1,35 +1,137 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>🛒 Giỏ hàng của bạn</h2>
-    
-    {% if cart_items %}
-        <table class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th>Sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Giá</th>
-                    <th>Tổng cộng</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.product.price }} đ</td>
-                    <td>{% widthratio item.product.price 1 item.quantity %} đ</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <h4 class="text-end text-danger">Tổng tiền: {{ total_price }} đ</h4>
-        <a href="{% url 'checkout' %}" class="btn btn-success float-end">Thanh toán ngay</a>
-    {% else %}
-        <div class="alert alert-warning mt-3">Giỏ hàng của bạn đang trống!</div>
-        <a href="{% url 'home' %}" class="btn btn-primary">Tiếp tục mua sắm</a>
-    {% endif %}
+<div class="container mt-5 mb-5">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="fw-bold text-dark mb-0">🛒 Giỏ hàng của bạn</h2>
+        <span class="badge bg-primary rounded-pill ms-3 px-3">{{ cart_items.count }} món</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4 py-3 text-uppercase small fw-bold text-muted">Sản phẩm</th>
+                                <th class="py-3 text-uppercase small fw-bold text-muted text-center">Số lượng</th>
+                                <th class="py-3 text-uppercase small fw-bold text-muted text-end pe-4">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr>
+                                <td class="ps-4 py-4">
+                                    <div class="d-flex align-items-center">
+                                        {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" class="rounded-3 me-3 shadow-sm" style="width: 80px; height: 80px; object-fit: cover;">
+                                        {% else %}
+                                            <div class="bg-light rounded-3 me-3 d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                                                <small class="text-muted">No Image</small>
+                                            </div>
+                                        {% endif %}
+                                        <div>
+                                            <h6 class="mb-1 fw-bold text-dark">{{ item.product.name }}</h6>
+                                            <p class="mb-0 text-danger fw-bold small">{{ item.product.price|floatformat:0 }} đ</p>
+                                            <small class="text-muted">Kho còn: {{ item.product.stock }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                <td class="text-center">
+                                    <div class="d-inline-flex align-items-center border rounded-pill bg-light p-1">
+                                        <a href="{% url 'update_cart' item.id 'decrease' %}" 
+                                           class="btn btn-sm btn-white rounded-circle fw-bold shadow-sm" 
+                                           style="width: 32px; height: 32px; background: white;">
+                                            -
+                                        </a>
+                                        
+                                        <span class="mx-3 fw-bold" style="min-width: 25px;">{{ item.quantity }}</span>
+                                        
+                                        <a href="{% url 'update_cart' item.id 'increase' %}" 
+                                           class="btn btn-sm btn-white rounded-circle fw-bold shadow-sm"
+                                           style="width: 32px; height: 32px; background: white;">
+                                            +
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="text-end pe-4 fw-bold text-dark">
+                                    {% widthratio item.product.price 1 item.quantity %} đ
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center py-5">
+                                    <div class="py-4">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" width="100" class="mb-3 opacity-25">
+                                        <h5 class="text-muted">Giỏ hàng của bạn đang trống!</h5>
+                                        <a href="{% url 'home' %}" class="btn btn-primary rounded-pill mt-3 px-4 shadow-sm">Bắt đầu mua sắm</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <a href="{% url 'home' %}" class="btn btn-link mt-3 text-muted text-decoration-none">← Tiếp tục chọn thêm món khác</a>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4 p-4 bg-white sticky-top" style="top: 20px;">
+                <h5 class="fw-bold mb-4">Tóm tắt đơn hàng</h5>
+                
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Tạm tính:</span>
+                    <span class="fw-bold text-dark">{{ total_price|floatformat:0 }} đ</span>
+                </div>
+                <div class="d-flex justify-content-between mb-4">
+                    <span class="text-muted">Giao hàng:</span>
+                    <span class="text-success fw-bold small">Miễn phí toàn quốc</span>
+                </div>
+                
+                <hr class="opacity-10">
+                
+                <div class="d-flex justify-content-between mb-4">
+                    <h5 class="fw-bold">Tổng thanh toán:</h5>
+                    <h5 class="fw-bold text-danger">{{ total_price|floatformat:0 }} đ</h5>
+                </div>
+
+                {% if cart_items %}
+                    <a href="{% url 'checkout' %}" 
+                       class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-sm py-3"
+                       onclick="return confirm('Bạn chắc chắn muốn thanh toán đơn hàng này?');">
+                        THANH TOÁN NGAY
+                    </a>
+                {% else %}
+                    <button class="btn btn-secondary btn-lg w-100 rounded-pill fw-bold py-3" disabled>
+                        GIỎ HÀNG TRỐNG
+                    </button>
+                {% endif %}
+                
+                <div class="mt-4 p-3 bg-light rounded-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <small class="text-success me-2">✔</small>
+                        <small class="text-muted">Đảm bảo hàng chính hãng</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <small class="text-success me-2">✔</small>
+                        <small class="text-muted">Đổi trả trong 7 ngày</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    body { background-color: #f8f9fa; }
+    .table tbody td { border-bottom: 1px solid #f8f9fa; }
+    .card { border-radius: 20px !important; }
+    .btn-primary { background: #0d6efd; border: none; }
+    .btn-primary:hover { background: #0b5ed7; }
+    .btn-white:hover { background: #f1f1f1 !important; }
+</style>
 {% endblock %}
