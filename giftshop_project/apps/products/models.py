@@ -1,16 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.utils.text import slugify # Thêm để tạo link đẹp
+from django.utils.text import slugify
 
 # ==========================================
-# 1. BẢNG DANH MỤC (MỚI THÊM)
+# 1. BẢNG DANH MỤC
 # ==========================================
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên danh mục")
     slug = models.SlugField(unique=True, blank=True, null=True)
 
-    # Tự động tạo slug (ví dụ: "Gấu bông" -> "gau-bong")
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -23,12 +22,10 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 # ==========================================
-# 2. BẢNG SẢN PHẨM (ĐÃ THÊM CATEGORY)
+# 2. BẢNG SẢN PHẨM CHÍNH
 # ==========================================
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    
-    # KẾT NỐI SẢN PHẨM VỚI DANH MỤC Ở ĐÂY
     category = models.ForeignKey(
         Category, 
         on_delete=models.SET_NULL, 
@@ -37,7 +34,6 @@ class Product(models.Model):
         related_name='products',
         verbose_name="Danh mục"
     )
-    
     price = models.IntegerField()
     stock = models.IntegerField(default=0)
     description = models.TextField()
@@ -47,7 +43,7 @@ class Product(models.Model):
         return self.name
 
 # ==========================================
-# 3. BẢNG ĐÁNH GIÁ (GIỮ NGUYÊN)
+# 3. BẢNG ĐÁNH GIÁ
 # ==========================================
 class Rating(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -56,7 +52,7 @@ class Rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 # ==========================================
-# 4. BẢNG CỬA HÀNG (GIỮ NGUYÊN)
+# 4. BẢNG CỬA HÀNG (GIS)
 # ==========================================
 class Store(models.Model):
     name = models.CharField(max_length=255)
@@ -73,3 +69,13 @@ class Store(models.Model):
 
     def __str__(self):
         return self.name
+
+# ==========================================
+# 5. BẢNG ẢNH PHỤ SẢN PHẨM (THƯ VIỆN ẢNH)
+# ==========================================
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='gallery_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='products/gallery/')
+    
+    def __str__(self):
+        return f"Ảnh phụ của {self.product.name}"
