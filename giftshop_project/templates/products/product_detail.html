@@ -11,15 +11,25 @@
 
     <div class="row g-5">
         <div class="col-md-6">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden p-2 bg-white">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden p-2 bg-white mb-3">
                 {% if product.image %}
-                    <img src="{{ product.image.url }}" class="img-fluid rounded-4 w-100 shadow-sm" alt="{{ product.name }}" style="max-height: 500px; object-fit: contain;">
+                    <img id="mainProductImage" src="{{ product.image.url }}" class="img-fluid rounded-4 w-100" alt="{{ product.name }}" style="max-height: 500px; object-fit: contain; transition: 0.3s;">
                 {% else %}
                     <div class="bg-light d-flex justify-content-center align-items-center rounded-4" style="height: 400px;">
                         <span class="text-muted">Không có hình ảnh</span>
                     </div>
                 {% endif %}
             </div>
+
+            {% if product.image %}
+            <div class="thumbnail-gallery d-flex gap-2 overflow-auto py-2">
+                <img src="{{ product.image.url }}" class="thumb-img rounded-3 shadow-sm" style="min-width: 80px; height: 80px; object-fit: cover; cursor: pointer; border: 2px solid #0d6efd;" onclick="changeMainImage(this, '{{ product.image.url }}')" alt="Thumbnail">
+
+                {% for img in product.gallery_images.all %}
+                    <img src="{{ img.image.url }}" class="thumb-img rounded-3 shadow-sm" style="min-width: 80px; height: 80px; object-fit: cover; cursor: pointer; border: 2px solid transparent;" onclick="changeMainImage(this, '{{ img.image.url }}')" alt="Gallery Image">
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
 
         <div class="col-md-6">
@@ -119,11 +129,39 @@
     </div>
 </div>
 
+<script>
+    function changeMainImage(clickedImg, newSrc) {
+        // 1. Đổi ảnh chính
+        document.getElementById('mainProductImage').src = newSrc;
+
+        // 2. Tắt viền xanh của tất cả ảnh nhỏ
+        let thumbs = document.querySelectorAll('.thumb-img');
+        thumbs.forEach(thumb => {
+            thumb.style.borderColor = 'transparent';
+        });
+
+        // 3. Bật viền xanh cho ảnh vừa được click
+        clickedImg.style.borderColor = '#0d6efd'; // Màu xanh của Bootstrap
+    }
+</script>
+
 <style>
     body { background-color: #fcfcfc; }
     .breadcrumb-item + .breadcrumb-item::before { content: ">"; }
     .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover { border-color: transparent; }
     .product-info h1 { letter-spacing: -0.5px; }
     input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    
+    /* Ẩn thanh cuộn (scrollbar) cho dải ảnh nhỏ để nhìn gọn gàng hơn */
+    .thumbnail-gallery::-webkit-scrollbar {
+        height: 6px;
+    }
+    .thumbnail-gallery::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+    }
+    .thumbnail-gallery:hover::-webkit-scrollbar-thumb {
+        background-color: #888;
+    }
 </style>
 {% endblock %}
