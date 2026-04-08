@@ -20,8 +20,8 @@
                     
                     {% if user.is_staff %}
                     <li class="nav-item dropdown ms-lg-3">
-                        <a class="nav-link dropdown-toggle text-warning fw-bold border border-warning rounded-pill px-3" 
-                           href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle text-warning fw-bold border border-warning rounded-pill px-3"
+                            href="#" role="button" data-bs-toggle="dropdown">
                             ⚙️ Quản lý hệ thống
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2">
@@ -29,6 +29,7 @@
                             <li><a class="dropdown-item py-2" href="{% url 'admin_products' %}">📦 Quản lý Sản phẩm</a></li>
                             <li><a class="dropdown-item py-2" href="{% url 'admin_store_list' %}">🏢 Quản lý Chi nhánh</a></li>
                             <li><a class="dropdown-item py-2" href="{% url 'admin_user_list' %}">👥 Quản lý Tài khoản</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'admin_categories' %}">📁 Quản lý Danh mục</a></li>
                         </ul>
                     </li>
                     {% endif %}

@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
-from .models import Product, Rating, Store, Category # <== THÊM IMPORT CATEGORY
+from .models import Product, Rating, Store, Category,ProductImage
 from apps.orders.models import Order
 from django.db.models import Q
 
@@ -224,15 +224,28 @@ def add_product(request):
         category_id = request.POST.get("category_id")
         category = Category.objects.filter(id=category_id).first() if category_id else None
 
-        Product.objects.create(
+        # 1. Lưu sản phẩm chính trước
+        new_product = Product.objects.create(
             name=request.POST.get("name"),
-            category=category, # <== Lưu danh mục
+            category=category, 
             price=request.POST.get("price", 0),
             stock=request.POST.get("stock", 0),
             description=request.POST.get("description"),
-            image=request.FILES.get("image")
+            image=request.FILES.get("image") # Đây là ảnh chính
         )
-        messages.success(request, "Đã thêm sản phẩm thành công!")
+        
+        # ==========================================
+        # 2. XỬ LÝ UPLOAD NHIỀU ẢNH PHỤ (GALLERY)
+        # ==========================================
+        # Lấy danh sách tất cả các file ảnh có tên là 'gallery' từ form
+        gallery_images = request.FILES.getlist('gallery')
+        
+        # Vòng lặp lưu từng ảnh vào bảng ProductImage
+        for img in gallery_images:
+            ProductImage.objects.create(product=new_product, image=img)
+        # ==========================================
+
+        messages.success(request, "Đã thêm sản phẩm và ảnh phụ thành công!")
         return redirect("admin_products")
     
     categories = Category.objects.all()
@@ -244,8 +257,9 @@ def edit_product(request, id):
         category_id = request.POST.get("category_id")
         category = Category.objects.filter(id=category_id).first() if category_id else None
 
+        # 1. Cập nhật thông tin sản phẩm chính
         product.name = request.POST.get("name")
-        product.category = category # <== Cập nhật danh mục
+        product.category = category 
         product.price = request.POST.get("price")
         product.stock = request.POST.get("stock")
         product.description = request.POST.get("description")
@@ -254,6 +268,24 @@ def edit_product(request, id):
             product.image = request.FILES.get("image")
             
         product.save()
+        
+        # ==========================================
+        # 2. XÓA ẢNH PHỤ NẾU NGƯỜI DÙNG TÍCH CHỌN
+        # ==========================================
+        # Lấy danh sách các ID ảnh mà người dùng đã tích vào ô Xóa
+        delete_image_ids = request.POST.getlist('delete_images')
+        if delete_image_ids:
+            # Lệnh filter(id__in=...) giúp tìm và xóa nhiều ảnh cùng 1 lúc cực nhanh
+            ProductImage.objects.filter(id__in=delete_image_ids).delete()
+        
+        # ==========================================
+        # 3. UPLOAD THÊM ẢNH PHỤ MỚI (NẾU CÓ)
+        # ==========================================
+        gallery_images = request.FILES.getlist('gallery')
+        for img in gallery_images:
+            ProductImage.objects.create(product=product, image=img)
+        # ==========================================
+
         messages.success(request, "Đã cập nhật sản phẩm thành công!")
         return redirect("admin_products")
         
@@ -265,3 +297,45 @@ def delete_product(request, id):
     product.delete()
     messages.success(request, "Đã xóa sản phẩm!")
     return redirect("admin_products")
+
+# ==========================================
+# PHẦN 4: QUẢN LÝ DANH MỤC (CATEGORY)
+# ==========================================
+
+@staff_member_required
+def admin_categories(request):
+    """Trang danh sách Danh mục cho Admin"""
+    categories = Category.objects.all().order_by('-id')
+    return render(request, 'products/admin_category_list.html', {'categories': categories})
+
+@staff_member_required
+def add_category(request):
+    """Trang thêm Danh mục"""
+    if request.method == "POST":
+        name = request.POST.get("name")
+        if name:
+            Category.objects.create(name=name)
+            messages.success(request, "Đã thêm danh mục thành công!")
+            return redirect('admin_categories')
+    return render(request, 'products/add_category.html')
+
+@staff_member_required
+def edit_category(request, id):
+    """Trang sửa Danh mục"""
+    category = get_object_or_404(Category, id=id)
+    if request.method == "POST":
+        name = request.POST.get("name")
+        if name:
+            category.name = name
+            category.save()
+            messages.success(request, "Đã cập nhật danh mục thành công!")
+            return redirect('admin_categories')
+    return render(request, 'products/add_category.html', {'category': category})
+
+@staff_member_required
+def delete_category(request, id):
+    """Xóa Danh mục"""
+    category = get_object_or_404(Category, id=id)
+    category.delete()
+    messages.success(request, "Đã xóa danh mục!")
+    return redirect('admin_categories')
