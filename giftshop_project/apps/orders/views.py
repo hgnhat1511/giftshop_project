@@ -147,7 +147,7 @@ def checkout(request):
     # Gửi mail HTML chạy ngầm
     threading.Thread(target=send_email_thread, args=(subject, html_content, [request.user.email])).start()
 
-    messages.success(request, "🎉 Thanh toán thành công! Hóa đơn HTML đã được gửi về Mailtrap.")
+    messages.success(request, "🎉 Thanh toán thành công! Hóa đơn đã được gửi về Mailtrap.")
     return redirect('my_orders')
 
 # ==========================================
@@ -169,9 +169,42 @@ def admin_orders(request):
 def update_order_status(request, id):
     if request.method == "POST":
         order = get_object_or_404(Order, id=id)
-        order.status = request.POST.get('status')
-        order.save()
-        messages.success(request, f"✅ Đã cập nhật trạng thái đơn hàng #{order.id}!")
+        new_status = request.POST.get('status')
+        
+        # Chỉ gửi mail nếu trạng thái THỰC SỰ có sự thay đổi
+        if order.status != new_status:
+            order.status = new_status
+            order.save()
+            
+            # Từ điển dịch mã trạng thái sang tiếng Việt cho đẹp để gửi mail
+            status_dict = {
+                'pending': '⏳ Đang chờ xử lý',
+                'shipping': '🚚 Đang giao hàng',
+                'delivered': '✅ Đã giao thành công',
+                'cancelled': '❌ Đã hủy'
+            }
+            readable_status = status_dict.get(new_status, new_status)
+            
+            # Chuẩn bị nội dung Email
+            subject = f"📦 Cập nhật trạng thái đơn hàng #{order.id} - Gift Shop"
+            message = (
+                f"Chào {order.user.username},\n\n"
+                f"Đơn hàng #{order.id} của bạn (sản phẩm: {order.product.name}) "
+                f"vừa được hệ thống cập nhật trạng thái thành: {readable_status}.\n\n"
+                f"Bạn có thể đăng nhập vào website để xem chi tiết.\n"
+                f"Cảm ơn bạn đã mua sắm tại Gift Shop!"
+            )
+            
+            # Gọi luồng chạy ngầm để gửi mail (không làm Admin bị đơ web lúc chờ gửi)
+            threading.Thread(
+                target=send_mail, 
+                args=(subject, message, settings.DEFAULT_FROM_EMAIL, [order.user.email])
+            ).start()
+            
+            messages.success(request, f"✅ Đã cập nhật đơn hàng #{order.id} và gửi email thông báo cho khách!")
+        else:
+            messages.info(request, f"ℹ️ Trạng thái đơn hàng #{order.id} không có sự thay đổi.")
+            
     return redirect('admin_orders')
 
 @login_required
