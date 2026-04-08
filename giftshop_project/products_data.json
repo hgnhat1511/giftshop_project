@@ -1,5 +1,29 @@
 [
 {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+        "name": "gấu bông",
+        "slug": "gau-bong"
+    }
+},
+{
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+        "name": "đèn ngủ",
+        "slug": "en-ngu"
+    }
+},
+{
+    "model": "products.category",
+    "pk": 3,
+    "fields": {
+        "name": "secret",
+        "slug": "secrect"
+    }
+},
+{
     "model": "products.product",
     "pk": 17,
     "fields": {
@@ -309,6 +333,716 @@
         "stock": 75,
         "description": "Tượng phi hành gia decor kết hợp đèn ngủ hắt trần tạo hiệu ứng dải ngân hà.",
         "image": "products/Mô_hình_phi_hành_gia_phát_sáng.webp"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 44,
+    "fields": {
+        "name": "Nhật Nguyễn Văn Hoàng",
+        "category": null,
+        "price": 5,
+        "stock": 7552,
+        "description": "pki",
+        "image": "products/anh3.2.jpg"
+    }
+},
+{
+    "model": "products.store",
+    "pk": 1,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 1",
+        "address": "Số 1 Đường số 43, TP.HCM",
+        "lat": 10.755962660487674,
+        "lng": 106.67960168985586,
+        "phone": "0907064876",
+        "store_type": "Gift Shop",
+        "revenue": 32386155
+    }
+},
+{
+    "model": "products.store",
+    "pk": 2,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 2",
+        "address": "Số 2 Đường số 15, TP.HCM",
+        "lat": 10.78556488817618,
+        "lng": 106.65831849515418,
+        "phone": "0903510388",
+        "store_type": "Gift Shop",
+        "revenue": 13197078
+    }
+},
+{
+    "model": "products.store",
+    "pk": 3,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 3",
+        "address": "Số 3 Đường số 26, TP.HCM",
+        "lat": 10.713332685295583,
+        "lng": 106.66505850257295,
+        "phone": "0905629199",
+        "store_type": "Gift Shop",
+        "revenue": 12153174
+    }
+},
+{
+    "model": "products.store",
+    "pk": 4,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 4",
+        "address": "Số 4 Đường số 6, TP.HCM",
+        "lat": 10.751630693010764,
+        "lng": 106.65284227679746,
+        "phone": "0908659802",
+        "store_type": "Gift Shop",
+        "revenue": 35544772
+    }
+},
+{
+    "model": "products.store",
+    "pk": 5,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 5",
+        "address": "Số 5 Đường số 29, TP.HCM",
+        "lat": 10.719278332604054,
+        "lng": 106.68353867559118,
+        "phone": "0901174877",
+        "store_type": "Gift Shop",
+        "revenue": 33841121
+    }
+},
+{
+    "model": "products.store",
+    "pk": 6,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 6",
+        "address": "Số 6 Đường số 20, TP.HCM",
+        "lat": 10.71969332235098,
+        "lng": 106.69301243772556,
+        "phone": "0904337392",
+        "store_type": "Gift Shop",
+        "revenue": 6979546
+    }
+},
+{
+    "model": "products.store",
+    "pk": 7,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 7",
+        "address": "Số 7 Đường số 42, TP.HCM",
+        "lat": 10.794147764831438,
+        "lng": 106.69414057675485,
+        "phone": "0904924325",
+        "store_type": "Gift Shop",
+        "revenue": 19448697
+    }
+},
+{
+    "model": "products.store",
+    "pk": 8,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 8",
+        "address": "Số 8 Đường số 11, TP.HCM",
+        "lat": 10.716352289285723,
+        "lng": 106.71199511438795,
+        "phone": "0905076073",
+        "store_type": "Gift Shop",
+        "revenue": 42911387
+    }
+},
+{
+    "model": "products.store",
+    "pk": 9,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 9",
+        "address": "Số 9 Đường số 43, TP.HCM",
+        "lat": 10.725612122535184,
+        "lng": 106.65235561289933,
+        "phone": "0901878380",
+        "store_type": "Gift Shop",
+        "revenue": 27567317
+    }
+},
+{
+    "model": "products.store",
+    "pk": 10,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 10",
+        "address": "Số 10 Đường số 23, TP.HCM",
+        "lat": 10.757073414943715,
+        "lng": 106.66377266047006,
+        "phone": "0901352391",
+        "store_type": "Gift Shop",
+        "revenue": 41153295
+    }
+},
+{
+    "model": "products.store",
+    "pk": 11,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 11",
+        "address": "Số 11 Đường số 38, TP.HCM",
+        "lat": 10.77880973919182,
+        "lng": 106.71512845985492,
+        "phone": "0906457206",
+        "store_type": "Gift Shop",
+        "revenue": 34125332
+    }
+},
+{
+    "model": "products.store",
+    "pk": 12,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 12",
+        "address": "Số 12 Đường số 48, TP.HCM",
+        "lat": 10.764555355516412,
+        "lng": 106.69860242772239,
+        "phone": "0905675281",
+        "store_type": "Gift Shop",
+        "revenue": 23546387
+    }
+},
+{
+    "model": "products.store",
+    "pk": 13,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 13",
+        "address": "Số 13 Đường số 41, TP.HCM",
+        "lat": 10.777729726693714,
+        "lng": 106.63063752878386,
+        "phone": "0908640517",
+        "store_type": "Gift Shop",
+        "revenue": 14029158
+    }
+},
+{
+    "model": "products.store",
+    "pk": 14,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 14",
+        "address": "Số 14 Đường số 27, TP.HCM",
+        "lat": 10.727913352636069,
+        "lng": 106.68945651870085,
+        "phone": "0908024388",
+        "store_type": "Gift Shop",
+        "revenue": 43993428
+    }
+},
+{
+    "model": "products.store",
+    "pk": 15,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 15",
+        "address": "Số 15 Đường số 1, TP.HCM",
+        "lat": 10.716503309209651,
+        "lng": 106.64117914418384,
+        "phone": "0906480200",
+        "store_type": "Gift Shop",
+        "revenue": 10687822
+    }
+},
+{
+    "model": "products.store",
+    "pk": 16,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 16",
+        "address": "Số 16 Đường số 30, TP.HCM",
+        "lat": 10.793914401834677,
+        "lng": 106.62390562444014,
+        "phone": "0907538151",
+        "store_type": "Gift Shop",
+        "revenue": 44963524
+    }
+},
+{
+    "model": "products.store",
+    "pk": 17,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 17",
+        "address": "Số 17 Đường số 16, TP.HCM",
+        "lat": 10.752783853748232,
+        "lng": 106.62801667774671,
+        "phone": "0909933272",
+        "store_type": "Gift Shop",
+        "revenue": 8150564
+    }
+},
+{
+    "model": "products.store",
+    "pk": 18,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 18",
+        "address": "Số 18 Đường số 25, TP.HCM",
+        "lat": 10.737448316648404,
+        "lng": 106.63393564881771,
+        "phone": "0905991349",
+        "store_type": "Gift Shop",
+        "revenue": 43292997
+    }
+},
+{
+    "model": "products.store",
+    "pk": 19,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 19",
+        "address": "Số 19 Đường số 14, TP.HCM",
+        "lat": 10.711987561950888,
+        "lng": 106.62025441991007,
+        "phone": "0902979519",
+        "store_type": "Gift Shop",
+        "revenue": 9557942
+    }
+},
+{
+    "model": "products.store",
+    "pk": 20,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 20",
+        "address": "Số 20 Đường số 35, TP.HCM",
+        "lat": 10.702350483886491,
+        "lng": 106.63708795795544,
+        "phone": "0906488600",
+        "store_type": "Gift Shop",
+        "revenue": 25976390
+    }
+},
+{
+    "model": "products.store",
+    "pk": 21,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 21",
+        "address": "Số 21 Đường số 15, TP.HCM",
+        "lat": 10.724629798056089,
+        "lng": 106.68763005824135,
+        "phone": "0904221592",
+        "store_type": "Gift Shop",
+        "revenue": 45456856
+    }
+},
+{
+    "model": "products.store",
+    "pk": 22,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 22",
+        "address": "Số 22 Đường số 14, TP.HCM",
+        "lat": 10.753280197048039,
+        "lng": 106.67707727549934,
+        "phone": "0901086812",
+        "store_type": "Gift Shop",
+        "revenue": 6058179
+    }
+},
+{
+    "model": "products.store",
+    "pk": 23,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 23",
+        "address": "Số 23 Đường số 8, TP.HCM",
+        "lat": 10.707690102516786,
+        "lng": 106.70784020363496,
+        "phone": "0908955714",
+        "store_type": "Gift Shop",
+        "revenue": 14623616
+    }
+},
+{
+    "model": "products.store",
+    "pk": 24,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 24",
+        "address": "Số 24 Đường số 34, TP.HCM",
+        "lat": 10.72901701270913,
+        "lng": 106.70704663954547,
+        "phone": "0903533547",
+        "store_type": "Gift Shop",
+        "revenue": 49279484
+    }
+},
+{
+    "model": "products.store",
+    "pk": 25,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 25",
+        "address": "Số 25 Đường số 2, TP.HCM",
+        "lat": 10.78849913759484,
+        "lng": 106.71184424457924,
+        "phone": "0905060436",
+        "store_type": "Gift Shop",
+        "revenue": 41931611
+    }
+},
+{
+    "model": "products.store",
+    "pk": 26,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 26",
+        "address": "Số 26 Đường số 29, TP.HCM",
+        "lat": 10.710930833069009,
+        "lng": 106.69828780755472,
+        "phone": "0903167006",
+        "store_type": "Gift Shop",
+        "revenue": 30041783
+    }
+},
+{
+    "model": "products.store",
+    "pk": 27,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 27",
+        "address": "Số 27 Đường số 24, TP.HCM",
+        "lat": 10.793695562186201,
+        "lng": 106.65753127274388,
+        "phone": "0905045180",
+        "store_type": "Gift Shop",
+        "revenue": 9638466
+    }
+},
+{
+    "model": "products.store",
+    "pk": 28,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 28",
+        "address": "Số 28 Đường số 17, TP.HCM",
+        "lat": 10.775649579183243,
+        "lng": 106.66296254699144,
+        "phone": "0907587307",
+        "store_type": "Gift Shop",
+        "revenue": 43500683
+    }
+},
+{
+    "model": "products.store",
+    "pk": 29,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 29",
+        "address": "Số 29 Đường số 28, TP.HCM",
+        "lat": 10.760216601507022,
+        "lng": 106.67674067016453,
+        "phone": "0903260704",
+        "store_type": "Gift Shop",
+        "revenue": 32143008
+    }
+},
+{
+    "model": "products.store",
+    "pk": 30,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 30",
+        "address": "Số 30 Đường số 7, TP.HCM",
+        "lat": 10.700625400450328,
+        "lng": 106.68972466174581,
+        "phone": "0907569719",
+        "store_type": "Gift Shop",
+        "revenue": 13302753
+    }
+},
+{
+    "model": "products.store",
+    "pk": 31,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 31",
+        "address": "Số 31 Đường số 16, TP.HCM",
+        "lat": 10.79027211964465,
+        "lng": 106.6832477953037,
+        "phone": "0906324659",
+        "store_type": "Gift Shop",
+        "revenue": 13747502
+    }
+},
+{
+    "model": "products.store",
+    "pk": 32,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 32",
+        "address": "Số 32 Đường số 39, TP.HCM",
+        "lat": 10.795694513229865,
+        "lng": 106.67099088955625,
+        "phone": "0909783363",
+        "store_type": "Gift Shop",
+        "revenue": 8840822
+    }
+},
+{
+    "model": "products.store",
+    "pk": 33,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 33",
+        "address": "Số 33 Đường số 10, TP.HCM",
+        "lat": 10.748110988391655,
+        "lng": 106.6276384196561,
+        "phone": "0908898082",
+        "store_type": "Gift Shop",
+        "revenue": 11009995
+    }
+},
+{
+    "model": "products.store",
+    "pk": 34,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 34",
+        "address": "Số 34 Đường số 27, TP.HCM",
+        "lat": 10.75926534650247,
+        "lng": 106.66302138789924,
+        "phone": "0904394068",
+        "store_type": "Gift Shop",
+        "revenue": 49126794
+    }
+},
+{
+    "model": "products.store",
+    "pk": 35,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 35",
+        "address": "Số 35 Đường số 33, TP.HCM",
+        "lat": 10.769847853316474,
+        "lng": 106.64604671010781,
+        "phone": "0904257867",
+        "store_type": "Gift Shop",
+        "revenue": 15589552
+    }
+},
+{
+    "model": "products.store",
+    "pk": 36,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 36",
+        "address": "Số 36 Đường số 5, TP.HCM",
+        "lat": 10.751232311836908,
+        "lng": 106.7122686797068,
+        "phone": "0901718037",
+        "store_type": "Gift Shop",
+        "revenue": 15319773
+    }
+},
+{
+    "model": "products.store",
+    "pk": 37,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 37",
+        "address": "Số 37 Đường số 6, TP.HCM",
+        "lat": 10.717010079818527,
+        "lng": 106.62187374923039,
+        "phone": "0903499689",
+        "store_type": "Gift Shop",
+        "revenue": 47726680
+    }
+},
+{
+    "model": "products.store",
+    "pk": 38,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 38",
+        "address": "Số 38 Đường số 27, TP.HCM",
+        "lat": 10.76162650443829,
+        "lng": 106.7055624273189,
+        "phone": "0904806188",
+        "store_type": "Gift Shop",
+        "revenue": 10722810
+    }
+},
+{
+    "model": "products.store",
+    "pk": 39,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 39",
+        "address": "Số 39 Đường số 1, TP.HCM",
+        "lat": 10.71808637042402,
+        "lng": 106.68310586646078,
+        "phone": "0909683729",
+        "store_type": "Gift Shop",
+        "revenue": 44944876
+    }
+},
+{
+    "model": "products.store",
+    "pk": 40,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 40",
+        "address": "Số 40 Đường số 49, TP.HCM",
+        "lat": 10.746461833858737,
+        "lng": 106.6905561290051,
+        "phone": "0908379308",
+        "store_type": "Gift Shop",
+        "revenue": 37689206
+    }
+},
+{
+    "model": "products.store",
+    "pk": 41,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 41",
+        "address": "Số 41 Đường số 45, TP.HCM",
+        "lat": 10.705336509063022,
+        "lng": 106.66917923537689,
+        "phone": "0903103564",
+        "store_type": "Gift Shop",
+        "revenue": 24622190
+    }
+},
+{
+    "model": "products.store",
+    "pk": 42,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 42",
+        "address": "Số 42 Đường số 43, TP.HCM",
+        "lat": 10.750641958848105,
+        "lng": 106.69318404555756,
+        "phone": "0901760249",
+        "store_type": "Gift Shop",
+        "revenue": 22702319
+    }
+},
+{
+    "model": "products.store",
+    "pk": 43,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 43",
+        "address": "Số 43 Đường số 9, TP.HCM",
+        "lat": 10.793815402183121,
+        "lng": 106.63513931779086,
+        "phone": "0901863905",
+        "store_type": "Gift Shop",
+        "revenue": 49381876
+    }
+},
+{
+    "model": "products.store",
+    "pk": 44,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 44",
+        "address": "Số 44 Đường số 8, TP.HCM",
+        "lat": 10.780525881190083,
+        "lng": 106.63514781559292,
+        "phone": "0904164015",
+        "store_type": "Gift Shop",
+        "revenue": 18068021
+    }
+},
+{
+    "model": "products.store",
+    "pk": 45,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 45",
+        "address": "Số 45 Đường số 9, TP.HCM",
+        "lat": 10.741098448537011,
+        "lng": 106.68371658299304,
+        "phone": "0904711319",
+        "store_type": "Gift Shop",
+        "revenue": 35369238
+    }
+},
+{
+    "model": "products.store",
+    "pk": 46,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 46",
+        "address": "Số 46 Đường số 6, TP.HCM",
+        "lat": 10.727026630212773,
+        "lng": 106.68014031644832,
+        "phone": "0902464393",
+        "store_type": "Gift Shop",
+        "revenue": 24006192
+    }
+},
+{
+    "model": "products.store",
+    "pk": 47,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 47",
+        "address": "Số 47 Đường số 7, TP.HCM",
+        "lat": 10.777971070842504,
+        "lng": 106.63338120618958,
+        "phone": "0903534918",
+        "store_type": "Gift Shop",
+        "revenue": 37974148
+    }
+},
+{
+    "model": "products.store",
+    "pk": 48,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 48",
+        "address": "Số 48 Đường số 26, TP.HCM",
+        "lat": 10.776923421161072,
+        "lng": 106.65687001560829,
+        "phone": "0906105290",
+        "store_type": "Gift Shop",
+        "revenue": 28672795
+    }
+},
+{
+    "model": "products.store",
+    "pk": 49,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 49",
+        "address": "Số 49 Đường số 10, TP.HCM",
+        "lat": 10.706037557207859,
+        "lng": 106.6390584462272,
+        "phone": "0903639548",
+        "store_type": "Gift Shop",
+        "revenue": 40976930
+    }
+},
+{
+    "model": "products.store",
+    "pk": 50,
+    "fields": {
+        "name": "Gift Shop Chi nhánh 50",
+        "address": "Số 50 Đường số 20, TP.HCM",
+        "lat": 10.794651484920278,
+        "lng": 106.66980732014932,
+        "phone": "0901063986",
+        "store_type": "Gift Shop",
+        "revenue": 27304777
+    }
+},
+{
+    "model": "products.productimage",
+    "pk": 1,
+    "fields": {
+        "product": 44,
+        "image": "products/gallery/anh1.jpg"
+    }
+},
+{
+    "model": "products.productimage",
+    "pk": 2,
+    "fields": {
+        "product": 44,
+        "image": "products/gallery/anh2.png"
+    }
+},
+{
+    "model": "products.productimage",
+    "pk": 3,
+    "fields": {
+        "product": 44,
+        "image": "products/gallery/anh3.1.jpg"
+    }
+},
+{
+    "model": "products.productimage",
+    "pk": 4,
+    "fields": {
+        "product": 44,
+        "image": "products/gallery/anh3.2.jpg"
+    }
+},
+{
+    "model": "products.productimage",
+    "pk": 5,
+    "fields": {
+        "product": 44,
+        "image": "products/gallery/anh3.4.jpg"
+    }
+},
+{
+    "model": "products.productimage",
+    "pk": 6,
+    "fields": {
+        "product": 44,
+        "image": "products/gallery/vd1.bangsinhvien.jpg"
     }
 }
 ]
