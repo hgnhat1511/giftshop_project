@@ -17,6 +17,16 @@
                             <input type="text" name="name" class="form-control" required placeholder="Nhập tên sản phẩm...">
                         </div>
 
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2">Danh mục <span class="text-danger">*</span></label>
+                            <select name="category_id" class="form-select" style="border-radius: 8px; padding: 10px 15px;" required>
+                                <option value="">-- Chọn danh mục cho sản phẩm --</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.id }}">{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="fw-bold mb-2">Giá (VNĐ) <span class="text-danger">*</span></label>
@@ -37,6 +47,24 @@
                             <label class="fw-bold mb-2">Hình ảnh sản phẩm</label>
                             <input type="file" name="image" class="form-control" accept="image/*">
                         </div>
+                        <div class="mb-4 p-3 border rounded bg-light">
+    <label class="fw-bold mb-2">Thêm ảnh phụ (Có thể quét chuột chọn nhiều ảnh cùng lúc):</label>
+
+    <input type="file" name="gallery" multiple class="form-control" accept="image/*">
+
+    {% if product.gallery_images.all %}
+    <div class="mt-3">
+        <p class="text-muted small mb-1">Các ảnh phụ hiện tại:</p>
+        <div class="d-flex gap-2 flex-wrap">
+            {% for img in product.gallery_images.all %}
+                <div style="position: relative;">
+                    <img src="{{ img.image.url }}" class="rounded shadow-sm" style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd;">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
 
                         <hr class="text-muted">
                         

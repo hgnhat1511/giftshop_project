@@ -1,64 +1,61 @@
-<!-- navbar.html -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold" href="{% url 'home' %}">🎁 Gift Shop</a>
+        <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">🎁 Gift Shop</a>
         
-        <!-- Nút bấm trên Mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Menu chính -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'home' %}">🏠 Trang chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'store_list' %}">📍 Tìm cửa hàng (GIS)</a>
-                </li>
-
-                <!-- Menu Quản lý (Chỉ Admin thấy) -->
-                {% if user.is_authenticated and user.is_staff %}
-                <li class="nav-item dropdown ms-lg-3">
-                    <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown">
-                        ⚙️ Quản lý hệ thống
-                    </a>
-                    <ul class="dropdown-menu shadow border-0">
-                        <li><a class="dropdown-item" href="{% url 'admin_products' %}">📦 Quản lý Sản phẩm</a></li>
-                        <li><a class="dropdown-item" href="{% url 'admin_store_list' %}">🏢 Quản lý Chi nhánh</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/admin/">🖥️ Trang Admin Django</a></li>
-                    </ul>
-                </li>
-                {% endif %}
-            </ul>
-
-            <!-- Menu Phải (Tài khoản/Giỏ hàng) -->
             <ul class="navbar-nav ms-auto align-items-center">
+                
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="{% url 'home' %}">🏠 Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="{% url 'store_list' %}">📍 Cửa hàng (GIS)</a>
+                </li>
+
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
+                    
+                    {% if user.is_staff %}
+                    <li class="nav-item dropdown ms-lg-3">
+                        <a class="nav-link dropdown-toggle text-warning fw-bold border border-warning rounded-pill px-3"
+                            href="#" role="button" data-bs-toggle="dropdown">
+                            ⚙️ Quản lý hệ thống
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2">
+                            <li><a class="dropdown-item py-2" href="{% url 'admin_orders' %}">📋 Quản lý Đơn hàng</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'admin_products' %}">📦 Quản lý Sản phẩm</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'admin_store_list' %}">🏢 Quản lý Chi nhánh</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'admin_user_list' %}">👥 Quản lý Tài khoản</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'admin_categories' %}">📁 Quản lý Danh mục</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item ms-lg-3">
                         <a class="nav-link" href="{% url 'view_cart' %}">🛒 Giỏ hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_orders' %}">📦 Đơn hàng</a>
+                        <a class="nav-link" href="{% url 'my_orders' %}">📦 Đơn hàng của tôi</a>
                     </li>
                     <li class="nav-item px-lg-2">
-                        <a href="{% url 'profile' %}" class="nav-link">👤 {{ user.username }}</a>
+                        <a href="{% url 'profile' %}" class="nav-link text-info fw-medium">👤 {{ user.username }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm ms-lg-2">Đăng xuất</a>
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm ms-lg-2 rounded-pill px-3">Đăng xuất</a>
                     </li>
+
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link px-3" href="{% url 'login' %}">Đăng nhập</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'register' %}" class="btn btn-success btn-sm px-3 ms-lg-2">Đăng ký</a>
+                        <a href="{% url 'register' %}" class="btn btn-success btn-sm px-4 ms-lg-2 rounded-pill shadow-sm">Đăng ký</a>
                     </li>
                 {% endif %}
             </ul>
-        </div> <!-- Kết thúc collapse -->
-    </div> <!-- Kết thúc container -->
+        </div>
+    </div>
 </nav>

@@ -1,0 +1,17 @@
+# Python rác
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Môi trường ảo
+venv/
+env/
+
+# Database
+db.sqlite3
+
+# Các filecá nhân
+.vscode/
+.idea/
+.env

@@ -1,91 +1,159 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <aside class="col-md-3">
-            <div class="list-group shadow-sm">
-                <div class="list-group-item bg-dark text-white fw-bold text-center">MENU</div>
-                <a href="{% url 'home' %}" class="list-group-item list-group-item-action active">🏠 Trang chủ</a>
-                
-                {% if user.is_authenticated and user.is_staff %}
-                    <div class="list-group-item bg-light fw-bold small text-muted">QUẢN TRỊ</div>
-                    <a href="{% url 'admin_products' %}" class="list-group-item list-group-item-action">📦 Quản lý sản phẩm</a>
-                    <a href="{% url 'admin_store_list' %}" class="list-group-item list-group-item-action">🏢 Quản lý chi nhánh</a>
-                    <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action">📊 Thống kê Dashboard</a>
+<div class="container mt-4 mb-5">
+    <div class="hero-banner mb-4 text-center p-5 text-white rounded shadow-sm"
+        style="background: linear-gradient(135deg, #0d6efd 0%, #0099ff 100%); width: 100%;">
+        <div class="d-flex align-items-center justify-content-center gap-3">
+            <img src="https://cdn-icons-png.flaticon.com/512/1162/1162265.png" width="60" alt="icon">
+            <div>
+                <h1 class="fw-bold mb-0">Gift Shop</h1>
+                <p class="fs-5 opacity-75">Khám phá những món quà tuyệt vời nhất cho người thân yêu</p>
+                </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mb-4">
+        <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle rounded-pill px-4 py-2 fw-bold shadow-sm" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                🌈 
+                {% if category_slug %}
+                    {% for cat in categories %}
+                        {% if cat.slug == category_slug %}{{ cat.name }}{% endif %}
+                    {% endfor %}
+                {% else %}
+                    Tất cả danh mục
                 {% endif %}
+            </button>
+            
+            <ul class="dropdown-menu shadow border-0 mt-2" aria-labelledby="categoryDropdown" style="border-radius: 12px; min-width: 200px;">
+                <li>
+                    <a class="dropdown-item py-2 {% if not category_slug %}active bg-primary text-white fw-bold{% endif %}" href="{% url 'home' %}">
+                        🌈 Tất cả sản phẩm
+                    </a>
+                </li>
                 
-                <a href="{% url 'store_list' %}" class="list-group-item list-group-item-action text-primary">📍 Bản đồ chi nhánh</a>
-            </div>
-        </aside>
-
-        <main class="col-md-9">
-            <div class="hero-banner mb-4 text-center p-5 bg-primary text-white rounded shadow-sm">
-                <h1>🎁 Gift Shop</h1>
-                <p>Khám phá những món quà tuyệt vời nhất cho người thân yêu</p>
-            </div>
-
-            <div class="search-box mb-4">
-                <form method="get" class="d-flex gap-2">
-                    <input type="text" name="q" class="form-control" placeholder="Tìm sản phẩm bạn muốn..." value="{{ q|default:'' }}">
-                    <button type="submit" class="btn btn-dark">Tìm kiếm</button>
-                </form>
-            </div>
-
-            <div class="row g-4">
-                {% for p in products %}
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm product-card">
-                        <a href="{% url 'product_detail' p.id %}" class="text-decoration-none text-dark">
-                            {% if p.image %}
-                                <img src="{{ p.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="fw-bold">{{ p.name }}</h5>
-                                <p class="text-danger fw-bold fs-5 mb-1">{{ p.price }} VNĐ</p>
-                                <p class="text-muted small text-truncate">{{ p.description }}</p>
-                                <p class="mb-0">⭐ {{ p.rating_set.count }} đánh giá</p>
-                            </div>
+                <li><hr class="dropdown-divider"></li>
+                
+                {% for cat in categories %}
+                    <li>
+                        <a class="dropdown-item py-2 {% if category_slug == cat.slug %}active bg-primary text-white fw-bold{% endif %}" 
+                           href="?category={{ cat.slug }}{% if q %}&q={{ q }}{% endif %}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}">
+                            📁 {{ cat.name }}
                         </a>
-                        
-                        <div class="card-footer bg-white border-0 pb-3">
-                            {% if user.is_authenticated %}
-                                <a class="btn btn-primary w-100" href="{% url 'add_to_cart' p.id %}">🛒 Thêm vào giỏ</a>
-                            {% else %}
-                                <a class="btn btn-outline-primary w-100" href="{% url 'login' %}?next={{ request.path }}">Đăng nhập để mua</a>
-                            {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="search-box mb-5 bg-white p-3 rounded-pill shadow-sm border">
+        <form method="get" class="d-flex align-items-center px-2 gap-2">
+            {% if category_slug %}
+                <input type="hidden" name="category" value="{{ category_slug }}">
+            {% endif %}
+
+            <div class="flex-grow-1 d-flex align-items-center">
+                <span class="text-muted ms-2">🔍</span>
+                <input type="text" name="q" class="form-control border-0 shadow-none" 
+                        placeholder="Tìm tên sản phẩm..." value="{{ q|default:'' }}">
+            </div>
+            
+            <div style="width: 1px; height: 30px; background: #dee2e6;"></div>
+
+            <div style="min-width: 200px;">
+                <select name="sort_by" class="form-select border-0 shadow-none text-muted">
+                    <option value="">-- Sắp xếp Giá --</option>
+                    <option value="asc" {% if sort_by == 'asc' %}selected{% endif %}>Giá thấp đến cao</option>
+                    <option value="desc" {% if sort_by == 'desc' %}selected{% endif %}>Giá cao đến thấp</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-dark rounded-pill px-4 fw-bold">Lọc</button>
+            
+            {% if q or sort_by or category_slug %}
+                <a href="{% url 'home' %}" class="btn btn-light rounded-pill border">Hủy</a>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="row g-4">
+        {% for p in products %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm product-card overflow-hidden">
+                <a href="{% url 'product_detail' p.id %}" class="text-decoration-none text-dark">
+                    <div class="position-relative">
+                        {% if p.image %}
+                            <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}"
+                                    style="height: 250px; object-fit: cover;">
+                        {% else %}
+                            <div class="bg-light d-flex justify-content-center align-items-center" style="height: 250px;">
+                                <span class="text-muted">No Image</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="card-body text-center">
+                        <h6 class="fw-bold text-truncate mb-1">{{ p.name }}</h6>
+                        <p class="text-danger fw-bold mb-1">{{ p.price|floatformat:0 }} VNĐ</p>
+                        <div class="small text-warning">
+                            ⭐ {{ p.rating_set.count }} đánh giá
                         </div>
                     </div>
+                </a>
+                
+                <div class="card-footer bg-white border-0 pb-3 pt-0">
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-outline-primary btn-sm w-100 rounded-pill fw-bold" href="{% url 'add_to_cart' p.id %}">
+                            + Giỏ hàng
+                        </a>
+                    {% endif %}
                 </div>
-                {% empty %}
-                <div class="col-12 text-center py-5">
-                    <h3>Chưa tìm thấy sản phẩm nào !</h3>
-                    <a href="{% url 'home' %}" class="btn btn-link">Xem tất cả sản phẩm</a>
-                </div>
-                {% endfor %}
             </div>
-
-            {% if products.paginator.num_pages > 1 %}
-            <nav class="mt-5">
-                <ul class="pagination justify-content-center">
-                    {% if products.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}&q={{ q }}">Trước</a></li>
-                    {% endif %}
-                    
-                    <li class="page-item active"><span class="page-link">{{ products.number }} / {{ products.paginator.num_pages }}</span></li>
-
-                    {% if products.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}&q={{ q }}">Sau</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
-        </main>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h3 class="text-muted">Không tìm thấy sản phẩm nào! 🕵️‍♂️</h3>
+        </div>
+        {% endfor %}
     </div>
+
+    {% if products.has_other_pages %}
+    <nav class="mt-5">
+        <ul class="pagination justify-content-center">
+            {% if products.has_previous %}
+                <li class="page-item">
+                    <a class="page-link rounded-circle mx-1 border-0 shadow-sm" 
+                        href="?page={{ products.previous_page_number }}{% if q %}&q={{ q }}{% endif %}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if category_slug %}&category={{ category_slug }}{% endif %}">
+                        &laquo;
+                    </a>
+                </li>
+            {% endif %}
+            
+            <li class="page-item active">
+                <span class="page-link rounded-circle mx-1 border-0 shadow-sm bg-primary">
+                    {{ products.number }}
+                </span>
+            </li>
+
+            {% if products.has_next %}
+                <li class="page-item">
+                    <a class="page-link rounded-circle mx-1 border-0 shadow-sm" 
+                        href="?page={{ products.next_page_number }}{% if q %}&q={{ q }}{% endif %}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if category_slug %}&category={{ category_slug }}{% endif %}">
+                        &raquo;
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 </div>
 
 <style>
-    .product-card { transition: all 0.3s; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+    body { background-color: #f8f9fa; }
+    .product-card { transition: all 0.3s ease; border-radius: 15px; }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 20px rgba(0,0,0,0.1) !important; }
+    .search-box:focus-within { border-color: #0d6efd !important; box-shadow: 0 0 15px rgba(13, 110, 253, 0.1) !important; }
+    .page-link { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: #333; }
 </style>
 {% endblock %}

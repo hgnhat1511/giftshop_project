@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # BỎ DÒNG TRANG CHỦ RỖNG Ở ĐÂY ĐỂ TRÁNH VÒNG LẶP VỚI FILE TỔNG
+    # BỎ DÒNG TRANG CHỦ RỖNG ĐỂ TRÁNH VÒNG LẶP VỚI FILE TỔNG
     path('product/<int:id>/', views.product_detail, name='product_detail'),
     path('rating/<int:id>/', views.add_rating, name='add_rating'),
     
@@ -22,4 +22,10 @@ urlpatterns = [
     path('admin/stores/add/', views.add_store, name='add_store'),
     path('admin/stores/edit/<int:id>/', views.edit_store, name='edit_store'),
     path('admin/stores/delete/<int:id>/', views.delete_store, name='delete_store'),
+
+    # categories
+    path('admin/categories/', views.admin_categories, name='admin_categories'),
+    path('admin/categories/add/', views.add_category, name='add_category'),
+    path('admin/categories/edit/<int:id>/', views.edit_category, name='edit_category'),
+    path('admin/categories/delete/<int:id>/', views.delete_category, name='delete_category'),
 ]

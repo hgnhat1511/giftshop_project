@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <div class="container mt-4 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -41,17 +44,19 @@
 
                         <div class="p-3 mb-4 rounded" style="background-color: #f8f9fa; border: 1px dashed #6c757d;">
                             <h6 class="fw-bold text-secondary mb-3">🗺️ Tọa độ Bản đồ (GIS) - Không thể chỉnh sửa</h6>
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="fw-bold mb-2">Vĩ độ (Latitude)</label>
-                                    <input type="number" step="any" name="lat" class="form-control bg-light text-muted" value="{{ store.lat|stringformat:'f' }}" readonly>
+                                    <input type="number" step="any" id="lat_input" name="lat" class="form-control bg-light text-muted" value="{{ store.lat|stringformat:'f' }}" readonly required>
                                 </div>
                                 <div class="col-md-6 mt-3 mt-md-0">
                                     <label class="fw-bold mb-2">Kinh độ (Longitude)</label>
-                                    <input type="number" step="any" name="lng" class="form-control bg-light text-muted" value="{{ store.lng|stringformat:'f' }}" readonly>
+                                    <input type="number" step="any" id="lng_input" name="lng" class="form-control bg-light text-muted" value="{{ store.lng|stringformat:'f' }}" readonly required>
                                 </div>
                             </div>
-                            <small class="text-danger mt-2 d-block"><i>* Tọa độ GIS đã được khóa để bảo vệ dữ liệu bản đồ. Nếu chi nhánh chuyển vị trí, vui lòng xóa và tạo mới!</i></small>
+                            <small class="text-danger d-block mb-3"><i>* Tọa độ GIS đã được khóa. Nếu chi nhánh chuyển vị trí, vui lòng xóa và tạo mới!</i></small>
+                            
+                            <div id="mapPicker" style="height: 350px; width: 100%; border: 2px solid #6c757d; border-radius: 8px; z-index: 1;"></div>
                         </div>
 
                         <hr class="text-muted">
@@ -69,6 +74,29 @@
 
 <style>
     .custom-form-layout input { border-radius: 8px; padding: 10px 15px; border: 1px solid #ddd; transition: 0.3s; }
-    .custom-form-layout input:focus { border-color: #ffc107; box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25); outline: none; }
+    /* Style cho input bình thường */
+    .custom-form-layout input:focus:not([readonly]) { border-color: #ffc107; box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25); outline: none; }
+    /* Style riêng cho input bị khóa (readonly) */
+    .custom-form-layout input[readonly] { background-color: #f8f9fa; color: #6c757d; cursor: not-allowed; }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy tọa độ hiện tại
+        var currentLat = parseFloat("{{ store.lat|stringformat:'f' }}") || 10.8231;
+        var currentLng = parseFloat("{{ store.lng|stringformat:'f' }}") || 106.6297;
+
+        // Khởi tạo bản đồ zoom thẳng vào vị trí cửa hàng
+        var mapPicker = L.map('mapPicker').setView([currentLat, currentLng], 15);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(mapPicker);
+
+        // Đặt Marker tại vị trí hiện tại và TẮT chức năng kéo thả (draggable: false)
+        var marker = L.marker([currentLat, currentLng], {draggable: false}).addTo(mapPicker);
+
+        // Đã xóa tất cả các sự kiện click, dragend và input listener
+    });
+</script>
 {% endblock %}

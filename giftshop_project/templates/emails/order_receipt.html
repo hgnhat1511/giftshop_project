@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: 'Arial', sans-serif; color: #333; line-height: 1.6; }
+        .container { width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 10px; }
+        .header { text-align: center; border-bottom: 2px solid #f8f9fa; padding-bottom: 20px; }
+        .logo { font-size: 24px; font-weight: bold; color: #d32f2f; text-decoration: none; }
+        .content { padding: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: #f8f9fa; text-align: left; padding: 10px; border-bottom: 2px solid #dee2e6; }
+        td { padding: 10px; border-bottom: 1px solid #eee; }
+        .total { text-align: right; font-size: 18px; font-weight: bold; color: #d32f2f; padding-top: 20px; }
+        .footer { text-align: center; font-size: 12px; color: #999; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🎁 GIFT SHOP PRO</div>
+            <p>Cảm ơn bạn đã tin tưởng lựa chọn chúng tôi!</p>
+        </div>
+        
+        <div class="content">
+            <h3>Xin chào {{ username }},</h3>
+            <p>Đơn hàng <strong>#{{ order_id }}</strong> của bạn đã được tiếp nhận và đang trong quá trình xử lý.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>SL</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.price }}đ</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <div class="total">Tổng cộng: {{ total_bill }}đ</div>
+        </div>
+
+        <div class="footer">
+            <p>📍 107 Nguyễn Trãi, P. Chợ Quán, Quận 5, HCM</p>
+            <p>📞 Hotline: 0901 333 107</p>
+            <p>© 2026 Gift Shop - Lưu giữ những khoảnh khắc yêu thương.</p>
+        </div>
+    </div>
+</body>
+</html>

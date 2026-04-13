@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Quản lý Tài khoản Khách hàng</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Email</th>
+                    <th>Ngày tham gia</th>
+                    <th>Quyền Admin</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th> </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td><strong>{{ u.username }}</strong></td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.date_joined|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if u.is_staff %}<span class="badge bg-danger">Admin</span>{% else %}<span class="badge bg-secondary">Khách</span>{% endif %}
+                    </td>
+                    <td>
+                        {% if u.is_active %}<span class="badge bg-success">Đang hoạt động</span>{% else %}<span class="badge bg-warning text-dark">Bị khóa</span>{% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'admin_edit_user' u.id %}" class="btn btn-sm btn-primary">✏️ Sửa</a>
+                        {% if u.id != request.user.id %}
+                        <a href="{% url 'admin_delete_user' u.id %}" class="btn btn-sm btn-danger">🗑️ Xóa</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

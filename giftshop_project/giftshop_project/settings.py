@@ -4,7 +4,7 @@ import os
 # Đường dẫn gốc của dự án
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# BẢO MẬT (Để mặc định khi phát triển)
+# BẢO MẬT
 SECRET_KEY = 'django-insecure-your-secret-key-here'
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -42,7 +42,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # Nơi chứa các file HTML dùng chung như base.html, navbar.html
-        'DIRS': [BASE_DIR / 'templates'], 
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -60,8 +60,12 @@ WSGI_APPLICATION = 'giftshop_project.wsgi.application'
 # --- CƠ SỞ DỮ LIỆU ---
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'giftshop_db',
+        'USER': 'postgres',
+        'PASSWORD': '123',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -87,3 +91,22 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_PORT = 587  # Đổi từ 2525 thành 587
+EMAIL_HOST_USER = '842f0cf975b0aa'
+EMAIL_HOST_PASSWORD = 'fd62fce3ad533b'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+# settings.py
+ANYMAIL = {
+    "MAILTRAP_API_TOKEN": "c52f6f866bc4e642ee2cd9e21e7139b6",
+    "MAILTRAP_SANDBOX_ID": 4508788,
+}
+EMAIL_BACKEND = "anymail.backends.mailtrap.EmailBackend"
+
+# Đừng quên dòng này để mail hiện tên shop cho đẹp nhé
+DEFAULT_FROM_EMAIL = "Gift Shop <noreply@giftshop.com>"
