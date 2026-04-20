@@ -18,8 +18,4 @@ db.sqlite3
 
 # Bỏ qua file hệ thống của macOS
 .DS_Store
-<<<<<<< HEAD
 **/.DS_Store
-=======
-**/.DS_Store
->>>>>>> d44da4253af549fc409d558dd093bffddcddc846
