@@ -376,3 +376,23 @@ def import_products_excel(request):
         except Exception as e:
             messages.error(request, f"❌ Lỗi định dạng file: {e}")
     return redirect('admin_product_list')
+
+from django.contrib.auth.decorators import login_required
+from .models import Product, Rating
+
+@login_required
+def add_rating(request, product_id):
+    if request.method == "POST":
+        product = get_object_or_404(Product, id=product_id)
+        stars = request.POST.get('stars')
+        
+        if stars:
+            # Lưu đánh giá mới vào Database
+            Rating.objects.create(
+                product=product,
+                user=request.user,
+                stars=int(stars)
+            )
+            messages.success(request, "Cảm ơn bạn đã đánh giá sản phẩm!")
+        
+    return redirect('product_detail', id=product_id)

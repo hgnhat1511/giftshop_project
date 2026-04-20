@@ -41,6 +41,17 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    # --- PHẦN BỔ SUNG: Tính trung bình sao và đếm số đánh giá ---
+    def get_avg_rating(self):
+        from django.db.models import Avg
+        # Lấy trung bình cộng của cột 'stars' trong bảng Rating liên kết với Product này
+        avg = self.rating_set.aggregate(Avg('stars'))['stars__avg']
+        return round(avg, 1) if avg else 0
+
+    def get_review_count(self):
+        # Đếm tổng số lượt đánh giá
+        return self.rating_set.count()
 
 # ==========================================
 # 3. BẢNG ĐÁNH GIÁ

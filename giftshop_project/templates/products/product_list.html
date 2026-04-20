@@ -96,9 +96,12 @@
                     <div class="card-body text-center">
                         <h6 class="fw-bold text-truncate mb-1">{{ p.name }}</h6>
                         <p class="text-danger fw-bold mb-1">{{ p.price|floatformat:0 }} VNĐ</p>
+                        
                         <div class="small text-warning">
-                            ⭐ {{ p.rating_set.count }} đánh giá
+                            ⭐ {{ p.get_avg_rating }}
+                            <span class="text-muted">({{ p.get_review_count }} đánh giá)</span>
                         </div>
+                        
                     </div>
                 </a>
                 

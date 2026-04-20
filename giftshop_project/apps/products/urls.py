@@ -28,7 +28,7 @@ urlpatterns = [
     path('admin/categories/add/', views.add_category, name='add_category'),
     path('admin/categories/edit/<int:id>/', views.edit_category, name='edit_category'),
     path('admin/categories/delete/<int:id>/', views.delete_category, name='delete_category'),
-
+    path('add-rating/<int:product_id>/', views.add_rating, name='add_rating'),
 
     path('export-products/', views.export_products_excel, name='export_products_excel'),
     path('import-products/', views.import_products_excel, name='import_products_excel'),

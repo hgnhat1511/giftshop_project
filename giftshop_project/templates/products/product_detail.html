@@ -38,8 +38,9 @@
                 
                 <div class="d-flex align-items-center mb-3">
                     <span class="text-warning fs-5">
-                        <i class="fas fa-star"></i> ⭐ {{ product.rating_set.count }} Đánh giá
+                        ⭐ {{ product.get_avg_rating }} 
                     </span>
+                    <span class="ms-2 text-muted">({{ product.get_review_count }} Đánh giá)</span>
                     <span class="mx-2 text-muted">|</span>
                     {% if product.stock > 0 %}
                         <span class="text-success fw-bold">Còn hàng ({{ product.stock }})</span>
@@ -116,13 +117,66 @@
         <div class="col-12">
             <ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active fw-bold px-4 py-3 text-dark border-0 border-bottom border-primary border-3 bg-transparent" id="home-tab" data-bs-toggle="tab" type="button">CHI TIẾT SẢN PHẨM</button>
+                    <button class="nav-link active fw-bold px-4 py-3 text-dark border-0 border-bottom border-primary border-3 bg-transparent" id="home-tab" data-bs-toggle="tab" data-bs-target="#desc-pane" type="button">
+                        CHI TIẾT SẢN PHẨM
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link fw-bold px-4 py-3 text-dark border-0 bg-transparent" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-pane" type="button">
+                        ĐÁNH GIÁ ({{ product.get_review_count }})
+                    </button>
                 </li>
             </ul>
+            
             <div class="tab-content p-4 bg-white shadow-sm rounded-bottom rounded-end" id="myTabContent">
-                <div class="tab-pane fade show active" role="tabpanel">
+                <div class="tab-pane fade show active" id="desc-pane" role="tabpanel">
                     <p>{{ product.description }}</p>
                     <p class="mb-0 text-muted italic">Cảm ơn bạn đã tin dùng sản phẩm của chúng tôi!</p>
+                </div>
+
+                <div class="tab-pane fade" id="review-pane" role="tabpanel">
+                    <h5 class="fw-bold mb-4">🌟 Đánh giá từ khách hàng</h5>
+                    
+                    {% if user.is_authenticated %}
+                        <div class="bg-light p-4 rounded-3 mb-4 border">
+                            <form action="{% url 'add_rating' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <label class="fw-bold mb-2">Bạn chấm sản phẩm này mấy sao?</label>
+                                <div class="d-flex gap-2">
+                                    <select name="stars" class="form-select shadow-sm" style="max-width: 200px;" required>
+                                        <option value="5">⭐⭐⭐⭐⭐ (Tuyệt vời)</option>
+                                        <option value="4">⭐⭐⭐⭐ (Tốt)</option>
+                                        <option value="3">⭐⭐⭐ (Bình thường)</option>
+                                        <option value="2">⭐⭐ (Tệ)</option>
+                                        <option value="1">⭐ (Rất tệ)</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-warning fw-bold px-4">Gửi đánh giá</button>
+                                </div>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            Vui lòng <a href="{% url 'login' %}?next={{ request.path }}" class="fw-bold text-decoration-none">Đăng nhập</a> để đánh giá sản phẩm.
+                        </div>
+                    {% endif %}
+
+                    <div class="reviews-list">
+                        {% for review in product.rating_set.all|dictsortreversed:"created_at" %}
+                            <div class="border-bottom py-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-bold text-primary">👤 {{ review.user.username }}</span>
+                                    <span class="text-muted small">{{ review.created_at|date:"d/m/Y H:i" }}</span>
+                                </div>
+                                <div class="text-warning small mb-2">
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= review.stars %}⭐{% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p class="text-muted text-center py-4">Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm này!</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -143,6 +197,14 @@
         // 3. Bật viền xanh cho ảnh vừa được click
         clickedImg.style.borderColor = '#0d6efd'; // Màu xanh của Bootstrap
     }
+
+    // Logic nhỏ để đổi hiệu ứng cho tab Đánh giá
+    document.querySelectorAll('.nav-tabs .nav-link').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.nav-tabs .nav-link').forEach(t => t.classList.remove('border-bottom', 'border-primary', 'border-3'));
+            this.classList.add('border-bottom', 'border-primary', 'border-3');
+        });
+    });
 </script>
 
 <style>
