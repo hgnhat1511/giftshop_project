@@ -82,8 +82,10 @@
         // Khởi tạo bản đồ, mặc định zoom ở khu vực TP.HCM / Biên Hòa
         var mapPicker = L.map('mapPicker').setView([10.8231, 106.6297], 11);
         
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+        // Đã đổi sang Google Maps để không bị chặn và đồng bộ với trang xem bản đồ
+        L.tileLayer('http://mt0.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            attribution: 'Map data &copy; Google'
         }).addTo(mapPicker);
 
         // Tạo 1 Marker có thể kéo thả được

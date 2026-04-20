@@ -11,6 +11,8 @@ from django.conf import settings
 from django.template.loader import render_to_string # Thêm để đọc file HTML
 from django.utils.html import strip_tags # Thêm để tạo bản backup chữ thô
 import threading
+import pandas as pd # Thư viện xử lý Excel
+from django.http import HttpResponse # Trả về file tải xuống
 
 # ==========================================
 # HÀM PHỤ TRỢ: GỬI MAIL CHẠY NGẦM (ASYNC)
@@ -171,39 +173,36 @@ def update_order_status(request, id):
         order = get_object_or_404(Order, id=id)
         new_status = request.POST.get('status')
         
-        # Chỉ gửi mail nếu trạng thái THỰC SỰ có sự thay đổi
+        # Chỉ xử lý nếu trạng thái thực sự thay đổi
         if order.status != new_status:
             order.status = new_status
             order.save()
             
-            # Từ điển dịch mã trạng thái sang tiếng Việt cho đẹp để gửi mail
+            # Từ điển dịch mã trạng thái siêu ngắn gọn
             status_dict = {
-                'pending': '⏳ Đang chờ xử lý',
-                'shipping': '🚚 Đang giao hàng',
-                'delivered': '✅ Đã giao thành công',
-                'cancelled': '❌ Đã hủy'
+                'pending': 'Chờ xử lý',
+                'shipping': 'Đang giao',
+                'completed': 'Hoàn thành',
+                'delivered': 'Hoàn thành',
+                'cancelled': 'Hủy'
             }
             readable_status = status_dict.get(new_status, new_status)
             
-            # Chuẩn bị nội dung Email
-            subject = f"📦 Cập nhật trạng thái đơn hàng #{order.id} - Gift Shop"
-            message = (
-                f"Chào {order.user.username},\n\n"
-                f"Đơn hàng #{order.id} của bạn (sản phẩm: {order.product.name}) "
-                f"vừa được hệ thống cập nhật trạng thái thành: {readable_status}.\n\n"
-                f"Bạn có thể đăng nhập vào website để xem chi tiết.\n"
-                f"Cảm ơn bạn đã mua sắm tại Gift Shop!"
-            )
+            # Tiêu đề và nội dung mail đánh nhanh rút gọn
+            subject = f"Thông báo đơn hàng #{order.id}"
+            message = f"Đơn hàng #{order.id} của bạn đã được: {readable_status}."
             
-            # Gọi luồng chạy ngầm để gửi mail (không làm Admin bị đơ web lúc chờ gửi)
-            threading.Thread(
-                target=send_mail, 
-                args=(subject, message, settings.DEFAULT_FROM_EMAIL, [order.user.email])
-            ).start()
-            
-            messages.success(request, f"✅ Đã cập nhật đơn hàng #{order.id} và gửi email thông báo cho khách!")
+            # Gửi mail NGẦM (Chỉ gửi nếu tài khoản có email)
+            if order.user.email:
+                threading.Thread(
+                    target=send_mail, 
+                    args=(subject, message, settings.DEFAULT_FROM_EMAIL, [order.user.email])
+                ).start()
+                messages.success(request, f"✅ Đã cập nhật đơn hàng #{order.id} thành: {readable_status} (Đã báo mail)!")
+            else:
+                messages.success(request, f"✅ Đã cập nhật đơn hàng #{order.id} thành: {readable_status} (Khách chưa có email)!")
         else:
-            messages.info(request, f"ℹ️ Trạng thái đơn hàng #{order.id} không có sự thay đổi.")
+            messages.info(request, f"ℹ️ Trạng thái không thay đổi.")
             
     return redirect('admin_orders')
 
@@ -249,4 +248,57 @@ def submit_feedback(request):
         
         messages.success(request, "🚀 Góp ý của bạn đã được gửi tới Ban quản trị. Cảm ơn Bạn Nhiều!")
         
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+# ==========================================
+# PHẦN 4: NHẬP & XUẤT EXCEL (IMPORT/EXPORT)
+# ==========================================
+
+@staff_member_required
+def export_orders_excel(request):
+    """Xuất toàn bộ danh sách đơn hàng ra file Excel"""
+    # Lấy dữ liệu từ Database
+    orders = Order.objects.all().values(
+        'id', 'user__username', 'product__name', 'quantity', 'status'
+    )
+    
+    # Chuyển thành DataFrame của Pandas
+    df = pd.DataFrame(list(orders))
+    
+    # Đổi tên cột tiếng Việt cho file Excel
+    if not df.empty:
+        df.columns = ['Mã Đơn', 'Tên Khách Hàng', 'Sản Phẩm', 'Số Lượng', 'Trạng Thái']
+    
+    # Trả về response dạng file tải xuống
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="Danh_sach_don_hang.xlsx"'
+    
+    # Ghi dữ liệu vào file
+    df.to_excel(response, index=False, engine='openpyxl')
+    
+    return response
+
+@staff_member_required
+def import_products_excel(request):
+    """Nhập danh sách sản phẩm từ file Excel"""
+    if request.method == "POST" and request.FILES.get('excel_file'):
+        excel_file = request.FILES['excel_file']
+        
+        try:
+            # Đọc file Excel
+            df = pd.read_excel(excel_file)
+            
+            # Lặp qua từng dòng để lưu vào Database
+            for index, row in df.iterrows():
+                Product.objects.create(
+                    name=row['Tên sản phẩm'],
+                    price=row['Giá'],
+                    stock=row['Tồn kho'],
+                    description=row.get('Mô tả', '') # Nếu không có cột mô tả thì để trống
+                )
+            messages.success(request, f"✅ Đã nhập thành công {len(df)} sản phẩm từ Excel!")
+        except Exception as e:
+            messages.error(request, f"❌ Lỗi khi đọc file Excel: Vui lòng kiểm tra lại tên cột. Chi tiết: {e}")
+            
+    # Load lại trang danh sách sản phẩm của Admin
     return redirect(request.META.get('HTTP_REFERER', '/'))

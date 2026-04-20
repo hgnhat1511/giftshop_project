@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 
+
 # Đường dẫn gốc của dự án
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'anymail',
 
     # Các App nội bộ của Nhật
     'apps.accounts',
@@ -92,14 +94,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# settings.py mail
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_PORT = 587  # Đổi từ 2525 thành 587
-EMAIL_HOST_USER = '842f0cf975b0aa'
-EMAIL_HOST_PASSWORD = 'fd62fce3ad533b'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+
 
 # settings.py
 ANYMAIL = {

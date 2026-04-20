@@ -28,7 +28,7 @@
     "pk": 17,
     "fields": {
         "name": "Gấu bông Teddy khổng lồ 1m2",
-        "category": null,
+        "category": 1,
         "price": 450000,
         "stock": 456,
         "description": "Chất liệu nỉ nhung cao cấp, mềm mịn, an toàn cho da.",
@@ -100,7 +100,7 @@
     "pk": 23,
     "fields": {
         "name": "Đèn ngủ mặt trăng 3D",
-        "category": null,
+        "category": 2,
         "price": 220000,
         "stock": 44,
         "description": "Đổi 16 màu bằng điều khiển cảm ứng, có pin sạc tiện lợi.",
@@ -196,7 +196,7 @@
     "pk": 31,
     "fields": {
         "name": "Hộp quà bí mật (Mystery Box)",
-        "category": null,
+        "category": 3,
         "price": 500000,
         "stock": 458,
         "description": "Bên trong chứa ngẫu nhiên 3-5 món đồ giá trị cao.",
@@ -258,7 +258,7 @@
         "name": "Tranh đính đá phong cảnh tự làm",
         "category": null,
         "price": 150000,
-        "stock": 200,
+        "stock": 199,
         "description": "Bộ tranh đính đá DIY giúp rèn luyện tính kiên nhẫn, thành phẩm dùng decor cực đẹp.",
         "image": "products/Tranh_đính_đá_phong_cảnh_tự_làm.jpg"
     }
@@ -270,7 +270,7 @@
         "name": "Đồng hồ LED để bàn khối gỗ",
         "category": null,
         "price": 195000,
-        "stock": 60,
+        "stock": 58,
         "description": "Đồng hồ báo thức hiển thị nhiệt độ, thiết kế khối gỗ tối giản phong cách Hàn Quốc.",
         "image": "products/Đồng_hồ_LED_để_bàn_khối_gỗ.webp"
     }
@@ -306,7 +306,7 @@
         "name": "Hộp trà hoa cúc sấy lạnh",
         "category": null,
         "price": 120000,
-        "stock": 300,
+        "stock": 299,
         "description": "Trà hoa cúc nguyên bông, thanh nhiệt giải độc, đóng gói trong hộp thiếc hoa văn sang trọng.",
         "image": "products/Hộp_trà_hoa_cúc_sấy_lạnh.webp"
     }
@@ -318,7 +318,7 @@
         "name": "Ly giữ nhiệt Inox 304 khắc tên",
         "category": null,
         "price": 250000,
-        "stock": 110,
+        "stock": 109,
         "description": "Ly giữ nhiệt 900ml cao cấp, giữ đá 12h, có thể yêu cầu khắc tên riêng lên vỏ ly.",
         "image": "products/Ly_giữ_nhiệt_Inox_304_khắc_tên.webp"
     }
@@ -330,7 +330,7 @@
         "name": "Mô hình phi hành gia phát sáng",
         "category": null,
         "price": 320000,
-        "stock": 75,
+        "stock": 74,
         "description": "Tượng phi hành gia decor kết hợp đèn ngủ hắt trần tạo hiệu ứng dải ngân hà.",
         "image": "products/Mô_hình_phi_hành_gia_phát_sáng.webp"
     }
@@ -342,7 +342,7 @@
         "name": "Nhật Nguyễn Văn Hoàng",
         "category": null,
         "price": 5,
-        "stock": 7552,
+        "stock": 7551,
         "description": "pki",
         "image": "products/anh3.2.jpg"
     }

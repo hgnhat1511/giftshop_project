@@ -51,7 +51,11 @@
 
 <script>
     // --- KHỞI TẠO BIẾN ---
-    var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+    // Đã thay OpenStreetMap bằng Google Maps để không bị chặn lỗi 403
+    var streets = L.tileLayer('http://mt0.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        attribution: 'Map data &copy; Google'
+    });
     var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
     var map = L.map('map', { center: [10.776, 106.700], zoom: 14, layers: [streets] });
     var storeMarkersLayer = L.layerGroup().addTo(map);

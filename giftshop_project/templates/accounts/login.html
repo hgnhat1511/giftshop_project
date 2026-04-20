@@ -20,7 +20,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary w-100 fw-bold mt-2">Đăng nhập</button>
                 </form>
-                
+                <div class="text-center mt-3">
+                    <a href="{% url 'password_reset' %}" class="text-decoration-none text-muted">Quên mật khẩu?</a>
+                </div>
                 <div class="mt-4 text-center text-muted">
                     Chưa có tài khoản? <a href="{% url 'register' %}" class="text-decoration-none fw-bold text-success">Đăng ký ngay</a>
                 </div>
