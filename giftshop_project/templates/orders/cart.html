@@ -41,17 +41,17 @@
                                 
                                 <td class="text-center">
                                     <div class="d-inline-flex align-items-center border rounded-pill bg-light p-1">
-                                        <a href="{% url 'update_cart' item.id 'decrease' %}" 
-                                           class="btn btn-sm btn-white rounded-circle fw-bold shadow-sm" 
-                                           style="width: 32px; height: 32px; background: white;">
+                                        <a href="{% url 'update_cart' item.id 'decrease' %}"
+                                        class="btn btn-sm btn-white rounded-circle fw-bold shadow-sm"
+                                        style="width: 32px; height: 32px; background: white;">
                                             -
                                         </a>
                                         
                                         <span class="mx-3 fw-bold" style="min-width: 25px;">{{ item.quantity }}</span>
                                         
-                                        <a href="{% url 'update_cart' item.id 'increase' %}" 
-                                           class="btn btn-sm btn-white rounded-circle fw-bold shadow-sm"
-                                           style="width: 32px; height: 32px; background: white;">
+                                        <a href="{% url 'update_cart' item.id 'increase' %}"
+                                        class="btn btn-sm btn-white rounded-circle fw-bold shadow-sm"
+                                        style="width: 32px; height: 32px; background: white;">
                                             +
                                         </a>
                                     </div>

@@ -12,4 +12,6 @@ urlpatterns = [
     path('cancel/<int:order_id>/', views.cancel_order, name='cancel_order'),
     path('newsletter-signup/', views.newsletter_signup, name='newsletter_signup'),
     path('feedback/', views.submit_feedback, name='submit_feedback'),
+    path('export-excel/', views.export_orders_excel, name='export_orders_excel'),
+    path('import-excel/', views.import_products_excel, name='import_products_excel'),
 ]

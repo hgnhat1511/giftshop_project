@@ -82,15 +82,13 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Lấy tọa độ hiện tại
-        var currentLat = parseFloat("{{ store.lat|stringformat:'f' }}") || 10.8231;
-        var currentLng = parseFloat("{{ store.lng|stringformat:'f' }}") || 106.6297;
-
-        // Khởi tạo bản đồ zoom thẳng vào vị trí cửa hàng
-        var mapPicker = L.map('mapPicker').setView([currentLat, currentLng], 15);
+        // Khởi tạo bản đồ, mặc định zoom ở khu vực TP.HCM / Biên Hòa
+        var mapPicker = L.map('mapPicker').setView([10.8231, 106.6297], 11);
         
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+        // Đã đổi sang Google Maps để không bị chặn và đồng bộ với trang xem bản đồ
+        L.tileLayer('http://mt0.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            attribution: 'Map data &copy; Google'
         }).addTo(mapPicker);
 
         // Đặt Marker tại vị trí hiện tại và TẮT chức năng kéo thả (draggable: false)

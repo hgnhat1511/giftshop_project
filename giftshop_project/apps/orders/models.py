@@ -16,6 +16,9 @@ class Order(models.Model):
     
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     
+    # --- TRƯỜNG MỚI THÊM: Lưu địa chỉ giao hàng (từ sổ địa chỉ, nhập tay, hoặc bản đồ) ---
+    shipping_address = models.CharField(max_length=500, null=True, blank=True, verbose_name="Địa chỉ giao hàng")
+    
     status = models.CharField(
         max_length=50,
         choices=STATUS_CHOICES,

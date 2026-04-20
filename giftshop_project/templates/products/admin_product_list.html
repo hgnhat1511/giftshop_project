@@ -2,14 +2,14 @@
 
 {% block content %}
 <div class="container mt-4 mb-5">
-    <div class="hero-banner mb-4 text-center p-5 text-white rounded shadow-sm" 
-         style="background: linear-gradient(135deg, #b71c1c 0%, #ef5350 100%);">
+    <div class="hero-banner mb-4 text-center p-5 text-white rounded shadow-sm"
+        style="background: linear-gradient(135deg, #b71c1c 0%, #ef5350 100%);">
         <div class="d-flex align-items-center justify-content-center gap-3">
-             <img src="https://cdn-icons-png.flaticon.com/512/1162/1162265.png" width="60" alt="product-icon" style="filter: brightness(0) invert(1);">
-             <div>
+            <img src="https://cdn-icons-png.flaticon.com/512/1162/1162265.png" width="60" alt="product-icon" style="filter: brightness(0) invert(1);">
+            <div>
                 <h1 class="fw-bold mb-0 text-uppercase">Hệ thống quản lý sản phẩm</h1>
                 <p class="fs-5 opacity-75">Cập nhật hàng hóa, giá cả và kiểm soát tồn kho</p>
-             </div>
+            </div>
         </div>
     </div>
 
@@ -17,8 +17,8 @@
         <form method="GET" class="d-flex align-items-center px-2 gap-2">
             <div class="flex-grow-1 d-flex align-items-center">
                 <span class="text-muted ms-2">🔍</span>
-                <input type="text" name="q" class="form-control border-0 shadow-none" 
-                       placeholder="Tìm tên sản phẩm..." value="{{ query|default:'' }}">
+                <input type="text" name="q" class="form-control border-0 shadow-none"
+                    placeholder="Tìm tên sản phẩm..." value="{{ query|default:'' }}">
             </div>
             
             <div style="width: 1px; height: 30px; background: #dee2e6;"></div>
@@ -40,6 +40,31 @@
             <a href="{% url 'add_product' %}" class="btn btn-success rounded-pill px-4 fw-bold ms-2">
                 + Thêm sản phẩm
             </a>
+
+        </form>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 p-3 bg-white rounded-3 shadow-sm border">
+        <a href="{% url 'export_products_excel' %}" class="btn btn-outline-success rounded-pill px-4 fw-bold d-flex align-items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+              <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h3v2H6zm4 0v-2h3v1a1 1 0 0 1-1 1h-2zm3-3h-3v-2h3v2zm-7 0v-2h3v2H6z"/>
+            </svg>
+            Xuất file Excel
+        </a>
+
+        <form action="{% url 'import_products_excel' %}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center gap-2 m-0">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="file" name="excel_file" class="form-control rounded-start-pill" accept=".xlsx, .xls" required style="max-width: 250px;">
+                <button type="submit" class="btn btn-success rounded-end-pill fw-bold px-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload me-1" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                    </svg>
+                    Nạp dữ liệu
+                </button>
+            </div>
         </form>
     </div>
 

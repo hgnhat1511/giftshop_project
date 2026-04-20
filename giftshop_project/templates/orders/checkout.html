@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5" style="max-width: 800px;">
+    <h3 class="fw-bold mb-4">🛒 Thanh toán đơn hàng</h3>
+
+    <div class="card shadow-sm border-0 mb-4 p-3">
+        <h5 class="fw-bold border-bottom pb-2">Sản phẩm của bạn</h5>
+        {% for item in cart_items %}
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span>{{ item.quantity }}x {{ item.product.name }}</span>
+                <span class="fw-bold text-danger">{{ item.product.price }}đ</span>
+            </div>
+        {% endfor %}
+        <hr>
+        <div class="d-flex justify-content-between">
+            <span class="fw-bold">Tổng thanh toán:</span>
+            <span class="fw-bold text-danger fs-5">{{ total_bill }}đ</span>
+        </div>
+    </div>
+
+    <form id="checkoutForm" method="POST">
+        {% csrf_token %}
+        <div class="card shadow-sm border-0 p-4">
+            <h5 class="fw-bold mb-3">📍 Chọn phương thức giao hàng</h5>
+
+            <div class="btn-group w-100 mb-4" role="group">
+                <input type="radio" class="btn-check" name="addr_mode" id="mode1" value="saved" checked>
+                <label class="btn btn-outline-primary" for="mode1">📖 Đã lưu</label>
+
+                <input type="radio" class="btn-check" name="addr_mode" id="mode2" value="manual">
+                <label class="btn btn-outline-primary" for="mode2">✍️ Nhập tay</label>
+
+                <input type="radio" class="btn-check" name="addr_mode" id="mode3" value="map">
+                <label class="btn btn-outline-primary" for="mode3">🗺️ Bản đồ</label>
+            </div>
+
+            <div id="section_saved" class="address-section">
+                {% for addr in addresses %}
+                <div class="form-check border rounded p-3 mb-2">
+                    <input class="form-check-input ms-1" type="radio" name="address_id" value="{{ addr.id }}" id="addr_{{ addr.id }}">
+                    <label class="form-check-label ms-2 w-100" for="addr_{{ addr.id }}">
+                        <strong>{{ addr.phone }}</strong><br>
+                        <small class="text-muted">{{ addr.detail }}, {{ addr.ward }}, {{ addr.district }}, {{ addr.province }}</small>
+                    </label>
+                </div>
+                {% empty %}
+                <div class="alert alert-warning">Bạn chưa lưu địa chỉ nào. Vui lòng chọn Nhập tay hoặc Bản đồ.</div>
+                {% endfor %}
+            </div>
+
+            <div id="section_manual" class="address-section d-none">
+                <button type="button" class="btn btn-sm btn-info mb-3 text-white fw-bold" onclick="getLocation()">
+                    🧭 Lấy định vị hiện tại của tôi
+                </button>
+                <textarea name="manual_address" id="manual_address" class="form-control" rows="3" placeholder="Nhập số nhà, tên đường, phường/xã, quận/huyện..."></textarea>
+            </div>
+
+            <div id="section_map" class="address-section d-none">
+                <p class="text-muted small">Di chuyển bản đồ và click vào vị trí bạn muốn nhận hàng:</p>
+                <div id="map_picker" style="height: 350px; border-radius: 10px; z-index: 1;"></div>
+                
+                <input type="hidden" name="lat" id="lat_input">
+                <input type="hidden" name="lng" id="lng_input">
+                <input type="hidden" name="map_address_text" id="map_address_text">
+                
+                <div id="selected_location_text" class="mt-3 p-2 bg-light border rounded fw-bold text-success d-none"></div>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100 mt-4 py-3 fw-bold fs-5">CHỐT ĐƠN NGAY</button>
+        </div>
+    </form>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // Logic chuyển Tab
+    document.querySelectorAll('input[name="addr_mode"]').forEach(input => {
+        input.addEventListener('change', function() {
+            document.querySelectorAll('.address-section').forEach(s => s.classList.add('d-none'));
+            document.getElementById('section_' + this.value).classList.remove('d-none');
+            // Fix lỗi map bị xám/mất khung khi render trong thẻ bị ẩn (d-none)
+            if(this.value === 'map') { 
+                setTimeout(() => { map.invalidateSize(); }, 100); 
+            }
+        });
+    });
+
+    // Hàm lấy GPS (Tab 2)
+    function getLocation() {
+        if (navigator.geolocation) {
+            document.getElementById('manual_address').value = "Đang tìm vị trí...";
+            navigator.geolocation.getCurrentPosition(position => {
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById('manual_address').value = data.display_name;
+                    });
+            });
+        }
+    }
+
+    // Khởi tạo Map (Tab 3) - Mặc định là TPHCM
+    var map = L.map('map_picker').setView([10.8231, 106.6297], 12);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+    var marker;
+
+    map.on('click', function(e) {
+        if (marker) map.removeLayer(marker);
+        marker = L.marker(e.latlng).addTo(map);
+        
+        // Điền tọa độ vào input ẩn
+        document.getElementById('lat_input').value = e.latlng.lat;
+        document.getElementById('lng_input').value = e.latlng.lng;
+        
+        const locText = document.getElementById('selected_location_text');
+        locText.classList.remove('d-none');
+        locText.innerText = "Đang tải địa chỉ...";
+
+        // Dùng API miễn phí đổi tọa độ ra chữ
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('map_address_text').value = data.display_name;
+                locText.innerText = "📍 Giao đến: " + data.display_name;
+            });
+    });
+</script>
+{% endblock %}

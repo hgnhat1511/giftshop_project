@@ -22,7 +22,13 @@
                                 <input type="text" name="phone" class="form-control" value="{{ profile.phone }}" placeholder="Nhập số điện thoại...">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary px-4 fw-bold">💾 Lưu thay đổi</button>
+                        
+                        <div class="d-flex align-items-center gap-3 mt-4">
+                            <button type="submit" class="btn btn-primary px-4 fw-bold rounded-pill">💾 Lưu thay đổi</button>
+                            <a href="{% url 'change_password' %}" class="btn btn-outline-dark px-4 fw-bold rounded-pill">
+                                🔒 Đổi mật khẩu
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>

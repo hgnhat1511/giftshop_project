@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile, Address
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 # 1. ĐĂNG NHẬP
 def login_view(request):
@@ -135,7 +137,7 @@ def admin_edit_user(request, user_id):
         user_obj.username = request.POST.get('username')
         user_obj.email = request.POST.get('email')
         # Checkbox: Nếu được tích thì sẽ có trong POST, không thì thôi
-        user_obj.is_staff = 'is_staff' in request.POST 
+        user_obj.is_staff = 'is_staff' in request.POST
         user_obj.is_active = 'is_active' in request.POST
         user_obj.save()
         messages.success(request, 'Cập nhật tài khoản thành công!')
@@ -158,3 +160,19 @@ def admin_delete_user(request, user_id):
         return redirect('admin_user_list')
         
     return render(request, 'accounts/admin_delete_user.html', {'user_obj': user_obj})
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Quan trọng: Giữ cho phiên đăng nhập không bị ngắt sau khi đổi pass
+            update_session_auth_hash(request, user)
+            messages.success(request, '✅ Mật khẩu của bạn đã được cập nhật!')
+            return redirect('profile')
+        else:
+            messages.error(request, '❌ Vui lòng sửa các lỗi bên dưới.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'accounts/change_password.html', {'form': form})

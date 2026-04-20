@@ -6,6 +6,8 @@ from django.contrib import messages
 from .models import Product, Rating, Store, Category,ProductImage
 from apps.orders.models import Order
 from django.db.models import Q
+import pandas as pd
+from django.http import HttpResponse
 
 # ==========================================
 # PHẦN 1: WEBGIS & QUẢN LÝ CỬA HÀNG
@@ -339,3 +341,58 @@ def delete_category(request, id):
     category.delete()
     messages.success(request, "Đã xóa danh mục!")
     return redirect('admin_categories')
+
+# --- TRONG FILE views.py CỦA APP PRODUCTS ---
+
+@staff_member_required
+def export_products_excel(request):
+    """Xuất danh sách sản phẩm để Admin kiểm kho"""
+    products = Product.objects.all().values('name', 'price', 'stock', 'category__name')
+    df = pd.DataFrame(list(products))
+    
+    if not df.empty:
+        df.columns = ['Tên Sản Phẩm', 'Giá Bán', 'Số Lượng Tồn', 'Danh Mục']
+        
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="Danh_sach_san_pham.xlsx"'
+    df.to_excel(response, index=False, engine='openpyxl')
+    return response
+
+@staff_member_required
+def import_products_excel(request):
+    """Admin dùng file Excel để nhập hàng loạt sản phẩm mới"""
+    if request.method == "POST" and request.FILES.get('excel_file'):
+        file = request.FILES['excel_file']
+        try:
+            df = pd.read_excel(file)
+            for _, row in df.iterrows():
+                # Tự động tạo sản phẩm, nếu chưa có Category thì bạn cần xử lý thêm nhé
+                Product.objects.create(
+                    name=row['Tên sản phẩm'],
+                    price=row['Giá'],
+                    stock=row['Tồn kho']
+                )
+            messages.success(request, f"✅ Đã nạp {len(df)} sản phẩm vào hệ thống!")
+        except Exception as e:
+            messages.error(request, f"❌ Lỗi định dạng file: {e}")
+    return redirect('admin_product_list')
+
+from django.contrib.auth.decorators import login_required
+from .models import Product, Rating
+
+@login_required
+def add_rating(request, product_id):
+    if request.method == "POST":
+        product = get_object_or_404(Product, id=product_id)
+        stars = request.POST.get('stars')
+        
+        if stars:
+            # Lưu đánh giá mới vào Database
+            Rating.objects.create(
+                product=product,
+                user=request.user,
+                stars=int(stars)
+            )
+            messages.success(request, "Cảm ơn bạn đã đánh giá sản phẩm!")
+        
+    return redirect('product_detail', id=product_id)
