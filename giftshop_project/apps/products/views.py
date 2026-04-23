@@ -396,3 +396,7 @@ def add_rating(request, product_id):
             messages.success(request, "Cảm ơn bạn đã đánh giá sản phẩm!")
         
     return redirect('product_detail', id=product_id)
+
+def about(request):
+    """Trang giới thiệu cửa hàng"""
+    return render(request, 'products/about.html')

@@ -32,4 +32,6 @@ urlpatterns = [
 
     path('export-products/', views.export_products_excel, name='export_products_excel'),
     path('import-products/', views.import_products_excel, name='import_products_excel'),
+
+    path('about/', views.about, name='about'),
 ]

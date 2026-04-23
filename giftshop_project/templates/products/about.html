@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="p-5 mb-5 rounded-4 shadow-sm" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: white;">
+    <div class="container-fluid py-4 text-center">
+        <h1 class="display-4 fw-bold mb-3">Dự án <span class="text-warning">WebGIS</span> GiftShop</h1>
+        <p class="col-md-8 mx-auto fs-5 text-light opacity-75">
+            Sự kết hợp hoàn hảo giữa Nền tảng Thương mại Điện tử và Hệ thống Thông tin Địa lý (GIS), mang lại trải nghiệm mua sắm trực quan và thông minh.
+        </p>
+    </div>
+</div>
+
+<div class="container my-5">
+    
+    <div class="row align-items-center mb-5 pb-5 border-bottom">
+        <div class="col-lg-6 pe-lg-5">
+            <h2 class="fw-bold text-dark mb-4"><i class="fa-solid fa-bullseye text-danger me-2"></i>Bản chất hệ thống là gì?</h2>
+            <p class="text-secondary" style="line-height: 1.8; text-align: justify;">
+                Về cốt lõi, <strong>GiftShop</strong> không chỉ là một website bán quà tặng thông thường. Chúng tôi giải quyết bài toán: <i>"Làm sao để khách hàng tìm thấy món quà ưng ý tại chi nhánh gần họ nhất?"</i>
+            </p>
+            <p class="text-secondary" style="line-height: 1.8; text-align: justify;">
+                Dự án tích hợp bản đồ số thực trực tiếp vào hệ thống quản lý. Khi bạn xem một món quà, hệ thống WebGIS sẽ định vị các cửa hàng đang có sẵn sản phẩm đó, hiển thị trực quan trên không gian bản đồ 2D. Điều này giúp tối ưu hóa luồng logistics: khách hàng có thể chọn đến xem trực tiếp tại điểm gần nhất hoặc cửa hàng sẽ phân phối giao hàng với quãng đường ngắn nhất.
+            </p>
+        </div>
+        <div class="col-lg-6 mt-4 mt-lg-0">
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="d-flex align-items-center p-3 bg-light rounded-3 shadow-sm feature-card">
+                        <div class="bg-primary text-white rounded p-3 me-3"><i class="fa-solid fa-cart-shopping fa-xl"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">E-Commerce Core</h6>
+                            <p class="small text-muted mb-0">Quản lý giỏ hàng, đơn đặt hàng và đánh giá sản phẩm.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex align-items-center p-3 bg-light rounded-3 shadow-sm feature-card">
+                        <div class="bg-success text-white rounded p-3 me-3"><i class="fa-solid fa-map-location-dot fa-xl"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Spatial Mapping (GIS)</h6>
+                            <p class="small text-muted mb-0">Hiển thị tọa độ cửa hàng qua bản đồ tương tác Leaflet.js.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex align-items-center p-3 bg-light rounded-3 shadow-sm feature-card">
+                        <div class="bg-warning text-dark rounded p-3 me-3"><i class="fa-solid fa-file-excel fa-xl"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Data Management</h6>
+                            <p class="small text-muted mb-0">Hệ thống Import/Export dữ liệu sản phẩm tự động qua Excel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center mb-5 pb-5 border-bottom">
+        <h3 class="fw-bold text-dark mb-4 w-100">Lõi Công Nghệ & Thống Kê</h3>
+        <div class="col-md-3 col-6 mb-3">
+            <div class="p-3">
+                <i class="fa-brands fa-python fa-2x text-dark mb-2"></i>
+                <h3 class="fw-bold counter text-primary" data-target="100">0</h3>
+                <p class="text-muted text-uppercase small fw-bold">Backend Django (%)</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+            <div class="p-3">
+                <i class="fa-solid fa-database fa-2x text-info mb-2"></i>
+                <h3 class="fw-bold counter text-primary" data-target="100">0</h3>
+                <p class="text-muted text-uppercase small fw-bold">PostgreSQL Ready (%)</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+            <div class="p-3">
+                <i class="fa-solid fa-globe fa-2x text-success mb-2"></i>
+                <h3 class="fw-bold counter text-primary" data-target="15">0</h3>
+                <p class="text-muted text-uppercase small fw-bold">Điểm GIS Tích hợp</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+            <div class="p-3">
+                <i class="fa-solid fa-code-branch fa-2x text-secondary mb-2"></i>
+                <h3 class="fw-bold counter text-primary" data-target="250">0</h3>
+                <p class="text-muted text-uppercase small fw-bold">Giờ Coding</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mb-5 mt-5">
+        <h2 class="fw-bold text-dark">👨‍💻 Core Team Buitding</h2>
+        <p class="text-muted">Nhóm 3 thành viên thực hiện dự án</p>
+    </div>
+    
+    <div class="row text-center justify-content-center">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card border-1 border-primary shadow h-100 py-4 hover-lift" style="border-radius: 20px;">
+                <div class="card-body">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow" style="width: 70px; height: 70px; font-size: 24px;">
+                        HN
+                    </div>
+                    <h5 class="fw-bold text-dark">Hoàng Nhật</h5>
+                    <span class="badge bg-primary mb-3">Team Leader / Backend & GIS</span>
+                    <p class="small text-muted px-2">Thiết kế CSDL, lập trình thuật toán nội suy không gian và xây dựng API kết nối dữ liệu bản đồ Leaflet.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm bg-light h-100 py-4 hover-lift" style="border-radius: 20px;">
+                <div class="card-body">
+                    <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow" style="width: 70px; height: 70px; font-size: 24px;">
+                        T2
+                    </div>
+                    <h5 class="fw-bold text-dark">Thành Phát</h5>
+                    <span class="badge bg-secondary mb-3">Frontend / UI/UX</span>
+                    <p class="small text-muted px-2">Xây dựng giao diện Responsive, tích hợp template, quản lý views và thiết kế trải nghiệm người dùng.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm bg-light h-100 py-4 hover-lift" style="border-radius: 20px;">
+                <div class="card-body">
+                    <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow" style="width: 70px; height: 70px; font-size: 24px;">
+                        T3
+                    </div>
+                    <h5 class="fw-bold text-dark">Tấn Phát</h5>
+                    <span class="badge bg-secondary mb-3">Data & QA</span>
+                    <p class="small text-muted px-2">Thu thập dữ liệu tọa độ không gian (GIS), test case lỗi hệ thống và chuẩn bị tài liệu báo cáo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .hover-lift:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important; }
+    .feature-card { transition: all 0.3s; border-left: 4px solid transparent; }
+    .feature-card:hover { transform: translateX(10px); border-left-color: #0d6efd; }
+</style>
+
+<script>
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200; 
+    counters.forEach(counter => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / speed;
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(updateCount, 15);
+            } else {
+                counter.innerText = target + (target === 100 ? '%' : '+');
+            }
+        };
+        setTimeout(updateCount, 500);
+    });
+</script>
+{% endblock %}

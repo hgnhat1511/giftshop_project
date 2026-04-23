@@ -1,94 +1,26 @@
 [
 {
     "model": "products.category",
-    "pk": 4,
+    "pk": 1,
     "fields": {
-        "name": "Quà Tặng Lưu Niệm",
-        "slug": "qua-tang-luu-niem"
+        "name": "gấu bông",
+        "slug": "gau-bong"
     }
 },
 {
     "model": "products.category",
-    "pk": 5,
+    "pk": 2,
     "fields": {
-        "name": "Đồ Gia Dụng Thông Minh",
-        "slug": "o-gia-dung-thong-minh"
+        "name": "đèn ngủ",
+        "slug": "en-ngu"
     }
 },
 {
     "model": "products.category",
-    "pk": 6,
-    "fields": {
-        "name": "Điện Tử",
-        "slug": "ien-tu"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 7,
-    "fields": {
-        "name": "Nội Thất",
-        "slug": "noi-that"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 8,
-    "fields": {
-        "name": "Thời Trang",
-        "slug": "thoi-trang"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 9,
-    "fields": {
-        "name": "Giày Dép",
-        "slug": "giay-dep"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 10,
-    "fields": {
-        "name": "Gia Dụng",
-        "slug": "gia-dung"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 11,
-    "fields": {
-        "name": "Phụ Kiện",
-        "slug": "phu-kien"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 12,
-    "fields": {
-        "name": "Làm Vườn",
-        "slug": "lam-vuon"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 13,
-    "fields": {
-        "name": "Mỹ Phẩm",
-        "slug": "my-pham"
-    }
-},
-{
-    "model": "products.product",
     "pk": 3,
     "fields": {
-        "name": "Valorant",
-        "category": null,
-        "price": 45600,
-        "stock": 12,
-        "description": "Game FPS",
-        "image": "products/agent_xCrKAYZ.jpg"
+        "name": "secret",
+        "slug": "secrect"
     }
 },
 {
@@ -96,7 +28,7 @@
     "pk": 17,
     "fields": {
         "name": "Gấu bông Teddy khổng lồ 1m2",
-        "category": 4,
+        "category": 1,
         "price": 450000,
         "stock": 456,
         "description": "Chất liệu nỉ nhung cao cấp, mềm mịn, an toàn cho da.",
@@ -108,7 +40,7 @@
     "pk": 18,
     "fields": {
         "name": "Hộp âm nhạc pha lê 3D",
-        "category": 4,
+        "category": null,
         "price": 250000,
         "stock": 35,
         "description": "Phát sáng lấp lánh, bản nhạc Fur Elise du dương.",
@@ -119,20 +51,20 @@
     "model": "products.product",
     "pk": 19,
     "fields": {
-        "name": "Nến thơm tùy chọn hương thơm lavender / hoa nhài 200 gram",
-        "category": 4,
+        "name": "Set nến thơm thư giãn",
+        "category": null,
         "price": 150000,
         "stock": 79,
-        "description": "Nến thơm tinh dầu thiên nhiên hương lavender mang đến không gian thư giãn, dễ chịu, giúp bạn tận hưởng cảm giác thoải mái sau những giờ làm việc căng thẳng. Hương thơm nhẹ nhàng, tự nhiên, phù hợp với nhiều không gian như phòng ngủ, bàn làm việc hoặc phòng khách.\r\n\r\n\r\n\r\nLựa chọn đa dạng – Phù hợp mọi nhu cầu 🎁\r\n\r\n\r\n\r\nSản phẩm có nhiều lựa chọn về mùi hương và kiểu dáng hộp, đáp ứng sở thích khác nhau của người nhận. Bạn có thể chọn:\r\n- Hộp nến lavender nobox\r\n- Hộp nến nhài nobox\r\n- Full set hương nhài\r\n- Full set lavender\r\nThiết kế tinh tế – Quà tặng ý nghĩa 💐",
-        "image": "products/sg-11134253-81zvk-miukxxj2a8lh8a.webp"
+        "description": "Chiết xuất tinh dầu thiên nhiên, giúp giảm stress hiệu quả.",
+        "image": "products/Set_nến_thơm_thư_giãn.jpg"
     }
 },
 {
     "model": "products.product",
     "pk": 20,
     "fields": {
-        "name": "Bó hoa hồng sáp thơm ",
-        "category": 4,
+        "name": "Bó hoa hồng sáp thơm 99 bông",
+        "category": null,
         "price": 350000,
         "stock": 44,
         "description": "Hoa vĩnh cửu không tàn, biểu tượng tình yêu vĩnh cửu.",
@@ -144,8 +76,8 @@
     "pk": 21,
     "fields": {
         "name": "Sổ tay da thật Vintage",
-        "category": 4,
-        "price": 550000,
+        "category": null,
+        "price": 120000,
         "stock": 44,
         "description": "Bìa da thật phong cách cổ điển, giấy kraft chống lóa.",
         "image": "products/Sổ_tay_da_thật_Vintage.jpg"
@@ -155,12 +87,12 @@
     "model": "products.product",
     "pk": 22,
     "fields": {
-        "name": "Cốc sứ Shiba Inu dễ thương",
-        "category": 4,
+        "name": "Set cốc sứ đôi Cute",
+        "category": null,
         "price": 180000,
         "stock": 12,
-        "description": "Cốc sứ Shiba Inu dễ thương sáng tạo cốc nước cặp đôi gia dụng phong cách instagram giá trị cao có nắp cốc đựng quà tặng tay\r\n\r\nChất liệu: Gốm sứ\r\n\r\nDanh mục sản phẩm: Cốc, Cốc tiện dụng\r\n\r\nNhập khẩu: Không\r\n\r\nPhong cách: Phim hoạt hình\r\n\r\nChức năng: thân thiện với môi trường",
-        "image": "products/sg-11134201-7rd3z-lu94qjt387w2b1.webp"
+        "description": "Sứ tráng men cao cấp, in hình nặn nổi siêu dễ thương.",
+        "image": "products/Set_cốc_sứ_đôi_Cute.jpg"
     }
 },
 {
@@ -168,7 +100,7 @@
     "pk": 23,
     "fields": {
         "name": "Đèn ngủ mặt trăng 3D",
-        "category": 4,
+        "category": 2,
         "price": 220000,
         "stock": 44,
         "description": "Đổi 16 màu bằng điều khiển cảm ứng, có pin sạc tiện lợi.",
@@ -180,35 +112,35 @@
     "pk": 24,
     "fields": {
         "name": "Khung ảnh gỗ Decor bàn làm việc",
-        "category": 4,
+        "category": null,
         "price": 90000,
         "stock": 878,
         "description": "Khung gỗ sồi tự nhiên, kèm mặt kính mica trong suốt.",
-        "image": "products/8df961e25fc39440161619c6202fbfce.webp"
+        "image": "products/Khung_ảnh_gỗ_Decor_bàn_làm_việc.jpg"
     }
 },
 {
     "model": "products.product",
     "pk": 25,
     "fields": {
-        "name": "Móc khóa len Handmade hình quả ngô",
-        "category": 4,
+        "name": "Móc khóa len Handmade hình thú",
+        "category": null,
         "price": 45000,
         "stock": 31,
-        "description": "_Sản phẩm được gia công tỉ mỉ qua từng giờ làm, chăm chút đến từng cm, đề cao tính thẩm mĩ cho sản phẩm.\r\n\r\n_Công dụng: trang trí, quà tặng\r\n\r\n_Nguyên liệu: sợ len mikk côtton, bông gòn\r\n\r\n_CHÚ Ý: Do sản phẩm được làm từ sợ len tránh lửa, hạn chế kéo hay giật mạnh làm giảm tính thẩm mỉ của sản phẩm.",
-        "image": "products/vn-11134207-820l4-mid93x7donwga6.webp"
+        "description": "Đan tay 100% tỉ mỉ, nhiều mẫu mã đa dạng.",
+        "image": "products/Móc_khóa_len_Handmade_hình_thú.jpg"
     }
 },
 {
     "model": "products.product",
     "pk": 26,
     "fields": {
-        "name": "Son môi cao cấp kèm thiệp",
-        "category": 4,
-        "price": 850000,
+        "name": "Hộp son môi cao cấp kèm thiệp",
+        "category": null,
+        "price": 650000,
         "stock": 94,
         "description": "Set quà tặng sang trọng dành cho phái đẹp.",
-        "image": "products/sg-11134253-821d8-mgwuo6hc1pn240.webp"
+        "image": "products/Hộp_son_môi_cao_cấp_kèm_thiệp.jpg"
     }
 },
 {
@@ -216,11 +148,11 @@
     "pk": 27,
     "fields": {
         "name": "Nước hoa Mini chính hãng",
-        "category": 4,
+        "category": null,
         "price": 350000,
         "stock": 431,
         "description": "Lưu hương lâu tới 8h, thiết kế chai nhỏ gọn tinh tế.",
-        "image": "products/a2e5ae19c61fc4ca2e1ad324eafbe78d.webp"
+        "image": "products/Nước_hoa_Mini_chính_hãng.jpg"
     }
 },
 {
@@ -228,11 +160,11 @@
     "pk": 28,
     "fields": {
         "name": "Lọ hoa thủy tinh Decor",
-        "category": 4,
+        "category": null,
         "price": 280000,
         "stock": 563,
         "description": "Kiểu dáng Bắc Âu thanh lịch, phù hợp cắm nhiều loại hoa.",
-        "image": "products/sg-11134201-7rbn7-lqkrhuubujl65d.webp"
+        "image": "products/Lọ_hoa_thủy_tinh_Decor.jpg"
     }
 },
 {
@@ -240,11 +172,11 @@
     "pk": 29,
     "fields": {
         "name": "Túi Tote vải Canvas",
-        "category": 4,
+        "category": null,
         "price": 110000,
         "stock": 466,
         "description": "Dày dặn, in hình theo yêu cầu, vừa A4 và Laptop 13 inch.",
-        "image": "products/sg-11134201-7rdwe-lzix820253fu0f.webp"
+        "image": "products/Túi_Tote_vải_Canvas.webp"
     }
 },
 {
@@ -252,11 +184,11 @@
     "pk": 30,
     "fields": {
         "name": "Bút ký doanh nhân mạ vàng",
-        "category": 4,
+        "category": null,
         "price": 400000,
         "stock": 45,
         "description": "Ngòi trơn, mực đều, kèm hộp nhung sang trọng.",
-        "image": "products/vn-11134207-7r98o-lovbjfl7u53ve7.webp"
+        "image": "products/Bút_ký_doanh_nhân_mạ_vàng.webp"
     }
 },
 {
@@ -264,8 +196,8 @@
     "pk": 31,
     "fields": {
         "name": "Hộp quà bí mật (Mystery Box)",
-        "category": 4,
-        "price": 500001,
+        "category": 3,
+        "price": 500000,
         "stock": 458,
         "description": "Bên trong chứa ngẫu nhiên 3-5 món đồ giá trị cao.",
         "image": "products/Hộp_quà_bí_mật_Mystery_Box.jpg"
@@ -273,14 +205,26 @@
 },
 {
     "model": "products.product",
+    "pk": 33,
+    "fields": {
+        "name": "Quần Bãi Biển",
+        "category": null,
+        "price": 214000,
+        "stock": 18,
+        "description": "quần bãi biển",
+        "image": "products/quan.jpg"
+    }
+},
+{
+    "model": "products.product",
     "pk": 34,
     "fields": {
         "name": "Vòng tay trầm hương tự nhiên",
-        "category": 4,
+        "category": null,
         "price": 850000,
         "stock": 50,
         "description": "Vòng tay trầm hương cao cấp, mùi thơm nhẹ dịu, mang lại bình an và may mắn cho người đeo.",
-        "image": "products/vn-11134207-7ras8-mczscrgetx24e9.webp"
+        "image": "products/Vòng_tay_trầm_hương_tự_nhiên.jpg"
     }
 },
 {
@@ -288,7 +232,7 @@
     "pk": 35,
     "fields": {
         "name": "Chậu sen đá mini để bàn",
-        "category": 4,
+        "category": null,
         "price": 65000,
         "stock": 120,
         "description": "Cây sen đá nhỏ xinh, dễ chăm sóc, giúp lọc không khí và giảm stress hiệu quả.",
@@ -300,7 +244,7 @@
     "pk": 36,
     "fields": {
         "name": "Máy phun sương tinh dầu vân gỗ",
-        "category": 4,
+        "category": null,
         "price": 290000,
         "stock": 85,
         "description": "Máy khuếch tán tinh dầu thiết kế vân gỗ sang trọng, tích hợp đèn LED 7 màu.",
@@ -311,12 +255,12 @@
     "model": "products.product",
     "pk": 37,
     "fields": {
-        "name": "Đồ chơi thủ công - Tranh đính đá kiểu Hawaii",
-        "category": 4,
+        "name": "Tranh đính đá phong cảnh tự làm",
+        "category": null,
         "price": 150000,
-        "stock": 200,
-        "description": "Chất liệu: Nhựa, vải, hạt màu\r\n\r\nKích thước gói: 215 *15 *215 mm\r\n\r\nĐộ tuổi: 15 tuổi trở lên\r\n\r\nLưu ý; Sản phẩm chưa bao gồm khung tranh\r\n\r\n\r\n\r\n\"Đồ chơi thủ công - Tranh đính đá Hawaii\" là một tác phẩm nghệ thuật kết hợp phong cách Hawaii, với hình ảnh của những bông hoa tươi đẹp, sinh vật biển và các yếu tố tự nhiên khác từ thiên đường Hawaii. Tương tự như việc khâu từng đường kim một trong việc tạo ra tác phẩm thủ công, việc xếp từng viên đá lấp lánh một cách cẩn thận và đặt hy vọng vào từng viên đá có thể giúp cân bằng và giải phóng khỏi căng thẳng.",
-        "image": "products/vn-11134207-7r98o-luhiz9r5fspe9b.webp"
+        "stock": 199,
+        "description": "Bộ tranh đính đá DIY giúp rèn luyện tính kiên nhẫn, thành phẩm dùng decor cực đẹp.",
+        "image": "products/Tranh_đính_đá_phong_cảnh_tự_làm.jpg"
     }
 },
 {
@@ -324,11 +268,11 @@
     "pk": 38,
     "fields": {
         "name": "Đồng hồ LED để bàn khối gỗ",
-        "category": 4,
+        "category": null,
         "price": 195000,
-        "stock": 60,
+        "stock": 58,
         "description": "Đồng hồ báo thức hiển thị nhiệt độ, thiết kế khối gỗ tối giản phong cách Hàn Quốc.",
-        "image": "products/vn-11134207-81ztc-mn1kjah20o3m1a.webp"
+        "image": "products/Đồng_hồ_LED_để_bàn_khối_gỗ.webp"
     }
 },
 {
@@ -336,23 +280,35 @@
     "pk": 39,
     "fields": {
         "name": "Bộ xếp hình Lego hoa phong lan",
-        "category": 4,
-        "price": 449999,
+        "category": null,
+        "price": 450000,
         "stock": 40,
         "description": "Đồ chơi lắp ráp mô hình chậu hoa phong lan tuyệt đẹp, món quà độc đáo không bao giờ tàn.",
-        "image": "products/vn-11134201-7ras8-map50qm3y9q90b.webp"
+        "image": "products/Bộ_xếp_hình_Lego_hoa_phong_lan.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 40,
+    "fields": {
+        "name": "Gối cổ chữ U cao su non",
+        "category": null,
+        "price": 180000,
+        "stock": 150,
+        "description": "Gối tựa cổ êm ái, chống mỏi vai gáy, món quà vô cùng thiết thực cho dân văn phòng.",
+        "image": "products/Gối_cổ_chữ_U_cao_su_non.webp"
     }
 },
 {
     "model": "products.product",
     "pk": 41,
     "fields": {
-        "name": "Hộp trà hoa cúc ",
-        "category": 4,
+        "name": "Hộp trà hoa cúc sấy lạnh",
+        "category": null,
         "price": 120000,
-        "stock": 300,
-        "description": "Hoa cúc trắng, trà hoa cúc khô, nguyên bông trắng đẹp\r\n\r\n\r\n\r\nCách dùng đơn giản:\r\n\r\nĐun sôi nước, tráng cốc ( tráng bình) rồi mới cho khoảng 5 bông cúc và đổ nước sôi vào tráng trà Nếu cơ địa không nóng bạn có thể uống cùng mật ong, còn không có thể hãm cùng hồng táo; kỷ tử; đường phèn mật hay nụ tam thất đều rất ngon\r\n\r\n\r\n\r\nNSX: In trên bao bì\r\n\r\nHSD: 3 tháng kể từ ngày sản xuất",
-        "image": "products/vn-11134207-820l4-mgp9xjrncd1n3b.webp"
+        "stock": 299,
+        "description": "Trà hoa cúc nguyên bông, thanh nhiệt giải độc, đóng gói trong hộp thiếc hoa văn sang trọng.",
+        "image": "products/Hộp_trà_hoa_cúc_sấy_lạnh.webp"
     }
 },
 {
@@ -360,9 +316,9 @@
     "pk": 42,
     "fields": {
         "name": "Ly giữ nhiệt Inox 304 khắc tên",
-        "category": 4,
+        "category": null,
         "price": 250000,
-        "stock": 110,
+        "stock": 109,
         "description": "Ly giữ nhiệt 900ml cao cấp, giữ đá 12h, có thể yêu cầu khắc tên riêng lên vỏ ly.",
         "image": "products/Ly_giữ_nhiệt_Inox_304_khắc_tên.webp"
     }
@@ -372,93 +328,23 @@
     "pk": 43,
     "fields": {
         "name": "Mô hình phi hành gia phát sáng",
-        "category": 4,
+        "category": null,
         "price": 320000,
-        "stock": 75,
+        "stock": 74,
         "description": "Tượng phi hành gia decor kết hợp đèn ngủ hắt trần tạo hiệu ứng dải ngân hà.",
         "image": "products/Mô_hình_phi_hành_gia_phát_sáng.webp"
     }
 },
 {
     "model": "products.product",
-    "pk": 45,
+    "pk": 44,
     "fields": {
-        "name": "Nồi chiên không dầu CAMEL 4L，Đa năng, chiên gà, chiên khoai tây, ẩm thực không dầu",
-        "category": 5,
-        "price": 549000,
-        "stock": 59,
-        "description": "Nồi chiên không dầu CAMEL\r\n THÔNG SỐ KĨ THUẬT\r\n Loại nồi : Cơ\r\n Dung tích thực : 4L\r\n Công suất : 1200W , dòng điện: 220-240 V.\r\n Nhiệt độ : 80 - 360 độ C\r\n Tần số : 50/60 Hz\r\n Công nghệ làm nóng Quạt đối lưu, Công nghệ Rapid Air\r\n Chất liệu khay chiên Khay chiên bằng thép không gỉ phủ lớp chống dính\r\n Vỏ ngoài Thân nồi sử dụng nhựa PP cao cấp\r\n Tính năng Tính năng hẹn giờ, Điều chỉnh nhiệt Độ\r\n",
-        "image": "products/sg-11134201-8260r-mjcn84rafq4lbb.webp"
-    }
-},
-{
-    "model": "products.product",
-    "pk": 46,
-    "fields": {
-        "name": "Robot hút bụi lau nhà Roborock Saros 20| Lực Hút 35 000Pa| Vượt Bậc Kép 4.5 cm + 4 cm| Bản Quốc Tế",
-        "category": 5,
-        "price": 27000000,
-        "stock": 15,
-        "description": "Robot hút bụi lau nhà Roborock Saros 20| Lực Hút 35 000Pa| Vượt Bậc Kép 4.5 cm + 4 cm| hàng Chính Hãng\r\n",
-        "image": "products/vn-11134207-81ztc-mmpiizn6gkxt1c.webp"
-    }
-},
-{
-    "model": "products.product",
-    "pk": 47,
-    "fields": {
-        "name": "Nồi lẩu điện 2 tầng có giá hấp KMZ SB110 1.8L chống dính - bảo hành 12 tháng",
-        "category": 5,
-        "price": 259000,
-        "stock": 100,
-        "description": "- Kiểu dáng gọn nhẹ, dễ dàng đặt trên bàn ăn, không chiếm diện tích, có xửng hấp tiện dụng hấp các loại trứng, bánh bao, rau củ,.\r\n- Chất liệu lớp ngoài bằng nhựa đẹp, lòng nồi bằng vân đá chống dính Ceramic cao cấp dầy dặn, sáng bóng an toàn cho sức khỏe.\r\n- Bộ sản phẩm gồm: + 1 nồi lẩu + 1 dây cắm (2 chấu) + 1 vỉ hấp cùng màu nhựa nguyên sinh\r\n\r\n",
-        "image": "products/sg-11134201-7rdyr-lxwrvxjn3lae28.webp"
-    }
-},
-{
-    "model": "products.product",
-    "pk": 48,
-    "fields": {
-        "name": "Máy Chà Sàn Bàn Chải Điện MODOFO 75W Không Dây 9 Trong 1 Đa Năng Cọ Nhà Vệ Sinh Kéo Dài Sạc Pin",
-        "category": 5,
-        "price": 250000,
-        "stock": 36,
-        "description": "Thương hiệu: MODOFO\r\nCông suất động cơ: 75W (Mạnh mẽ, tuổi thọ lên đến 500 giờ)\r\nDung lượng pin: Pin Lithium 3000mAh\r\nThời gian sạc: 4 giờ (Sạc nhanh loại C)\r\nTốc độ: 5 mức điều chỉnh\r\nThiết kế: Tay cầm kính thiên văn không dây, có thể mở rộng (Lên đến 100cm)\r\n\r\n\r\n",
-        "image": "products/cn-11134207-820l4-mmzr3ga8w35v3f.webp"
-    }
-},
-{
-    "model": "products.product",
-    "pk": 49,
-    "fields": {
-        "name": "Cây nước nóng lạnh bàn trà thông minh, Nhập Khẩu FUJIHOME TB243AN pha trà cafe đa năng cao cấp",
-        "category": 5,
-        "price": 3191000,
-        "stock": 40,
-        "description": "✅ Thiết kế sang trọng kính cường lực vân nổi cao cấp tăng thẩm mỹ không gian sống hiện đại\r\n\r\n✅ Làm nóng siêu nhanh 95–100°C chỉ 2 phút công suất lớn 1350W đáp ứng nhu cầu sử dụng liên tục\r\n\r\n✅ Làm lạnh chip điện tử tiết kiệm điện vận hành êm duy trì nhiệt độ ≤15°C ổn định\r\n\r\n✅ Tích hợp ấm đun inox 304 và ấm pha trà thủy tinh cao cấp an toàn giữ trọn hương vị\r\n\r\n✅ Màn hình cảm ứng tiếng Việt hiển thị nhiệt độ menu đồ uống dễ sử dụng cho mọi đối tượng\r\n\r\n✅ Kết nối linh hoạt bình nước 19L hoặc hệ thống lọc RO tiết kiệm chi phí lâu dài\r\n\r\n✅ Trang bị điều khiển từ xa tiện lợi tối ưu trải nghiệm sử dụng hiện đại thông minh\r\n✅ Cây nước nóng lạnh kết hợp bàn trà, máy nước nóng lạnh pha trà cafe thông minh đa năng tiện lợi cho gia đình văn phòng",
-        "image": "products/vn-11134207-81ztc-mn48jew8f9xc3f.webp"
-    }
-},
-{
-    "model": "products.product",
-    "pk": 50,
-    "fields": {
-        "name": "Cây lau nhà tự vắt thông minh bộ chổi lau nhà 360 độ đa năng bộ lau nhà 2 ngăn giặt vắt tiện lợi QBL",
-        "category": 5,
-        "price": 190000,
-        "stock": 58,
-        "description": "- Thiết kế sang trọng, phù hợp mọi không gian\r\n\r\n- Cán inox chắc chắn, dễ điều khiển\r\n\r\n- Hệ thống thoát nước thông minh chống tràn\r\n\r\n- Quai xách tiện lợi, dễ dàng di chuyển",
-        "image": "products/vn-11134207-7ra0g-m8ekb5jlx5c4fa.webp"
-    }
-},
-{
-    "model": "products.rating",
-    "pk": 1,
-    "fields": {
-        "product": 50,
-        "user": 2,
-        "stars": 5,
-        "created_at": "2026-04-20T19:05:28.969Z"
+        "name": "Nhật Nguyễn Văn Hoàng",
+        "category": null,
+        "price": 5,
+        "stock": 7551,
+        "description": "pki",
+        "image": "products/anh3.2.jpg"
     }
 },
 {
@@ -1112,1251 +998,51 @@
     }
 },
 {
-    "model": "products.store",
-    "pk": 51,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 51",
-        "address": "Số 51 Đường số 19, TP.HCM",
-        "lat": 10.717153310876983,
-        "lng": 106.69742172244052,
-        "phone": "0903552410",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 52,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 52",
-        "address": "Số 52 Đường số 42, TP.HCM",
-        "lat": 10.771762073334973,
-        "lng": 106.6452195851856,
-        "phone": "0908836933",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 53,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 53",
-        "address": "Số 53 Đường số 17, TP.HCM",
-        "lat": 10.746347526008309,
-        "lng": 106.65414340318314,
-        "phone": "0904181618",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 54,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 54",
-        "address": "Số 54 Đường số 24, TP.HCM",
-        "lat": 10.760354030765479,
-        "lng": 106.70354874426617,
-        "phone": "0904138560",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 55,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 55",
-        "address": "Số 55 Đường số 28, TP.HCM",
-        "lat": 10.793623437320306,
-        "lng": 106.69058788943474,
-        "phone": "0902658574",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 56,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 56",
-        "address": "Số 56 Đường số 13, TP.HCM",
-        "lat": 10.709945720695952,
-        "lng": 106.69099155438782,
-        "phone": "0903635752",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 57,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 57",
-        "address": "Số 57 Đường số 39, TP.HCM",
-        "lat": 10.75562189134391,
-        "lng": 106.66943386177537,
-        "phone": "0901164879",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 58,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 58",
-        "address": "Số 58 Đường số 32, TP.HCM",
-        "lat": 10.764220993539917,
-        "lng": 106.67774637900048,
-        "phone": "0905647141",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 59,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 59",
-        "address": "Số 59 Đường số 48, TP.HCM",
-        "lat": 10.789637573980343,
-        "lng": 106.67897465981396,
-        "phone": "0903544519",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 60,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 60",
-        "address": "Số 60 Đường số 37, TP.HCM",
-        "lat": 10.787391960586566,
-        "lng": 106.64184223731532,
-        "phone": "0909257469",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 61,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 61",
-        "address": "Số 61 Đường số 18, TP.HCM",
-        "lat": 10.70717623667247,
-        "lng": 106.69544479483199,
-        "phone": "0909591461",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 62,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 62",
-        "address": "Số 62 Đường số 43, TP.HCM",
-        "lat": 10.760544122499173,
-        "lng": 106.67891260571929,
-        "phone": "0907131745",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 63,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 63",
-        "address": "Số 63 Đường số 25, TP.HCM",
-        "lat": 10.775619833743933,
-        "lng": 106.63446407025093,
-        "phone": "0907571185",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 64,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 64",
-        "address": "Số 64 Đường số 48, TP.HCM",
-        "lat": 10.777501554245069,
-        "lng": 106.63803750081028,
-        "phone": "0902505311",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 65,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 65",
-        "address": "Số 65 Đường số 5, TP.HCM",
-        "lat": 10.75203940776405,
-        "lng": 106.64609698802902,
-        "phone": "0903690611",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 66,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 66",
-        "address": "Số 66 Đường số 37, TP.HCM",
-        "lat": 10.713523223326215,
-        "lng": 106.69771715874839,
-        "phone": "0907722152",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 67,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 67",
-        "address": "Số 67 Đường số 50, TP.HCM",
-        "lat": 10.712904652224438,
-        "lng": 106.63174756012543,
-        "phone": "0908225643",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 68,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 68",
-        "address": "Số 68 Đường số 50, TP.HCM",
-        "lat": 10.750672045268473,
-        "lng": 106.71300395183862,
-        "phone": "0901500081",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 69,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 69",
-        "address": "Số 69 Đường số 4, TP.HCM",
-        "lat": 10.75365353255042,
-        "lng": 106.71449664621873,
-        "phone": "0903910846",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 70,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 70",
-        "address": "Số 70 Đường số 14, TP.HCM",
-        "lat": 10.706606107292748,
-        "lng": 106.68229620186625,
-        "phone": "0902195480",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 71,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 71",
-        "address": "Số 71 Đường số 36, TP.HCM",
-        "lat": 10.78781576396426,
-        "lng": 106.65455585791729,
-        "phone": "0907504910",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 72,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 72",
-        "address": "Số 72 Đường số 17, TP.HCM",
-        "lat": 10.768110497404068,
-        "lng": 106.71485730589599,
-        "phone": "0907064070",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 73,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 73",
-        "address": "Số 73 Đường số 24, TP.HCM",
-        "lat": 10.706308999022081,
-        "lng": 106.6473253627451,
-        "phone": "0902171656",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 74,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 74",
-        "address": "Số 74 Đường số 42, TP.HCM",
-        "lat": 10.774690465372247,
-        "lng": 106.68521319651938,
-        "phone": "0906450325",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 77,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 77",
-        "address": "Số 77 Đường số 32, TP.HCM",
-        "lat": 10.717943407094136,
-        "lng": 106.67357920169441,
-        "phone": "0906182954",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 78,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 78",
-        "address": "Số 78 Đường số 3, TP.HCM",
-        "lat": 10.740125042227817,
-        "lng": 106.64113753776368,
-        "phone": "0903208975",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 80,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 80",
-        "address": "Số 80 Đường số 47, TP.HCM",
-        "lat": 10.785695793389046,
-        "lng": 106.67084478976308,
-        "phone": "0909854608",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 81,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 81",
-        "address": "Số 81 Đường số 9, TP.HCM",
-        "lat": 10.77931856876045,
-        "lng": 106.62349239116709,
-        "phone": "0906497125",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 82,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 82",
-        "address": "Số 82 Đường số 30, TP.HCM",
-        "lat": 10.755968313162711,
-        "lng": 106.62807184040246,
-        "phone": "0903990648",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 83,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 83",
-        "address": "Số 83 Đường số 16, TP.HCM",
-        "lat": 10.700632746314993,
-        "lng": 106.67093554406911,
-        "phone": "0906361568",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 84,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 84",
-        "address": "Số 84 Đường số 8, TP.HCM",
-        "lat": 10.701932772425264,
-        "lng": 106.71780209437881,
-        "phone": "0901648597",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 85,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 85",
-        "address": "Số 85 Đường số 35, TP.HCM",
-        "lat": 10.720363896236371,
-        "lng": 106.66748568357966,
-        "phone": "0901004593",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 86,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 86",
-        "address": "Số 86 Đường số 18, TP.HCM",
-        "lat": 10.775458044788275,
-        "lng": 106.68562224861309,
-        "phone": "0908158223",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 87,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 87",
-        "address": "Số 87 Đường số 13, TP.HCM",
-        "lat": 10.796906578380579,
-        "lng": 106.68849218687026,
-        "phone": "0907691527",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 88,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 88",
-        "address": "Số 88 Đường số 36, TP.HCM",
-        "lat": 10.738803853752783,
-        "lng": 106.64657505946687,
-        "phone": "0901144916",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 89,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 89",
-        "address": "Số 89 Đường số 38, TP.HCM",
-        "lat": 10.738433899040135,
-        "lng": 106.71666369790293,
-        "phone": "0907619231",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 91,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 91",
-        "address": "Số 91 Đường số 19, TP.HCM",
-        "lat": 10.71736539906031,
-        "lng": 106.62562805893808,
-        "phone": "0908589589",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 92,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 92",
-        "address": "Số 92 Đường số 40, TP.HCM",
-        "lat": 10.763096115369606,
-        "lng": 106.67588022392182,
-        "phone": "0908219458",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 95,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 95",
-        "address": "Số 95 Đường số 28, TP.HCM",
-        "lat": 10.72300443526347,
-        "lng": 106.62932642785361,
-        "phone": "0902198157",
-        "store_type": "Gift Shop",
-        "revenue": 0
-    }
-},
-{
-    "model": "products.store",
-    "pk": 101,
-    "fields": {
-        "name": "Gift Shop Chi nhánh 101",
-        "address": "Số 101 Đường số 10, TP.HCM",
-        "lat": 10.730977,
-        "lng": 106.669515,
-        "phone": "0901794000",
-        "store_type": "Gift Shop",
-        "revenue": 333
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 7,
-    "fields": {
-        "product": 45,
-        "image": "products/gallery/sg-11134201-8261k-mjcn85eo6jgl01.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 8,
-    "fields": {
-        "product": 45,
-        "image": "products/gallery/sg-11134201-8262v-mjcn855tk1z60b.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 9,
-    "fields": {
-        "product": 45,
-        "image": "products/gallery/sg-11134201-82631-mjcn84ybfkef1f.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 10,
-    "fields": {
-        "product": 46,
-        "image": "products/gallery/vn-11134207-820l4-mjnwngl69wqoe4.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 11,
-    "fields": {
-        "product": 46,
-        "image": "products/gallery/vn-11134207-820l4-mjnxxw2vnvuqba.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 12,
-    "fields": {
-        "product": 46,
-        "image": "products/gallery/vn-11134207-820l4-mjnxxw21cglfe1.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 13,
-    "fields": {
-        "product": 47,
-        "image": "products/gallery/sg-11134201-7rd74-lwtjk0vhkbc6f9.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 14,
-    "fields": {
-        "product": 47,
-        "image": "products/gallery/sg-11134201-7rdvi-lxwrvyozf3hcd9.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 15,
-    "fields": {
-        "product": 47,
-        "image": "products/gallery/sg-11134201-7rdyf-lxwrvy4g955s29.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 16,
-    "fields": {
-        "product": 48,
-        "image": "products/gallery/cn-11134207-820l4-mmzqwnmq1m2t7c.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 17,
-    "fields": {
-        "product": 48,
-        "image": "products/gallery/cn-11134207-820l4-mmzqwnmx2gascf.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 18,
-    "fields": {
-        "product": 48,
-        "image": "products/gallery/cn-11134207-820l4-mmzqwnn0w3yb2e.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 19,
-    "fields": {
-        "product": 48,
-        "image": "products/gallery/cn-11134207-820l4-mmzqwnn02m11a2.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 20,
-    "fields": {
-        "product": 43,
-        "image": "products/gallery/vn-11134201-23030-v7co1zk33qov9e.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 21,
-    "fields": {
-        "product": 43,
-        "image": "products/gallery/vn-11134201-23030-v7kydbtu3qov1d.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 22,
-    "fields": {
-        "product": 43,
-        "image": "products/gallery/vn-11134207-23030-f7pxuykt3qov69.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 23,
-    "fields": {
-        "product": 42,
-        "image": "products/gallery/vn-11134207-7qukw-lgza8jdx2fjm5d.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 24,
-    "fields": {
-        "product": 42,
-        "image": "products/gallery/vn-11134207-7qukw-lgza8jdx2foz60.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 25,
-    "fields": {
-        "product": 42,
-        "image": "products/gallery/vn-11134207-7r98o-ls17db9bhe4k3f.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 26,
-    "fields": {
-        "product": 41,
-        "image": "products/gallery/vn-11134207-820l4-mgp9xjnm9tla66.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 27,
-    "fields": {
-        "product": 41,
-        "image": "products/gallery/vn-11134207-820l4-mgp9xjobftvw3b.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 28,
-    "fields": {
-        "product": 41,
-        "image": "products/gallery/vn-11134207-820l4-mgp9xjpk9sem95.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 29,
-    "fields": {
-        "product": 39,
-        "image": "products/gallery/vn-11134201-7ras8-map50qljz34c72.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 30,
-    "fields": {
-        "product": 39,
-        "image": "products/gallery/vn-11134201-7ras8-map50qlk0hos0b.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 31,
-    "fields": {
-        "product": 39,
-        "image": "products/gallery/vn-11134201-7ras8-map50qltyqc825.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 32,
-    "fields": {
-        "product": 39,
-        "image": "products/gallery/vn-11134201-7ras8-map50qmnywuvd6.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 33,
-    "fields": {
-        "product": 38,
-        "image": "products/gallery/vn-11134207-81ztc-mn1kjah1csg5a0.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 34,
-    "fields": {
-        "product": 38,
-        "image": "products/gallery/vn-11134207-81ztc-mn1kjah40b297c.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 35,
-    "fields": {
-        "product": 38,
-        "image": "products/gallery/vn-11134207-81ztc-mn1kjah222o212.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 36,
-    "fields": {
-        "product": 37,
-        "image": "products/gallery/vn-11134207-7r98o-luhiz9r5h79u9d.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 37,
-    "fields": {
-        "product": 37,
-        "image": "products/gallery/vn-11134207-7r98o-luhiz9r5v8yab0.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 38,
-    "fields": {
-        "product": 36,
-        "image": "products/gallery/vn-11134207-7r98o-ls7v61zumoqse2.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 39,
-    "fields": {
-        "product": 36,
-        "image": "products/gallery/vn-11134207-7r98o-ls7v61zuphvobc.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 40,
-    "fields": {
-        "product": 36,
-        "image": "products/gallery/vn-11134207-7r98o-ltzhnol1q8m725.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 41,
-    "fields": {
-        "product": 35,
-        "image": "products/gallery/vn-11134207-7qukw-ljsigxu4y0fo3f.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 42,
-    "fields": {
-        "product": 35,
-        "image": "products/gallery/vn-11134207-7qukw-ljsigy07wzcy7a.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 43,
-    "fields": {
-        "product": 35,
-        "image": "products/gallery/vn-11134207-7qukw-ljsigy07ydxe23.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 44,
-    "fields": {
-        "product": 34,
-        "image": "products/gallery/vn-11134207-23020-frcstbb5l2nv5d.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 45,
-    "fields": {
-        "product": 34,
-        "image": "products/gallery/vn-11134207-23020-lpsizlhtb2nv37.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 46,
-    "fields": {
-        "product": 34,
-        "image": "products/gallery/vn-11134207-23020-poe7o1ptb2nv96.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 47,
-    "fields": {
-        "product": 31,
-        "image": "products/gallery/vn-11134207-820l4-minw9a4q33t280.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 48,
-    "fields": {
-        "product": 31,
-        "image": "products/gallery/vn-11134207-820l4-minw9a4rnaiw78.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 49,
-    "fields": {
-        "product": 31,
-        "image": "products/gallery/vn-11134207-820l4-minw9a4zhmo377.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 50,
-    "fields": {
-        "product": 30,
-        "image": "products/gallery/vn-11134201-23020-40utxhcqaonv70.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 51,
-    "fields": {
-        "product": 30,
-        "image": "products/gallery/vn-11134201-23020-tnwifpcqaonvb7.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 52,
-    "fields": {
-        "product": 30,
-        "image": "products/gallery/vn-11134201-23020-vjl3meqhbonv05.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 53,
-    "fields": {
-        "product": 29,
-        "image": "products/gallery/sg-11134201-7rdx6-lzix82jhco8a4c.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 54,
-    "fields": {
-        "product": 29,
-        "image": "products/gallery/sg-11134201-7rdyj-lzix8297roma56.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 55,
-    "fields": {
-        "product": 28,
-        "image": "products/gallery/sg-11134201-7rbk0-lqkrhuzvp84mfe.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 56,
-    "fields": {
-        "product": 28,
-        "image": "products/gallery/sg-11134201-7rbla-lqabk193si6faf.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 57,
-    "fields": {
-        "product": 28,
-        "image": "products/gallery/sg-11134201-7rbmo-lqkrhv8hb8fa6a.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 58,
-    "fields": {
-        "product": 27,
-        "image": "products/gallery/0bd6f95fcefadeac093ce97c449d8aa3.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 59,
-    "fields": {
-        "product": 27,
-        "image": "products/gallery/74a6f64c37284f94700d6cf35ffe18b7.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 60,
-    "fields": {
-        "product": 27,
-        "image": "products/gallery/fbda7298c33e506c3d57ffc251df034b.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 61,
-    "fields": {
-        "product": 26,
-        "image": "products/gallery/sg-11134253-821fv-mgwp3xl6tfyi83.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 62,
-    "fields": {
-        "product": 26,
-        "image": "products/gallery/vn-11134207-7ras8-m437hjy5q8jz38.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 63,
-    "fields": {
-        "product": 26,
-        "image": "products/gallery/vn-11134207-7ras8-mbyoc3cubnv210.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 64,
-    "fields": {
-        "product": 25,
-        "image": "products/gallery/vn-11134207-820l4-mid93x6gehhe92.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 65,
-    "fields": {
-        "product": 25,
-        "image": "products/gallery/vn-11134207-820l4-mid93x6ghama8a.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 66,
-    "fields": {
-        "product": 25,
-        "image": "products/gallery/vn-11134207-820l4-mid93x6gk3rb85.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 67,
-    "fields": {
-        "product": 24,
-        "image": "products/gallery/13557dca526de4880be7b35b20b2ddab.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 68,
-    "fields": {
-        "product": 24,
-        "image": "products/gallery/b4f0f89c2f0f751eea9bcc4b4f1ad666.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 69,
-    "fields": {
-        "product": 24,
-        "image": "products/gallery/cc8fe98d300e8952a8fe4c93d9c69b06.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 70,
-    "fields": {
-        "product": 23,
-        "image": "products/gallery/vn-11134201-7r98o-lzmgfg0ydvhd34.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 71,
-    "fields": {
-        "product": 23,
-        "image": "products/gallery/vn-11134201-7r98o-lzmgfg18ga01d1.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 72,
-    "fields": {
-        "product": 23,
-        "image": "products/gallery/vn-11134201-7r98o-lzmgfg18hob18a.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 73,
-    "fields": {
-        "product": 22,
-        "image": "products/gallery/sg-11134201-7rd4c-lu94qjq1cp80be.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 74,
-    "fields": {
-        "product": 22,
-        "image": "products/gallery/sg-11134201-7rd5t-lu94qjv15dmo49.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 75,
-    "fields": {
-        "product": 22,
-        "image": "products/gallery/sg-11134201-7rd60-lu94qjn9gra17b.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 76,
-    "fields": {
-        "product": 22,
-        "image": "products/gallery/sg-11134201-7rd60-lu94qjprd3nn97.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 77,
-    "fields": {
-        "product": 21,
-        "image": "products/gallery/2201e85a9eb67bc694176ec5c29bb0d4.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 78,
-    "fields": {
-        "product": 21,
-        "image": "products/gallery/a7fdef5cddcb4a7d95420114dacae721.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 79,
-    "fields": {
-        "product": 21,
-        "image": "products/gallery/feac09cfef8bcca778f15444550348b9.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 80,
-    "fields": {
-        "product": 20,
-        "image": "products/gallery/vn-11134207-81ztc-mm4k0clsjz0g81.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 81,
-    "fields": {
-        "product": 20,
-        "image": "products/gallery/vn-11134207-820l4-memmdy8nl4av7d.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 82,
-    "fields": {
-        "product": 20,
-        "image": "products/gallery/vn-11134207-820l4-memmdy92lwxt2e.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 83,
-    "fields": {
-        "product": 19,
-        "image": "products/gallery/sg-11134253-81ztd-miukpgql43k6dd.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 84,
-    "fields": {
-        "product": 19,
-        "image": "products/gallery/sg-11134253-81zun-miuih2gen9xgdb.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 85,
-    "fields": {
-        "product": 19,
-        "image": "products/gallery/sg-11134253-81zwk-miuifv7vmzgk2f.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 86,
-    "fields": {
-        "product": 18,
-        "image": "products/gallery/vn-11134201-7ra0g-ma0uenjykeb206.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 87,
-    "fields": {
-        "product": 18,
-        "image": "products/gallery/vn-11134201-7ra0g-ma0uenpic9wa1e.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 88,
-    "fields": {
-        "product": 18,
-        "image": "products/gallery/vn-11134201-7ra0g-ma0uenqcb23y67.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 89,
-    "fields": {
-        "product": 17,
-        "image": "products/gallery/vn-11134207-7r98o-lqrmae0q4loyeb.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 90,
-    "fields": {
-        "product": 17,
-        "image": "products/gallery/vn-11134207-7r98o-lqrmae0q374i8c.webp"
-    }
-},
-{
-    "model": "products.productimage",
-    "pk": 91,
-    "fields": {
-        "product": 17,
-        "image": "products/gallery/vn-11134207-7r98o-lqrmae0q609e68.webp"
-    }
-},
-{
     "model": "products.productimage",
-    "pk": 92,
+    "pk": 1,
     "fields": {
-        "product": 49,
-        "image": "products/gallery/vn-11134207-81ztc-mn48jew841dw00.webp"
+        "product": 44,
+        "image": "products/gallery/anh1.jpg"
     }
 },
 {
     "model": "products.productimage",
-    "pk": 93,
+    "pk": 2,
     "fields": {
-        "product": 49,
-        "image": "products/gallery/vn-11134207-81ztc-mn48jew81892d0.webp"
+        "product": 44,
+        "image": "products/gallery/anh2.png"
     }
 },
 {
     "model": "products.productimage",
-    "pk": 94,
+    "pk": 3,
     "fields": {
-        "product": 49,
-        "image": "products/gallery/vn-11134207-81ztc-mn48jewbi8so41.webp"
+        "product": 44,
+        "image": "products/gallery/anh3.1.jpg"
     }
 },
 {
     "model": "products.productimage",
-    "pk": 95,
+    "pk": 4,
     "fields": {
-        "product": 50,
-        "image": "products/gallery/vn-11134207-7r98o-lxkj6gcqix9594.webp"
+        "product": 44,
+        "image": "products/gallery/anh3.2.jpg"
     }
 },
 {
     "model": "products.productimage",
-    "pk": 96,
+    "pk": 5,
     "fields": {
-        "product": 50,
-        "image": "products/gallery/vn-11134207-7r98o-ly7hj4c5xydp4c.webp"
+        "product": 44,
+        "image": "products/gallery/anh3.4.jpg"
     }
 },
 {
     "model": "products.productimage",
-    "pk": 97,
+    "pk": 6,
     "fields": {
-        "product": 50,
-        "image": "products/gallery/vn-11134207-7r98o-ly7hj4c5zcy5e5.webp"
+        "product": 44,
+        "image": "products/gallery/vd1.bangsinhvien.jpg"
     }
 }
 ]
