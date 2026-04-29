@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     # BỎ DÒNG TRANG CHỦ RỖNG ĐỂ TRÁNH VÒNG LẶP VỚI FILE TỔNG
     path('product/<int:id>/', views.product_detail, name='product_detail'),
@@ -29,9 +30,8 @@ urlpatterns = [
     path('admin/categories/edit/<int:id>/', views.edit_category, name='edit_category'),
     path('admin/categories/delete/<int:id>/', views.delete_category, name='delete_category'),
     path('add-rating/<int:product_id>/', views.add_rating, name='add_rating'),
-
+    
     path('export-products/', views.export_products_excel, name='export_products_excel'),
-    path('import-products/', views.import_products_excel, name='import_products_excel'),
-
+    path('import-products/', views.import_products_excel, name='product_bulk_import'),
     path('about/', views.about, name='about'),
 ]
