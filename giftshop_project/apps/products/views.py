@@ -8,6 +8,10 @@ from apps.orders.models import Order
 from django.db.models import Q
 import pandas as pd
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+import re
+import unicodedata
+
 
 # ==========================================
 # PHẦN 1: WEBGIS & QUẢN LÝ CỬA HÀNG
@@ -342,8 +346,6 @@ def delete_category(request, id):
     messages.success(request, "Đã xóa danh mục!")
     return redirect('admin_categories')
 
-# --- TRONG FILE views.py CỦA APP PRODUCTS ---
-
 @staff_member_required
 def export_products_excel(request):
     """Xuất danh sách sản phẩm để Admin kiểm kho"""
@@ -360,25 +362,96 @@ def export_products_excel(request):
 
 @staff_member_required
 def import_products_excel(request):
-    """Admin dùng file Excel để nhập hàng loạt sản phẩm mới"""
     if request.method == "POST" and request.FILES.get('excel_file'):
         file = request.FILES['excel_file']
         try:
             df = pd.read_excel(file)
-            for _, row in df.iterrows():
-                # Tự động tạo sản phẩm, nếu chưa có Category thì bạn cần xử lý thêm nhé
-                Product.objects.create(
-                    name=row['Tên sản phẩm'],
-                    price=row['Giá'],
-                    stock=row['Tồn kho']
-                )
-            messages.success(request, f"✅ Đã nạp {len(df)} sản phẩm vào hệ thống!")
-        except Exception as e:
-            messages.error(request, f"❌ Lỗi định dạng file: {e}")
-    return redirect('admin_product_list')
 
-from django.contrib.auth.decorators import login_required
-from .models import Product, Rating
+            # --- BƯỚC 1: CHUẨN HÓA TIÊU ĐỀ ---
+            # Xóa khoảng trắng và đưa về chuẩn NFC
+            df.columns = [unicodedata.normalize('NFC', str(col).strip()) for col in df.columns]
+
+            # --- BƯỚC 2: MAPPING (TỰ ĐỘNG KHỚP TÊN) ---
+            # Code sẽ tìm một trong các tên này để gán vào biến chuẩn
+            name_map = {
+                'Tên sản phẩm': ['Tên Sản Phẩm', 'Tên sản phẩm', 'Sản phẩm', 'Name'],
+                'Giá': ['Giá Bán', 'Giá', 'Đơn giá', 'Price'],
+                'Tồn kho': ['Số Lượng Tồn', 'Tồn kho', 'Số lượng', 'Stock']
+            }
+
+            # Tiến hành đổi tên cột trong DataFrame nếu tìm thấy tên tương ứng
+            final_mapping = {}
+            for target_col, synonyms in name_map.items():
+                for s in synonyms:
+                    if s in df.columns:
+                        final_mapping[s] = target_col
+                        break
+            
+            df.rename(columns=final_mapping, inplace=True)
+
+            # --- BƯỚC 3: KIỂM TRA LẠI ---
+            required_cols = ['Tên sản phẩm', 'Giá', 'Tồn kho']
+            for col in required_cols:
+                if col not in df.columns:
+                    messages.error(request, f"❌ Không tìm thấy cột tương ứng với '{col}'. Các cột bạn đang có là: {list(df.columns)}")
+                    return redirect('admin_products')
+
+            created_count = 0
+            updated_count = 0
+
+            for _, row in df.iterrows():
+                if pd.isna(row['Tên sản phẩm']):
+                    continue
+
+                # Chuẩn hóa tên sản phẩm để tìm kiếm trong DB
+                raw_name = str(row['Tên sản phẩm']).strip()
+                clean_name = re.sub(r'\s+', ' ', raw_name)
+                clean_name = unicodedata.normalize('NFC', clean_name)
+                
+                # Ép kiểu số an toàn
+                try:
+                    price_new = int(row['Giá']) if pd.notna(row['Giá']) else 0
+                    stock_new = int(row['Tồn kho']) if pd.notna(row['Tồn kho']) else 0
+                except:
+                    price_new, stock_new = 0, 0
+
+                # Tìm kiếm và cộng dồn
+                product = Product.objects.filter(name__iexact=clean_name).first()
+
+                if product:
+                    product.price = price_new
+                    product.stock += stock_new
+                    product.save()
+                    updated_count += 1
+                else:
+                    Product.objects.create(
+                        name=clean_name,
+                        price=price_new,
+                        stock=stock_new
+                    )
+                    created_count += 1
+
+            # --- PHẦN XỬ LÝ THÔNG BÁO TÁCH BIỆT ---
+            
+            # 1. Thông báo cho hàng mới tinh
+            if created_count > 0:
+                messages.success(request, f"✨ Tạo mới thành công {created_count} sản phẩm.")
+            
+            # 2. Thông báo cho hàng nhập thêm vào kho
+            if updated_count > 0:
+                # Dùng .info để đổi màu sắc khác một chút cho dễ phân biệt (tùy CSS của bạn)
+                messages.success(request, f"📦 Đã thêm {updated_count} sản phẩm vào kho có sẵn.")
+                
+            # 3. Trường hợp file Excel trống hoặc không xử lý được dòng nào
+            if created_count == 0 and updated_count == 0:
+                messages.warning(request, "⚠️ Không tìm thấy dữ liệu sản phẩm hợp lệ để xử lý.")
+
+            # ---------------------------------------
+            
+        except Exception as e:
+            messages.error(request, f"❌ Lỗi: {str(e)}")
+            
+    return redirect('admin_products')
 
 @login_required
 def add_rating(request, product_id):
