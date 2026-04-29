@@ -32,11 +32,7 @@ urlpatterns = [
     path('add-rating/<int:product_id>/', views.add_rating, name='add_rating'),
     
     path('export-products/', views.export_products_excel, name='export_products_excel'),
-<<<<<<< Updated upstream
-    path('import-products/', views.import_products_excel, name='import_products_excel'),
-=======
     path('import-products/', views.import_products_excel, name='product_bulk_import'),
 
     path('about/', views.about, name='about'),
->>>>>>> Stashed changes
 ]
