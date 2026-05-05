@@ -36,8 +36,12 @@
                     <div class="row">
                         <!-- Cột 2 -->
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold small text-muted text-uppercase">Mật khẩu</label>
-                            <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                        <label class="form-label fw-semibold small text-muted text-uppercase">Mật khẩu</label>
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control" id="id_password" placeholder="••••••••" required>
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('id_password', 'eye_icon')">
+                                <span id="eye_icon">👁️</span>
+                            </button>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -69,4 +73,20 @@
         </div>
     </div>
 </div>
+<script>
+    function togglePassword(inputId, iconId) {
+        // Tìm ô input và icon dựa vào ID
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        // Kiểm tra và đảo ngược trạng thái
+        if (input.type === "password") {
+            input.type = "text";     // Hiện chữ
+            icon.innerText = "🙈";   // Đổi icon thành nhắm mắt
+        } else {
+            input.type = "password"; // Ẩn chữ thành dấu chấm
+            icon.innerText = "👁️";   // Đổi icon thành mở mắt
+        }
+    }
+</script>
 {% endblock %}
