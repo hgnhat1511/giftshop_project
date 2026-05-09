@@ -27,10 +27,10 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(
-        Category, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True, 
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         related_name='products',
         verbose_name="Danh mục"
     )
